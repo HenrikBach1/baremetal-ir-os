@@ -17,6 +17,4 @@ baremetal-ir-os-full.md
 temp_output.html
 
 # Test files
-test.html
-test.pdf
-test-wkhtmltopdf.sh
+test-*
