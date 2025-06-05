@@ -34,7 +34,157 @@ The following documents are found in the [`docs/`](docs/) folder:
 
 ---
 
-## 🔧 Getting Started
+## 📚 Documentation Tools
+
+### Unified Documentation Generator
+
+The simplest way to build documentation in any format:
+
+```bash
+# Generate documentation in multiple formats
+./build-docs-unified.sh --formats markdown,html,pdf
+
+# Show help and available options
+./build-docs-unified.sh --help
+
+# Generate only HTML documentation
+./build-docs-unified.sh --formats html
+
+# Generate only PDF documentation
+./build-docs-unified.sh --formats pdf
+
+# Generate documentation with section numbering
+./build-docs-unified.sh --formats html,pdf --add-section-numbers
+
+# Generate documentation for a single file
+./build-docs-unified.sh --formats pdf --single-file your-file.md
+```
+
+### Individual Documentation Tools
+
+If you prefer to use the individual documentation tools directly:
+
+
+### Building Complete Documentation
+
+The project includes a documentation build system that combines all markdown files in the `docs/` directory:
+
+```bash
+# Generate both HTML and PDF documentation
+./build-docs.sh
+
+# Show help and available options
+./build-docs.sh --help
+
+# Generate only HTML documentation
+./build-docs.sh --html-only
+
+# Generate only PDF documentation
+./build-docs.sh --pdf-only
+
+# Generate documentation with verbose output
+./build-docs.sh --verbose
+
+# Add section numbering to markdown files
+./build-docs.sh --add-section-numbers
+
+# Remove section numbering from markdown files
+./build-docs.sh --remove-section-numbers
+```
+
+### Building Consolidated Markdown
+
+To create a single consolidated markdown file from all documentation:
+
+```bash
+# Generate a single markdown file combining all docs
+./build-markdown.sh
+
+# Show help and available options
+./build-markdown.sh --help
+
+# Generate with section numbering
+./build-markdown.sh --add-section-numbers
+
+# Specify custom output filename
+./build-markdown.sh --output-file custom-name.md
+
+# Generate without table of contents
+./build-markdown.sh --no-toc
+
+# Generate without YAML metadata header
+./build-markdown.sh --no-metadata
+```
+
+### Building Single-File Documentation
+
+For working with standalone markdown files, use the single-file documentation generator:
+
+```bash
+# Generate HTML and PDF from baremetal-ir-os.md
+./build-single-doc.sh
+
+# Generate for a specific markdown file
+./build-single-doc.sh your-file.md
+
+# Show help and available options
+./build-single-doc.sh --help
+
+# Specify output name and directory
+./build-single-doc.sh --output-dir output --output-name custom-name your-file.md
+
+# Add section numbering to the markdown file
+./build-single-doc.sh --add-section-numbers your-file.md
+
+# Remove section numbering from the markdown file
+./build-single-doc.sh --remove-section-numbers your-file.md
+```
+
+### Installing Documentation Tools
+
+If you're missing required dependencies:
+
+```bash
+# Install dependencies for documentation generation
+./install-doc-tools.sh
+```
+
+### Managing Section Numbering
+
+For easier navigation and referencing, you can add or remove section numbering in markdown files:
+
+```bash
+# Add section numbering to a specific file
+./section-numbers.sh your-file.md
+
+# Remove section numbering from a specific file
+./section-numbers.sh --remove your-file.md
+
+# Add section numbering to all files in docs directory
+./section-numbers.sh --all
+
+# Add section numbering to first level headings as well (default starts at H2)
+./section-numbers.sh --include-h1 your-file.md
+
+# Show help and available options
+./section-numbers.sh --help
+```
+
+Section numbering converts headers like:
+```markdown
+## Architecture
+### System Components
+```
+
+To numbered headers like:
+```markdown
+## 1. Architecture
+### 1.1. System Components
+```
+
+This makes it easier to reference specific sections in discussions and communications.
+
+---
 
 This project is still in early design stages. To contribute or explore:
 

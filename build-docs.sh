@@ -22,6 +22,8 @@ SKIP_HTML=false
 SKIP_PDF=false
 FORCE_PDF_ENGINE=""
 VERBOSE=false
+ADD_SECTION_NUMBERS=false
+REMOVE_SECTION_NUMBERS=false
 
 # Print usage information
 usage() {
@@ -37,6 +39,8 @@ usage() {
   echo "  --pdf-engine ENGINE        Force specific PDF engine (wkhtmltopdf, pdflatex, weasyprint)"
   echo "  --output-dir DIRECTORY     Set output directory"
   echo "  --docs-dir DIRECTORY       Set documentation source directory (default: $DOCS_DIR)"
+  echo "  --add-section-numbers      Add section numbering to markdown files"
+  echo "  --remove-section-numbers   Remove section numbering from markdown files"
 }
 
 # Parse command line arguments
@@ -86,6 +90,14 @@ while [[ $# -gt 0 ]]; do
       PDF_CSS="${DOCS_DIR}/pdf-styles.css"
       METADATA_FILE="${DOCS_DIR}/metadata.yaml"
       shift 2
+      ;;
+    --add-section-numbers)
+      ADD_SECTION_NUMBERS=true
+      shift
+      ;;
+    --remove-section-numbers)
+      REMOVE_SECTION_NUMBERS=true
+      shift
       ;;
     *)
       echo "Unknown option: $1"
@@ -309,6 +321,31 @@ generate_pdf() {
 
 # Check dependencies first
 check_dependencies
+
+# Handle section numbering if requested
+if [ "$ADD_SECTION_NUMBERS" = "true" ]; then
+  log "process" "Adding section numbering to markdown files..."
+  if [ -f "./section-numbers.sh" ]; then
+    chmod +x ./section-numbers.sh
+    ./section-numbers.sh --all --docs-dir "$DOCS_DIR" || {
+      log "error" "Failed to add section numbering. Continuing without it."
+    }
+  else
+    log "warning" "section-numbers.sh script not found. Skipping section numbering."
+  fi
+fi
+
+if [ "$REMOVE_SECTION_NUMBERS" = "true" ]; then
+  log "process" "Removing section numbering from markdown files..."
+  if [ -f "./section-numbers.sh" ]; then
+    chmod +x ./section-numbers.sh
+    ./section-numbers.sh --all --docs-dir "$DOCS_DIR" --remove || {
+      log "error" "Failed to remove section numbering. Continuing anyway."
+    }
+  else
+    log "warning" "section-numbers.sh script not found. Skipping section numbering removal."
+  fi
+fi
 
 # Generate the metadata file
 generate_metadata_file "$METADATA_FILE" "$VERSION" "$BUILD_DATE"

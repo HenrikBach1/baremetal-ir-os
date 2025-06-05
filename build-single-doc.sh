@@ -23,6 +23,9 @@ BUILD_DATE=$(date +"%B %d, %Y")
 SKIP_HTML=false
 SKIP_PDF=false
 FORCE_PDF_ENGINE=""
+VERBOSE=false
+ADD_SECTION_NUMBERS=false
+REMOVE_SECTION_NUMBERS=false
 
 # Print usage information
 usage() {
@@ -38,6 +41,8 @@ usage() {
   echo "  --pdf-engine ENGINE        Force specific PDF engine (wkhtmltopdf, pdflatex, weasyprint)"
   echo "  --output-dir DIRECTORY     Set output directory"
   echo "  --output-name NAME         Set output filename (without extension)"
+  echo "  --add-section-numbers      Add section numbering to the markdown file"
+  echo "  --remove-section-numbers   Remove section numbering from the markdown file"
 }
 
 # Log function with verbose mode support
@@ -110,6 +115,14 @@ while [[ $# -gt 0 ]]; do
       OUTPUT_HTML="${OUTPUT_NAME}.html"
       OUTPUT_PDF="${OUTPUT_NAME}.pdf"
       shift 2
+      ;;
+    --add-section-numbers)
+      ADD_SECTION_NUMBERS=true
+      shift
+      ;;
+    --remove-section-numbers)
+      REMOVE_SECTION_NUMBERS=true
+      shift
       ;;
     *)
       # If this is the last argument and it's not an option, assume it's the input file
@@ -441,6 +454,31 @@ main() {
   
   # Create or clear log file
   echo "Documentation generation log - $(date)" > "$LOG_FILE"
+  
+  # Handle section numbering if requested
+  if [ "$ADD_SECTION_NUMBERS" = "true" ]; then
+    log "process" "Adding section numbering to $INPUT_FILE..."
+    if [ -f "./section-numbers.sh" ]; then
+      chmod +x ./section-numbers.sh
+      ./section-numbers.sh "$INPUT_FILE" || {
+        log "error" "Failed to add section numbering. Continuing without it."
+      }
+    else
+      log "warning" "section-numbers.sh script not found. Skipping section numbering."
+    fi
+  fi
+
+  if [ "$REMOVE_SECTION_NUMBERS" = "true" ]; then
+    log "process" "Removing section numbering from $INPUT_FILE..."
+    if [ -f "./section-numbers.sh" ]; then
+      chmod +x ./section-numbers.sh
+      ./section-numbers.sh --remove "$INPUT_FILE" || {
+        log "error" "Failed to remove section numbering. Continuing anyway."
+      }
+    else
+      log "warning" "section-numbers.sh script not found. Skipping section numbering removal."
+    fi
+  fi
   
   # Generate HTML
   if [ "$SKIP_HTML" = "false" ]; then
