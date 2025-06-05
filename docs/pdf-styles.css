@@ -1,0 +1,379 @@
+/* PDF-specific styles to improve PDF output quality */
+
+/* Base page settings */
+@page {
+  size: letter;
+  margin: 2.5cm 2cm;
+}
+
+/* Add headers to pages */
+@page :left {
+  @top-left {
+    content: "Baremetal IR OS Documentation";
+    font-size: 9pt;
+    font-style: italic;
+  }
+}
+
+@page :right {
+  @top-right {
+    content: "Chapter " counter(chapter);
+    font-size: 9pt;
+    font-style: italic;
+  }
+}
+
+body {
+  font-family: 'DejaVu Serif', 'Times New Roman', Times, serif;
+  line-height: 1.5;
+  color: #333;
+  max-width: none;  /* Override the HTML max-width */
+  margin: 0;
+  padding: 0;
+  font-size: 11pt;
+  counter-reset: chapter;
+}
+
+/* Typography improvements for PDF */
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+
+h1 {
+  font-size: 22pt;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3em;
+  margin-top: 2em;
+  text-align: center;
+  page-break-before: always;
+  counter-increment: chapter;
+}
+
+h1::before {
+  content: "Chapter " counter(chapter) ": ";
+  display: block;
+  font-size: 16pt;
+  color: #666;
+  margin-bottom: 0.5em;
+}
+
+/* First h1 should not have page break before */
+h1:first-of-type {
+  page-break-before: avoid;
+}
+
+h2 {
+  font-size: 18pt;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3em;
+  margin-top: 1.5em;
+  counter-reset: section;
+}
+
+h2::before {
+  content: counter(chapter) "." counter(section) " ";
+  counter-increment: section;
+}
+
+h3 {
+  font-size: 14pt;
+  margin-top: 1.2em;
+  counter-reset: subsection;
+}
+
+h3::before {
+  content: counter(chapter) "." counter(section) "." counter(subsection) " ";
+  counter-increment: subsection;
+}
+
+/* Code blocks */
+pre, code {
+  font-family: 'DejaVu Sans Mono', 'Courier New', Courier, monospace;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  page-break-inside: avoid;
+  font-size: 9pt;
+}
+
+pre {
+  padding: 1em;
+  border: 1px solid #ddd;
+  overflow: auto;
+  line-height: 1.45;
+  margin: 1em 0;
+  white-space: pre-wrap;       /* Since PDFs have limited width */
+  word-wrap: break-word;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Syntax highlighting enhancements for PDF */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #708090;
+  font-style: italic;
+}
+
+.token.namespace {
+  opacity: .7;
+}
+
+.token.string,
+.token.attr-value {
+  color: #008000;
+}
+
+.token.punctuation,
+.token.operator {
+  color: #393A34;
+}
+
+.token.keyword {
+  color: #0000ff;
+  font-weight: bold;
+}
+
+.token.number {
+  color: #800000;
+}
+
+/* Links */
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* Add footnote for URLs */
+a[href^="http"]:after {
+  content: " (" attr(href) ")";
+  font-size: 90%;
+  color: #666;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+  page-break-inside: avoid;
+  font-size: 10pt;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 2px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+/* Table captions */
+table caption {
+  font-style: italic;
+  margin-bottom: 0.5em;
+  text-align: center;
+  caption-side: top;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  page-break-inside: avoid;
+  display: block;
+  margin: 1em auto;
+}
+
+/* Table of Contents */
+#TOC {
+  background-color: #f8f8f8;
+  padding: 1.5em;
+  margin: 0 0 2em 0;
+  border-radius: 4px;
+  page-break-after: always;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#TOC .toc-section-number {
+  padding-right: 0.5em;
+  font-weight: bold;
+}
+
+#TOC ul {
+  list-style-type: none;
+  padding-left: 1em;
+}
+
+#TOC ul li {
+  margin-bottom: 0.7em;
+}
+
+#TOC ul ul {
+  margin-top: 0.5em;
+}
+
+#TOC ul ul li {
+  margin-bottom: 0.3em;
+}
+
+#TOC a {
+  color: #333;
+  text-decoration: none;
+}
+
+#TOC .toc-h1 {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+#TOC .toc-h2 {
+  padding-left: 1.5em;
+}
+
+#TOC .toc-h3 {
+  padding-left: 3em;
+  font-size: 0.9em;
+}
+
+/* Cover page */
+#title-block-header {
+  text-align: center;
+  margin: 5cm 0;
+  padding-bottom: 2em;
+  page-break-after: always;
+  border: none;
+}
+
+#title-block-header .title {
+  font-size: 32pt;
+  margin-bottom: 1.5em;
+  color: #2c3e50;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+#title-block-header .subtitle {
+  font-size: 18pt;
+  margin: 1em 0 2em 0;
+  color: #444;
+}
+
+#title-block-header .author {
+  font-size: 16pt;
+  margin: 1em 0;
+  color: #555;
+}
+
+#title-block-header .date {
+  font-style: italic;
+  font-size: 14pt;
+  color: #666;
+  margin: 1em 0 3em 0;
+}
+
+#title-block-header .abstract {
+  margin: 2em auto;
+  max-width: 80%;
+  font-style: italic;
+  color: #555;
+  line-height: 1.6;
+  font-size: 12pt;
+  text-align: justify;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 1em 0;
+}
+
+/* Page numbers in footer */
+@page {
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 10pt;
+    font-style: italic;
+    color: #666;
+  }
+}
+
+/* Footnotes */
+.footnotes {
+  font-size: 9pt;
+  color: #555;
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid #ddd;
+}
+
+.footnotes ol {
+  padding-left: 2em;
+}
+
+.footnotes li {
+  margin-bottom: 0.5em;
+}
+
+.footnote-ref {
+  font-size: 0.8em;
+  position: relative;
+  top: -0.5em;
+}
+
+/* Avoid orphans and widows */
+p, li {
+  orphans: 3;
+  widows: 3;
+}
+
+/* Section breaks */
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 2em 0;
+}
+
+/* Block quotes */
+blockquote {
+  margin-left: 0;
+  padding-left: 1em;
+  border-left: 4px solid #ddd;
+  color: #555;
+  font-style: italic;
+  page-break-inside: avoid;
+}
+
+/* Lists */
+ul, ol {
+  margin: 1em 0;
+  padding-left: 2em;
+}
+
+li {
+  margin-bottom: 0.5em;
+}

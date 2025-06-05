@@ -1,0 +1,145 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-top: 1.5em;
+}
+
+h1 {
+  font-size: 2.2em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  font-size: 1.8em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+pre, code {
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+}
+
+pre {
+  padding: 1em;
+  overflow: auto;
+  line-height: 1.45;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+blockquote {
+  margin-left: 0;
+  padding-left: 1em;
+  border-left: 4px solid #dfe2e5;
+  color: #6a737d;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f8f8;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+#TOC {
+  background-color: #f8f8f8;
+  padding: 1em;
+  margin-bottom: 2em;
+  border-radius: 4px;
+}
+
+#TOC .toc-section-number {
+  padding-right: 0.5em;
+}
+
+/* Add a nice header style */
+#title-block-header {
+  text-align: center;
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #eee;
+}
+
+#title-block-header .title {
+  margin-bottom: 0.2em;
+}
+
+#title-block-header .author,
+#title-block-header .date {
+  font-style: italic;
+  color: #6a737d;
+}
+
+/* Print-friendly styles */
+@media print {
+  body {
+    font-size: 11pt;
+    max-width: none;
+  }
+  
+  pre, code {
+    font-size: 9pt;
+  }
+  
+  a {
+    color: #000;
+  }
+  
+  #TOC {
+    break-after: page;
+  }
+  
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+  
+  img, table {
+    page-break-inside: avoid;
+  }
+}

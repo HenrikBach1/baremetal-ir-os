@@ -1,0 +1,28 @@
+---
+title: "Baremetal IR OS Documentation"
+author: "Henrik Bach"
+date: "June 05, 2025"
+subtitle: "A Comprehensive Guide (v1.0.0)"
+abstract: |
+  This documentation covers the design, architecture, and implementation of the Baremetal IR OS.
+  It provides detailed information about the intermediate representation (IR) design, JIT engine,
+  operating system subsystems, hardware integration, and development notes.
+  
+  Version: 1.0.0
+  Build Date: June 05, 2025
+geometry: "margin=1in"
+fontsize: 11pt
+mainfont: "DejaVu Serif"
+monofont: "DejaVu Sans Mono"
+lang: "en-US"
+colorlinks: true
+linkcolor: "blue"
+urlcolor: "blue"
+toc-depth: 3
+secnumdepth: 3
+header-includes:
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyhead[RE,RO]{\rightmark}
+  - \fancyfoot[C]{Page \thepage}
+---

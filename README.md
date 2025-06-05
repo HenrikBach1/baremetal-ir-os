@@ -50,6 +50,58 @@ cd baremetal-ir-os
 
 ---
 
+## 📚 Building Documentation
+
+The project includes a comprehensive documentation build system that can generate both HTML and PDF documentation from the Markdown source files.
+
+### Prerequisites
+
+- [Pandoc](https://pandoc.org/) is required for documentation generation
+- For PDF generation, one of the following is required:
+  - [wkhtmltopdf](https://wkhtmltopdf.org/) (recommended)
+  - [LaTeX](https://www.latex-project.org/) (best quality, but larger installation)
+  - [WeasyPrint](https://weasyprint.org/) (Python-based alternative)
+
+The build script will attempt to install wkhtmltopdf if no PDF converter is found.
+
+### Basic Usage
+
+To build both HTML and PDF documentation:
+
+```bash
+./build-docs.sh
+```
+
+This will generate:
+- `baremetal-ir-os.html` - The complete HTML documentation
+- `baremetal-ir-os.pdf` - The complete PDF documentation (if a PDF converter is available)
+
+### Advanced Options
+
+The build script supports several command-line options:
+
+```bash
+./build-docs.sh --help
+```
+
+Examples:
+
+```bash
+# Generate only HTML documentation
+./build-docs.sh --html-only
+
+# Generate only PDF documentation with a specific version number
+./build-docs.sh --pdf-only --version 1.2.0
+
+# Force using a specific PDF engine
+./build-docs.sh --pdf-engine wkhtmltopdf
+
+# Generate documentation with verbose output
+./build-docs.sh --verbose
+```
+
+---
+
 ## 📜 License
 
 See [LICENSE](LICENSE) for details.
