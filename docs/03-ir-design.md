@@ -1,3 +1,2 @@
 # Intermediate Representation (IR) Design
 
-...

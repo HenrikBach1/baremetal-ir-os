@@ -1,3 +1,2 @@
 # Boot and Runtime Initialization
 
-...

@@ -1,3 +1,2 @@
 # Developer Notes
 
-...

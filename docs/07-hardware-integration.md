@@ -1,3 +1,2 @@
 # Hardware Integration
 
-...
