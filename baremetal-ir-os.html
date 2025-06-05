@@ -12,6 +12,69 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
+  <style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
   <link rel="stylesheet" href="docs/custom.css" />
   \usepackage{fancyhdr}
   \pagestyle{fancy}
@@ -25,17 +88,677 @@
 <p class="author">Henrik Bach</p>
 <p class="date">June 2025</p>
 </header>
+<nav id="TOC">
+<ul>
+<li><a href="#key-features">1. Key Features</a></li>
+<li><a href="#target-applications">2. Target Applications</a></li>
+<li><a href="#traditional-os-limitations">1. Traditional OS Limitations</a></li>
+<li><a href="#our-solution-approach">2. Our Solution Approach</a></li>
+<li><a href="#core-components">1. Core Components</a><ul>
+<li><a href="#hardware-abstraction-layer-hal">1.1. 1. Hardware Abstraction Layer (HAL)</a></li>
+<li><a href="#ir-runtime-environment">1.2. 2. IR Runtime Environment</a></li>
+<li><a href="#jit-compilation-engine">1.3. 3. JIT Compilation Engine</a></li>
+<li><a href="#os-services">1.4. 4. OS Services</a></li>
+</ul></li>
+<li><a href="#system-flow">2. System Flow</a></li>
+<li><a href="#ir-format-overview">1. IR Format Overview</a></li>
+<li><a href="#core-ir-instructions">2. Core IR Instructions</a><ul>
+<li><a href="#memory-operations">2.1. Memory Operations</a></li>
+<li><a href="#arithmetic-operations">2.2. Arithmetic Operations</a></li>
+<li><a href="#control-flow">2.3. Control Flow</a></li>
+</ul></li>
+<li><a href="#type-system">3. Type System</a></li>
+<li><a href="#ir-metadata">4. IR Metadata</a></li>
+<li><a href="#jit-pipeline">1. JIT Pipeline</a></li>
+<li><a href="#optimization-techniques">2. Optimization Techniques</a><ul>
+<li><a href="#static-optimizations">2.1. Static Optimizations</a></li>
+<li><a href="#dynamic-optimizations">2.2. Dynamic Optimizations</a></li>
+</ul></li>
+<li><a href="#platform-adapters">3. Platform Adapters</a></li>
+<li><a href="#memory-management">4. Memory Management</a></li>
+<li><a href="#boot-sequence">1. Boot Sequence</a></li>
+<li><a href="#memory-layout">2. Memory Layout</a></li>
+<li><a href="#runtime-services">3. Runtime Services</a></li>
+<li><a href="#configuration-options">4. Configuration Options</a></li>
+<li><a href="#process-management">1. Process Management</a></li>
+<li><a href="#memory-management-1">2. Memory Management</a></li>
+<li><a href="#file-system">3. File System</a></li>
+<li><a href="#networking">4. Networking</a></li>
+<li><a href="#device-management">5. Device Management</a></li>
+<li><a href="#security">6. Security</a></li>
+<li><a href="#hardware-abstraction-layer">1. Hardware Abstraction Layer</a></li>
+<li><a href="#supported-architectures">2. Supported Architectures</a></li>
+<li><a href="#driver-model">3. Driver Model</a></li>
+<li><a href="#hardware-acceleration">4. Hardware Acceleration</a></li>
+<li><a href="#hardware-configuration">5. Hardware Configuration</a></li>
+<li><a href="#development-environment">1. Development Environment</a><ul>
+<li><a href="#required-tools">1.1. Required Tools</a></li>
+<li><a href="#setup-instructions">1.2. Setup Instructions</a></li>
+</ul></li>
+<li><a href="#code-organization">2. Code Organization</a></li>
+<li><a href="#coding-standards">3. Coding Standards</a></li>
+<li><a href="#contribution-workflow">4. Contribution Workflow</a></li>
+<li><a href="#common-development-tasks">5. Common Development Tasks</a><ul>
+<li><a href="#adding-a-new-hardware-platform">5.1. Adding a New Hardware Platform</a></li>
+<li><a href="#extending-the-ir-specification">5.2. Extending the IR Specification</a></li>
+</ul></li>
+<li><a href="#testing-framework">1. Testing Framework</a><ul>
+<li><a href="#unit-testing">1.1. Unit Testing</a></li>
+<li><a href="#integration-testing">1.2. Integration Testing</a></li>
+<li><a href="#test-organization">1.3. Test Organization</a></li>
+</ul></li>
+<li><a href="#running-tests">2. Running Tests</a></li>
+<li><a href="#debugging-tools">3. Debugging Tools</a><ul>
+<li><a href="#trace-and-logging">3.1. Trace and Logging</a></li>
+<li><a href="#debugger-integration">3.2. Debugger Integration</a></li>
+<li><a href="#memory-analysis">3.3. Memory Analysis</a></li>
+</ul></li>
+<li><a href="#debugging-process">4. Debugging Process</a><ul>
+<li><a href="#system-level-debugging">4.1. System-Level Debugging</a></li>
+<li><a href="#ir-debugging">4.2. IR Debugging</a></li>
+<li><a href="#jit-debugging">4.3. JIT Debugging</a></li>
+</ul></li>
+<li><a href="#issue-reporting">5. Issue Reporting</a></li>
+<li><a href="#current-version-1.0.0">1. Current Version (1.0.0)</a></li>
+<li><a href="#short-term-goals-1.x">2. Short-Term Goals (1.x)</a><ul>
+<li><a href="#version-1.1-q3-2025">2.1. Version 1.1 (Q3 2025)</a></li>
+<li><a href="#version-1.2-q4-2025">2.2. Version 1.2 (Q4 2025)</a></li>
+<li><a href="#version-1.3-q1-2026">2.3. Version 1.3 (Q1 2026)</a></li>
+</ul></li>
+<li><a href="#medium-term-goals-2.x">3. Medium-Term Goals (2.x)</a><ul>
+<li><a href="#version-2.0-q3-2026">3.1. Version 2.0 (Q3 2026)</a></li>
+<li><a href="#version-2.x-features">3.2. Version 2.x Features</a></li>
+</ul></li>
+<li><a href="#long-term-vision-3.x-and-beyond">4. Long-Term Vision (3.x and beyond)</a></li>
+<li><a href="#contributing-to-the-roadmap">5. Contributing to the Roadmap</a></li>
+<li><a href="#release-schedule">6. Release Schedule</a></li>
+<li><a href="#ir-file-format">1. IR File Format</a></li>
+<li><a href="#type-system-1">2. Type System</a><ul>
+<li><a href="#primitive-types">2.1. Primitive Types</a></li>
+<li><a href="#derived-types">2.2. Derived Types</a></li>
+</ul></li>
+<li><a href="#instructions">3. Instructions</a><ul>
+<li><a href="#memory-operations-1">3.1. Memory Operations</a></li>
+<li><a href="#arithmetic-operations-1">3.2. Arithmetic Operations</a></li>
+<li><a href="#bitwise-operations">3.3. Bitwise Operations</a></li>
+<li><a href="#control-flow-1">3.4. Control Flow</a></li>
+<li><a href="#conversion-operations">3.5. Conversion Operations</a></li>
+</ul></li>
+<li><a href="#metadata">4. Metadata</a></li>
+<li><a href="#extensions">5. Extensions</a></li>
+<li><a href="#binary-format">6. Binary Format</a></li>
+</ul>
+</nav>
 <!-- Section: Project Overview -->
+<p>The Baremetal IR OS is an innovative operating system that runs directly on hardware without requiring a traditional host operating system. It is built around a custom Intermediate Representation (IR) that serves as the foundation for all code execution through a Just-In-Time (JIT) compilation engine.</p>
+<h2 id="key-features">1. Key Features</h2>
+<ul>
+<li><strong>Hardware-level Integration</strong>: Direct interaction with system hardware without an intermediary OS</li>
+<li><strong>Custom IR Architecture</strong>: Platform-independent code representation for portability</li>
+<li><strong>JIT Compilation</strong>: Dynamic code generation for optimal performance on various hardware</li>
+<li><strong>Minimal Runtime</strong>: Efficient execution environment with minimal overhead</li>
+<li><strong>Extensible Design</strong>: Modular architecture allowing for customization and expansion</li>
+</ul>
+<h2 id="target-applications">2. Target Applications</h2>
+<ul>
+<li>Embedded systems requiring precise control over hardware resources</li>
+<li>High-performance computing environments with specific optimization needs</li>
+<li>Research platforms for operating system design and implementation</li>
+<li>Educational tools for understanding low-level system operations</li>
+</ul>
 <!-- Section: Motivation -->
+<p>The development of the Baremetal IR OS was motivated by several key challenges in modern operating system design and implementation.</p>
+<h2 id="traditional-os-limitations">1. Traditional OS Limitations</h2>
+<p>Current operating systems face significant challenges:</p>
+<ol type="1">
+<li><strong>Performance Overhead</strong>: Multiple abstraction layers introduce latency and resource consumption</li>
+<li><strong>Hardware Compatibility</strong>: Binary-level operating systems are tightly coupled to specific architectures</li>
+<li><strong>Optimization Barriers</strong>: Dynamic optimization is limited by predefined binary code structures</li>
+<li><strong>Complexity</strong>: Modern OS codebases have become increasingly complex and difficult to maintain</li>
+</ol>
+<h2 id="our-solution-approach">2. Our Solution Approach</h2>
+<p>The Baremetal IR OS addresses these limitations by:</p>
+<ol type="1">
+<li><strong>IR-Based Execution</strong>: Using an intermediate representation allows for platform-agnostic code that can be optimized for any target hardware</li>
+<li><strong>Direct Hardware Access</strong>: Eliminating abstraction layers provides better performance and more precise control</li>
+<li><strong>Dynamic Optimization</strong>: The JIT compiler can apply optimizations specific to the current hardware and workload</li>
+<li><strong>Simplified Architecture</strong>: A clean-slate design focusing on essential functionality reduces complexity</li>
+</ol>
 <!-- Section: System Architecture -->
+<p>The Baremetal IR OS uses a layered architecture with distinct components that work together to provide a complete operating system environment.</p>
+<h2 id="core-components">1. Core Components</h2>
+<h3 id="hardware-abstraction-layer-hal">1.1. 1. Hardware Abstraction Layer (HAL)</h3>
+<ul>
+<li>Provides direct interfaces to hardware components</li>
+<li>Implements platform-specific drivers and controllers</li>
+<li>Exposes a uniform API for higher-level components</li>
+</ul>
+<h3 id="ir-runtime-environment">1.2. 2. IR Runtime Environment</h3>
+<ul>
+<li>Manages IR code loading and execution</li>
+<li>Handles memory allocation for IR code and data</li>
+<li>Implements garbage collection and resource management</li>
+</ul>
+<h3 id="jit-compilation-engine">1.3. 3. JIT Compilation Engine</h3>
+<ul>
+<li>Translates IR code to native machine code</li>
+<li>Performs optimization passes based on runtime information</li>
+<li>Manages code caching and recompilation</li>
+</ul>
+<h3 id="os-services">1.4. 4. OS Services</h3>
+<ul>
+<li>Provides process and thread management</li>
+<li>Implements file system abstractions</li>
+<li>Handles inter-process communication</li>
+<li>Manages security and access control</li>
+</ul>
+<h2 id="system-flow">2. System Flow</h2>
+<ol type="1">
+<li>Boot sequence initializes hardware and core runtime</li>
+<li>IR code is loaded from storage into memory</li>
+<li>JIT compiler translates IR to optimized native code</li>
+<li>Execution proceeds with dynamic optimization based on runtime conditions</li>
+</ol>
 <!-- Section: Intermediate Representation (IR) Design -->
+<p>Our custom IR serves as the foundation for all code execution in the Baremetal IR OS, providing a platform-independent representation that can be dynamically optimized.</p>
+<h2 id="ir-format-overview">1. IR Format Overview</h2>
+<p>The IR uses a hybrid design combining aspects of: - Static Single Assignment (SSA) form for data flow tracking - Control flow graphs for representing program structure - Type information for optimization and safety</p>
+<h2 id="core-ir-instructions">2. Core IR Instructions</h2>
+<h3 id="memory-operations">2.1. Memory Operations</h3>
+<ul>
+<li><code>load &lt;type&gt; &lt;address&gt; -&gt; &lt;result&gt;</code></li>
+<li><code>store &lt;type&gt; &lt;value&gt; &lt;address&gt;</code></li>
+<li><code>alloc &lt;type&gt; &lt;size&gt; -&gt; &lt;result&gt;</code></li>
+<li><code>free &lt;address&gt;</code></li>
+</ul>
+<h3 id="arithmetic-operations">2.2. Arithmetic Operations</h3>
+<ul>
+<li><code>add &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
+<li><code>sub &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
+<li><code>mul &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
+<li><code>div &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
+</ul>
+<h3 id="control-flow">2.3. Control Flow</h3>
+<ul>
+<li><code>branch &lt;condition&gt; &lt;true_label&gt; &lt;false_label&gt;</code></li>
+<li><code>jump &lt;label&gt;</code></li>
+<li><code>call &lt;function&gt; &lt;args...&gt; -&gt; &lt;result&gt;</code></li>
+<li><code>return &lt;value&gt;</code></li>
+</ul>
+<h2 id="type-system">3. Type System</h2>
+<p>The IR includes a comprehensive type system: - Primitive types (int32, int64, float32, float64, etc.) - Pointer types with metadata for memory management - Structure types for complex data organization - Function types with parameter and return information</p>
+<h2 id="ir-metadata">4. IR Metadata</h2>
+<p>Instructions can include metadata for: - Optimization hints - Debug information - Safety checks - Hardware-specific directives</p>
 <!-- Section: JIT Engine Design -->
+<p>The Just-In-Time (JIT) compilation engine is responsible for translating our IR code into native machine code at runtime, with optimization tailored to the specific execution environment.</p>
+<h2 id="jit-pipeline">1. JIT Pipeline</h2>
+<p>The compilation process follows these stages:</p>
+<ol type="1">
+<li><strong>IR Loading</strong>: Parse and validate IR code</li>
+<li><strong>Analysis</strong>: Gather statistics and identify optimization opportunities</li>
+<li><strong>Optimization</strong>: Apply IR-level transformations</li>
+<li><strong>Code Generation</strong>: Translate optimized IR to machine code</li>
+<li><strong>Runtime Patching</strong>: Update code based on execution data</li>
+</ol>
+<h2 id="optimization-techniques">2. Optimization Techniques</h2>
+<h3 id="static-optimizations">2.1. Static Optimizations</h3>
+<ul>
+<li>Constant folding and propagation</li>
+<li>Dead code elimination</li>
+<li>Loop invariant code motion</li>
+<li>Strength reduction</li>
+<li>Inlining</li>
+</ul>
+<h3 id="dynamic-optimizations">2.2. Dynamic Optimizations</h3>
+<ul>
+<li>Speculative execution</li>
+<li>Profile-guided optimization</li>
+<li>Type specialization</li>
+<li>Deoptimization for exceptional cases</li>
+</ul>
+<h2 id="platform-adapters">3. Platform Adapters</h2>
+<p>The JIT engine includes pluggable backends for different architectures: - x86-64 - ARM64 - RISC-V - Custom hardware accelerators</p>
+<h2 id="memory-management">4. Memory Management</h2>
+<ul>
+<li>Code section allocation with proper permissions</li>
+<li>Inline cache for polymorphic operations</li>
+<li>Garbage collection integration</li>
+<li>Hot/cold code splitting</li>
+</ul>
 <!-- Section: Boot and Runtime Initialization -->
+<p>The Baremetal IR OS uses a specialized boot sequence to initialize hardware and establish the runtime environment for IR code execution.</p>
+<h2 id="boot-sequence">1. Boot Sequence</h2>
+<ol type="1">
+<li><strong>Firmware Handoff</strong>: Receive control from platform firmware (UEFI/BIOS)</li>
+<li><strong>Hardware Detection</strong>: Identify and initialize essential hardware components</li>
+<li><strong>Memory Setup</strong>: Establish memory map and initialize memory management</li>
+<li><strong>Core Runtime</strong>: Load and initialize the IR interpreter and JIT compiler</li>
+<li><strong>System Services</strong>: Start essential system services</li>
+<li><strong>Initial Application</strong>: Load and execute the initial system application</li>
+</ol>
+<h2 id="memory-layout">2. Memory Layout</h2>
+<p>The system uses a carefully designed memory layout:</p>
+<pre><code>0x00000000 - 0x00FFFFFF: Reserved (Hardware, MMIO)
+0x01000000 - 0x01FFFFFF: Boot code and data
+0x02000000 - 0x0FFFFFFF: Kernel data structures
+0x10000000 - 0x3FFFFFFF: JIT-compiled code cache
+0x40000000 - 0x7FFFFFFF: Heap memory
+0x80000000 - 0xFFFFFFFF: User application space</code></pre>
+<h2 id="runtime-services">3. Runtime Services</h2>
+<p>During boot, the following runtime services are established:</p>
+<ul>
+<li><strong>Memory Manager</strong>: Handles allocation, deallocation, and garbage collection</li>
+<li><strong>Thread Scheduler</strong>: Manages execution of concurrent threads</li>
+<li><strong>IO Manager</strong>: Provides abstracted interfaces for device I/O</li>
+<li><strong>Exception Handler</strong>: Processes hardware and software exceptions</li>
+<li><strong>Security Monitor</strong>: Enforces access control policies</li>
+</ul>
+<h2 id="configuration-options">4. Configuration Options</h2>
+<p>The boot process can be customized through:</p>
+<ul>
+<li>Command line parameters</li>
+<li>Boot configuration file</li>
+<li>Hardware-specific initialization modules</li>
+</ul>
 <!-- Section: OS Subsystem Design -->
+<p>The Baremetal IR OS provides essential operating system services through specialized subsystems, all built on the core IR execution environment.</p>
+<h2 id="process-management">1. Process Management</h2>
+<ul>
+<li><strong>Process Model</strong>: Lightweight process containers with isolated memory spaces</li>
+<li><strong>Thread Management</strong>: Cooperative and preemptive multithreading</li>
+<li><strong>Scheduling</strong>: Priority-based scheduling with real-time support</li>
+<li><strong>IPC Mechanisms</strong>: Shared memory, message passing, and synchronization primitives</li>
+</ul>
+<h2 id="memory-management-1">2. Memory Management</h2>
+<ul>
+<li><strong>Virtual Memory</strong>: Paging with hardware acceleration when available</li>
+<li><strong>Memory Protection</strong>: Process isolation and privileged access control</li>
+<li><strong>Allocation Strategies</strong>: Custom allocators optimized for different use cases</li>
+<li><strong>Garbage Collection</strong>: Optional GC for managed memory regions</li>
+</ul>
+<h2 id="file-system">3. File System</h2>
+<ul>
+<li><strong>Virtual File System</strong>: Unified interface for various storage backends</li>
+<li><strong>Native File Systems</strong>: Custom file systems optimized for specific storage media</li>
+<li><strong>Caching</strong>: Intelligent caching for improved I/O performance</li>
+<li><strong>Journaling</strong>: Transaction support for data integrity</li>
+</ul>
+<h2 id="networking">4. Networking</h2>
+<ul>
+<li><strong>Protocol Stack</strong>: Modular implementation of network protocols</li>
+<li><strong>Socket API</strong>: Standard interface for network communication</li>
+<li><strong>Zero-copy I/O</strong>: Efficient data transfer without unnecessary copying</li>
+<li><strong>Hardware Offloading</strong>: Support for network hardware acceleration</li>
+</ul>
+<h2 id="device-management">5. Device Management</h2>
+<ul>
+<li><strong>Driver Framework</strong>: Structured API for device driver implementation</li>
+<li><strong>Device Discovery</strong>: Automatic detection and configuration of hardware</li>
+<li><strong>I/O Scheduling</strong>: Prioritization of device access requests</li>
+<li><strong>Power Management</strong>: Device power state control for energy efficiency</li>
+</ul>
+<h2 id="security">6. Security</h2>
+<ul>
+<li><strong>Access Control</strong>: Fine-grained permission system</li>
+<li><strong>Memory Safety</strong>: Runtime checks and isolation mechanisms</li>
+<li><strong>Secure Boot</strong>: Verification of system integrity during startup</li>
+<li><strong>Encryption</strong>: Built-in support for data encryption</li>
+</ul>
 <!-- Section: Hardware Integration -->
+<p>The Baremetal IR OS interfaces directly with hardware components through a specialized Hardware Abstraction Layer (HAL) that provides both efficiency and portability.</p>
+<h2 id="hardware-abstraction-layer">1. Hardware Abstraction Layer</h2>
+<p>The HAL is structured in three tiers: 1. <strong>Platform-Specific Layer</strong>: Direct hardware access code for each supported platform 2. <strong>Common Abstractions</strong>: Unified interfaces for similar hardware components 3. <strong>High-Level Services</strong>: OS-level abstractions built on the lower layers</p>
+<h2 id="supported-architectures">2. Supported Architectures</h2>
+<p>The system currently supports: - <strong>x86-64</strong>: Desktop and server systems - <strong>ARM64</strong>: Mobile and embedded devices - <strong>RISC-V</strong>: Open architecture platforms - <strong>Custom Hardware</strong>: FPGA-based accelerators and specialized processors</p>
+<h2 id="driver-model">3. Driver Model</h2>
+<p>The driver architecture follows a modular design: - <strong>Core Driver Framework</strong>: Common infrastructure for all drivers - <strong>Bus Drivers</strong>: PCI, USB, I2C, SPI, etc. - <strong>Device Drivers</strong>: Storage, network, display, input, etc. - <strong>Virtual Drivers</strong>: Software-based device emulation</p>
+<h2 id="hardware-acceleration">4. Hardware Acceleration</h2>
+<p>The system leverages hardware acceleration for: - <strong>JIT Compilation</strong>: Specialized instruction set extensions - <strong>Memory Management</strong>: Hardware page tables and TLBs - <strong>Cryptography</strong>: Hardware security modules - <strong>Graphics</strong>: GPU acceleration for rendering - <strong>Networking</strong>: Offloading packet processing to NICs</p>
+<h2 id="hardware-configuration">5. Hardware Configuration</h2>
+<p>Hardware resources are configured through: - <strong>Static Configuration</strong>: Pre-defined settings in system image - <strong>Discovery</strong>: Runtime detection of hardware capabilities - <strong>Dynamic Configuration</strong>: Adjustment based on workload requirements</p>
 <!-- Section: Developer Notes -->
+<p>This section provides guidance for developers working on the Baremetal IR OS project, including development environment setup, coding standards, and contribution guidelines.</p>
+<h2 id="development-environment">1. Development Environment</h2>
+<h3 id="required-tools">1.1. Required Tools</h3>
+<ul>
+<li><strong>Compiler Toolchain</strong>: LLVM/Clang 15.0 or later</li>
+<li><strong>Build System</strong>: CMake 3.21 or later</li>
+<li><strong>Emulation</strong>: QEMU 7.0 or later for testing</li>
+<li><strong>Debugger</strong>: GDB with target architecture support</li>
+<li><strong>Version Control</strong>: Git 2.35 or later</li>
+</ul>
+<h3 id="setup-instructions">1.2. Setup Instructions</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Clone repository with submodules</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="fu">git</span> clone --recursive https://github.com/baremetal-ir-os/core.git</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="bu">cd</span> core</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co"># Install dependencies (Ubuntu/Debian)</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="ex">./scripts/install-deps.sh</span></a>
+<a class="sourceLine" id="cb2-7" title="7"></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co"># Configure build</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="fu">mkdir</span> build <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> build</a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="fu">cmake</span> -DCMAKE_BUILD_TYPE=Debug ..</a>
+<a class="sourceLine" id="cb2-11" title="11"></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co"># Build the project</span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="fu">make</span> -j<span class="va">$(</span><span class="ex">nproc</span><span class="va">)</span></a></code></pre></div>
+<h2 id="code-organization">2. Code Organization</h2>
+<p>The project follows a modular structure: - <code>src/core/</code> - Core runtime and JIT engine - <code>src/hal/</code> - Hardware abstraction layer - <code>src/os/</code> - OS services and subsystems - <code>src/ir/</code> - IR definition and utilities - <code>tools/</code> - Development and debugging tools - <code>tests/</code> - Test suites - <code>docs/</code> - Documentation</p>
+<h2 id="coding-standards">3. Coding Standards</h2>
+<ul>
+<li><strong>Language</strong>: Modern C++20 with limited use of platform-specific extensions</li>
+<li><strong>Style</strong>: Follow the project style guide in <code>docs/style-guide.md</code></li>
+<li><strong>Documentation</strong>: All public APIs must be documented using Doxygen</li>
+<li><strong>Testing</strong>: New features require unit tests and integration tests</li>
+</ul>
+<h2 id="contribution-workflow">4. Contribution Workflow</h2>
+<ol type="1">
+<li>Create a feature branch from <code>develop</code></li>
+<li>Implement changes following coding standards</li>
+<li>Add tests for new functionality</li>
+<li>Submit a pull request with a detailed description</li>
+<li>Address review feedback</li>
+<li>Once approved, changes will be merged to <code>develop</code></li>
+</ol>
+<h2 id="common-development-tasks">5. Common Development Tasks</h2>
+<h3 id="adding-a-new-hardware-platform">5.1. Adding a New Hardware Platform</h3>
+<ol type="1">
+<li>Create platform-specific HAL implementation in <code>src/hal/platforms/</code></li>
+<li>Implement required interfaces defined in <code>src/hal/hal_interfaces.h</code></li>
+<li>Add platform detection to the build system</li>
+<li>Create platform-specific tests in <code>tests/platforms/</code></li>
+</ol>
+<h3 id="extending-the-ir-specification">5.2. Extending the IR Specification</h3>
+<ol type="1">
+<li>Update IR definition in <code>src/ir/ir_spec.h</code></li>
+<li>Add validation rules to <code>src/ir/validator.cpp</code></li>
+<li>Implement interpretation in <code>src/core/interpreter.cpp</code></li>
+<li>Add code generation in <code>src/core/jit/codegen/</code></li>
+<li>Update documentation in <code>docs/ir-spec.md</code></li>
+</ol>
 <!-- Section: Testing and Debugging -->
+<p>The Baremetal IR OS project employs comprehensive testing and debugging strategies to ensure reliability and facilitate development.</p>
+<h2 id="testing-framework">1. Testing Framework</h2>
+<h3 id="unit-testing">1.1. Unit Testing</h3>
+<ul>
+<li>Each component has dedicated unit tests</li>
+<li>Mocking framework for hardware dependencies</li>
+<li>Automated test runs on each commit</li>
+</ul>
+<h3 id="integration-testing">1.2. Integration Testing</h3>
+<ul>
+<li>Full-system tests in emulated environments</li>
+<li>Hardware-in-the-loop testing for supported platforms</li>
+<li>Performance benchmarking suite</li>
+</ul>
+<h3 id="test-organization">1.3. Test Organization</h3>
+<ul>
+<li><code>tests/unit/</code> - Component-level tests</li>
+<li><code>tests/integration/</code> - System-level tests</li>
+<li><code>tests/performance/</code> - Performance benchmarks</li>
+<li><code>tests/platforms/</code> - Platform-specific tests</li>
+</ul>
+<h2 id="running-tests">2. Running Tests</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Run all tests</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="bu">cd</span> build</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="fu">make</span> test</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co"># Run specific test suite</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="ex">ctest</span> -R UnitTests</a>
+<a class="sourceLine" id="cb3-7" title="7"></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co"># Run with verbose output</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="ex">ctest</span> -V -R IntegrationTests</a></code></pre></div>
+<h2 id="debugging-tools">3. Debugging Tools</h2>
+<h3 id="trace-and-logging">3.1. Trace and Logging</h3>
+<ul>
+<li>Runtime configurable log levels</li>
+<li>Component-specific log channels</li>
+<li>Performance tracing infrastructure</li>
+</ul>
+<h3 id="debugger-integration">3.2. Debugger Integration</h3>
+<ul>
+<li>GDB server support for remote debugging</li>
+<li>JTAG interface for hardware debugging</li>
+<li>IR-level debugging with source mapping</li>
+</ul>
+<h3 id="memory-analysis">3.3. Memory Analysis</h3>
+<ul>
+<li>Memory leak detection</li>
+<li>Heap profiling</li>
+<li>Memory access validation</li>
+</ul>
+<h2 id="debugging-process">4. Debugging Process</h2>
+<h3 id="system-level-debugging">4.1. System-Level Debugging</h3>
+<ol type="1">
+<li>Enable verbose logging with <code>--log-level=debug</code></li>
+<li>Capture boot sequence with <code>--trace-boot</code></li>
+<li>Use the integrated debugger with <code>--debug-port=1234</code></li>
+<li>Connect with GDB: <code>gdb -ex "target remote localhost:1234"</code></li>
+</ol>
+<h3 id="ir-debugging">4.2. IR Debugging</h3>
+<ol type="1">
+<li>Compile with debug info: <code>--ir-debug-info</code></li>
+<li>Use the IR debugger: <code>ir-debug program.ir</code></li>
+<li>Set breakpoints on IR instructions</li>
+<li>Inspect IR state during execution</li>
+</ol>
+<h3 id="jit-debugging">4.3. JIT Debugging</h3>
+<ol type="1">
+<li>Enable JIT debugging with <code>--jit-debug</code></li>
+<li>Dump generated code with <code>--dump-jit-code=file.asm</code></li>
+<li>Use the JIT profiler with <code>--jit-profile</code></li>
+<li>Analyze hotspots with <code>analyze-jit-profile results.prof</code></li>
+</ol>
+<h2 id="issue-reporting">5. Issue Reporting</h2>
+<p>When reporting issues, please include: 1. Detailed description of the problem 2. Steps to reproduce 3. System configuration 4. Relevant logs and debug output 5. Expected vs. actual behavior</p>
 <!-- Section: Project Roadmap -->
+<p>This roadmap outlines the planned development trajectory for the Baremetal IR OS project over the next several release cycles.</p>
+<h2 id="current-version-1.0.0">1. Current Version (1.0.0)</h2>
+<p>The initial release includes: - Core IR specification and implementation - Basic JIT compiler for x86-64 and ARM64 - Fundamental OS services (memory, threads, basic I/O) - Developer documentation and tools - Support for common development boards</p>
+<h2 id="short-term-goals-1.x">2. Short-Term Goals (1.x)</h2>
+<h3 id="version-1.1-q3-2025">2.1. Version 1.1 (Q3 2025)</h3>
+<ul>
+<li>Improved memory management with generational GC</li>
+<li>Extended device driver framework</li>
+<li>Initial network stack implementation</li>
+<li>Performance optimizations for JIT compiler</li>
+<li>Enhanced debugging tools</li>
+</ul>
+<h3 id="version-1.2-q4-2025">2.2. Version 1.2 (Q4 2025)</h3>
+<ul>
+<li>File system enhancements with journaling</li>
+<li>RISC-V architecture support</li>
+<li>Security hardening features</li>
+<li>Inter-process communication improvements</li>
+<li>Extended standard library</li>
+</ul>
+<h3 id="version-1.3-q1-2026">2.3. Version 1.3 (Q1 2026)</h3>
+<ul>
+<li>Graphics and display subsystem</li>
+<li>USB device support</li>
+<li>Power management framework</li>
+<li>Initial real-time scheduling capabilities</li>
+<li>Extended tooling ecosystem</li>
+</ul>
+<h2 id="medium-term-goals-2.x">3. Medium-Term Goals (2.x)</h2>
+<h3 id="version-2.0-q3-2026">3.1. Version 2.0 (Q3 2026)</h3>
+<ul>
+<li>Complete IR optimization framework</li>
+<li>Advanced security model with formal verification</li>
+<li>Distributed computing capabilities</li>
+<li>Hardware acceleration for critical paths</li>
+<li>Application ecosystem expansion</li>
+</ul>
+<h3 id="version-2.x-features">3.2. Version 2.x Features</h3>
+<ul>
+<li>Virtualization support</li>
+<li>Cloud integration capabilities</li>
+<li>Machine learning acceleration</li>
+<li>Self-optimizing runtime</li>
+<li>Expanded hardware platform support</li>
+</ul>
+<h2 id="long-term-vision-3.x-and-beyond">4. Long-Term Vision (3.x and beyond)</h2>
+<ul>
+<li>Formal verification of critical system components</li>
+<li>Hardware co-design opportunities</li>
+<li>Specialized versions for IoT, edge, and high-performance computing</li>
+<li>Advanced autonomic computing features</li>
+<li>Academic and industry partnership programs</li>
+</ul>
+<h2 id="contributing-to-the-roadmap">5. Contributing to the Roadmap</h2>
+<p>We welcome community input on our development priorities. To contribute: 1. Join our community discussions on Discord or the mailing list 2. Submit feature proposals via GitHub issues 3. Participate in our quarterly roadmap planning sessions 4. Contribute proof-of-concept implementations</p>
+<h2 id="release-schedule">6. Release Schedule</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Version</th>
+<th>Expected Date</th>
+<th>Focus Areas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.0.0</td>
+<td>June 2025</td>
+<td>Initial stable release</td>
+</tr>
+<tr class="even">
+<td>1.1.0</td>
+<td>September 2025</td>
+<td>Performance and networking</td>
+</tr>
+<tr class="odd">
+<td>1.2.0</td>
+<td>December 2025</td>
+<td>File systems and new architectures</td>
+</tr>
+<tr class="even">
+<td>1.3.0</td>
+<td>March 2026</td>
+<td>User interfaces and devices</td>
+</tr>
+<tr class="odd">
+<td>2.0.0</td>
+<td>September 2026</td>
+<td>Major architectural enhancements</td>
+</tr>
+</tbody>
+</table>
 <!-- Section: Custom IR Specification -->
+<p>This document provides a detailed specification of the Intermediate Representation (IR) used in the Baremetal IR OS.</p>
+<h2 id="ir-file-format">1. IR File Format</h2>
+<p>IR code is stored in text format with the following structure:</p>
+<pre><code>; Module declaration
+module &quot;example_module&quot;
+
+; External declarations
+external func @printf(i8*, ...) -&gt; i32
+
+; Global variables
+global @counter i32 = 0
+
+; Type definitions
+type %person = { i8*, i32 }
+
+; Function definition
+func @main() -&gt; i32 {
+  ; Basic blocks
+  entry:
+    %ptr = alloc i32
+    store i32 42, %ptr
+    %val = load i32, %ptr
+    br %val, eq, 42, then, else
+    
+  then:
+    %result = call @compute(i32 %val)
+    return i32 %result
+    
+  else:
+    return i32 0
+}</code></pre>
+<h2 id="type-system-1">2. Type System</h2>
+<h3 id="primitive-types">2.1. Primitive Types</h3>
+<ul>
+<li><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code>: Integer types of specified bit width</li>
+<li><code>u8</code>, <code>u16</code>, <code>u32</code>, <code>u64</code>: Unsigned integer types</li>
+<li><code>f32</code>, <code>f64</code>: Floating-point types</li>
+<li><code>bool</code>: Boolean type (1-bit)</li>
+<li><code>void</code>: Represents no value</li>
+</ul>
+<h3 id="derived-types">2.2. Derived Types</h3>
+<ul>
+<li>Pointers: <code>&lt;type&gt;*</code> (e.g., <code>i32*</code>)</li>
+<li>Arrays: <code>[&lt;size&gt; x &lt;type&gt;]</code> (e.g., <code>[10 x i32]</code>)</li>
+<li>Structures: <code>{ &lt;type&gt;, &lt;type&gt;, ... }</code> (e.g., <code>{ i32, i8* }</code>)</li>
+<li>Functions: <code>(&lt;param_types&gt;) -&gt; &lt;return_type&gt;</code></li>
+</ul>
+<h2 id="instructions">3. Instructions</h2>
+<h3 id="memory-operations-1">3.1. Memory Operations</h3>
+<ul>
+<li><code>%ptr = alloc &lt;type&gt; [, &lt;size&gt;]</code>: Allocate memory</li>
+<li><code>free &lt;ptr&gt;</code>: Free allocated memory</li>
+<li><code>%val = load &lt;type&gt;, &lt;ptr&gt;</code>: Load value from memory</li>
+<li><code>store &lt;type&gt; &lt;val&gt;, &lt;ptr&gt;</code>: Store value to memory</li>
+<li><code>%ptr = getelementptr &lt;type&gt;, &lt;ptr&gt;, &lt;indices...&gt;</code>: Compute address of structure element</li>
+</ul>
+<h3 id="arithmetic-operations-1">3.2. Arithmetic Operations</h3>
+<ul>
+<li><code>%result = add &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Addition</li>
+<li><code>%result = sub &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Subtraction</li>
+<li><code>%result = mul &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Multiplication</li>
+<li><code>%result = div &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Division</li>
+<li><code>%result = rem &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Remainder</li>
+<li><code>%result = neg &lt;type&gt; &lt;op&gt;</code>: Negation</li>
+</ul>
+<h3 id="bitwise-operations">3.3. Bitwise Operations</h3>
+<ul>
+<li><code>%result = and &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Bitwise AND</li>
+<li><code>%result = or &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Bitwise OR</li>
+<li><code>%result = xor &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Bitwise XOR</li>
+<li><code>%result = shl &lt;type&gt; &lt;op&gt;, &lt;bits&gt;</code>: Shift left</li>
+<li><code>%result = shr &lt;type&gt; &lt;op&gt;, &lt;bits&gt;</code>: Shift right</li>
+<li><code>%result = not &lt;type&gt; &lt;op&gt;</code>: Bitwise NOT</li>
+</ul>
+<h3 id="control-flow-1">3.4. Control Flow</h3>
+<ul>
+<li><code>br &lt;cond&gt;, &lt;op&gt;, &lt;val&gt;, &lt;true_label&gt;, &lt;false_label&gt;</code>: Conditional branch</li>
+<li><code>jump &lt;label&gt;</code>: Unconditional jump</li>
+<li><code>%result = call &lt;func&gt;(&lt;args&gt;...)</code>: Function call</li>
+<li><code>return &lt;type&gt; &lt;value&gt;</code>: Return from function</li>
+<li><code>unreachable</code>: Marks unreachable code</li>
+</ul>
+<h3 id="conversion-operations">3.5. Conversion Operations</h3>
+<ul>
+<li><code>%result = zext &lt;from_type&gt; &lt;value&gt; to &lt;to_type&gt;</code>: Zero extension</li>
+<li><code>%result = sext &lt;from_type&gt; &lt;value&gt; to &lt;to_type&gt;</code>: Sign extension</li>
+<li><code>%result = trunc &lt;from_type&gt; &lt;value&gt; to &lt;to_type&gt;</code>: Truncation</li>
+<li><code>%result = bitcast &lt;from_type&gt; &lt;value&gt; to &lt;to_type&gt;</code>: Bit pattern reinterpretation</li>
+<li><code>%result = inttoptr &lt;int_type&gt; &lt;value&gt; to &lt;ptr_type&gt;</code>: Integer to pointer conversion</li>
+<li><code>%result = ptrtoint &lt;ptr_type&gt; &lt;value&gt; to &lt;int_type&gt;</code>: Pointer to integer conversion</li>
+</ul>
+<h2 id="metadata">4. Metadata</h2>
+<p>Instructions and declarations can include metadata:</p>
+<pre><code>%result = add i32 %a, %b, !debug !1, !optimize !2
+
+!1 = !{!&quot;line&quot;, 42, &quot;file.c&quot;}
+!2 = !{!&quot;inline&quot;}</code></pre>
+<h2 id="extensions">5. Extensions</h2>
+<p>The IR supports extensions for specialized hardware:</p>
+<pre><code>; Vector operations
+%vec = vload &lt;4 x f32&gt;, %ptr
+%result = vadd &lt;4 x f32&gt; %vec1, %vec2
+
+; Custom hardware accelerator
+%result = hwaccel &quot;crypto.aes&quot;, i8* %data, i64 %len, i8* %key</code></pre>
+<h2 id="binary-format">6. Binary Format</h2>
+<p>For efficient storage and transmission, the IR can be serialized to a binary format (BIRF) with the following sections:</p>
+<ol type="1">
+<li>Header: Magic number, version, module name</li>
+<li>Type Table: Type definitions</li>
+<li>Global Variables: Global variable declarations</li>
+<li>Function Table: Function declarations and signatures</li>
+<li>Instruction Stream: Serialized instruction sequences</li>
+<li>Metadata Table: Associated metadata</li>
+<li>String Table: String constants</li>
+</ol>
 </body>
 </html>
