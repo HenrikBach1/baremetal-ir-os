@@ -6,6 +6,7 @@
 # Log files
 **/*.log
 pdf_generation.log
+single_doc_generation.log
 
 # Generated documentation files
 baremetal-ir-os-pandoc-include.md
