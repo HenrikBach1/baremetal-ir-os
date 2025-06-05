@@ -10,10 +10,10 @@ pdf_generation.log
 # Generated documentation files
 baremetal-ir-os-pandoc-include.md
 baremetal-ir-os-pandoc-include-toc.md
-baremetal-ir-os.html
-baremetal-ir-os.pdf
+!baremetal-ir-os.*
 temp_output.html
 
 # Test files
 test.html
 test.pdf
+test-wkhtmltopdf.sh
