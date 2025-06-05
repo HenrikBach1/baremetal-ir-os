@@ -2,3 +2,7 @@
 
 **/*.zip
 **/*.log
+
+baremetal-ir-os.html
+baremetal-ir-os-pandoc-include.md
+baremetal-ir-os-pandoc-include-toc.md
