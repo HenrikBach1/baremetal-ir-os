@@ -8,7 +8,7 @@ set -e
 OUTPUT_BASENAME="baremetal-ir-os"
 DOCS_DIR="docs"
 VERBOSE=false
-ADD_SECTION_NUMBERS=false
+ADD_SECTION_NUMBERS=true
 FORMATS=("html" "pdf")  # Default formats to generate
 SINGLE_FILE=""
 
@@ -177,7 +177,7 @@ generate_markdown() {
   local cmd="./build-markdown.sh $VERBOSE_OPT --version $VERSION --docs-dir $DOCS_DIR"
   
   # Add output file option
-  local output_file="${OUTPUT_BASENAME}-full.md"
+  local output_file="${OUTPUT_BASENAME}.md"
   if [ -n "$OUTPUT_DIR" ]; then
     output_file="$OUTPUT_DIR/$output_file"
   fi

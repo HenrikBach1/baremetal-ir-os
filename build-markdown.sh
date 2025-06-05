@@ -5,7 +5,7 @@
 set -e
 
 # Default settings
-OUTPUT_MARKDOWN="baremetal-ir-os-full.md"
+OUTPUT_MARKDOWN="baremetal-ir-os.md"
 DOCS_DIR="docs"
 VERBOSE=false
 ADD_SECTION_NUMBERS=false
