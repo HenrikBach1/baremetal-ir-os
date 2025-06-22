@@ -16,5 +16,9 @@ baremetal-ir-os.pdf
 baremetal-ir-os-full.md
 temp_output.html
 
+# Planning and temporary files
+docs/phases-restructure-plan.md
+methodology-implementation-summary.md
+
 # Test files
 test-*

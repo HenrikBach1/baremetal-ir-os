@@ -206,20 +206,29 @@ remove_section_numbering() {
   # Process file line by line
   while IFS= read -r line; do
     # Check for different heading levels with numbering
-    if [[ "$line" =~ ^#[^#].*[0-9]+\.\ .*$ ]]; then  # H1 with numbering
-      echo "# ${line#\# *\. }" >> "$temp_file"
-    elif [[ "$line" =~ ^##[^#].*[0-9\.]+\.\ .*$ ]]; then  # H2 with numbering
-      echo "## ${line#\## *\. }" >> "$temp_file"
-    elif [[ "$line" =~ ^###[^#].*[0-9\.]+\.\ .*$ ]]; then  # H3 with numbering
-      echo "### ${line#\### *\. }" >> "$temp_file"
-    elif [[ "$line" =~ ^####[^#].*[0-9\.]+\.\ .*$ ]]; then  # H4 with numbering
-      echo "#### ${line#\#### *\. }" >> "$temp_file"
-    elif [[ "$line" =~ ^#####[^#].*[0-9\.]+\.\ .*$ ]]; then  # H5 with numbering
-      echo "##### ${line#\##### *\. }" >> "$temp_file"
-    elif [[ "$line" =~ ^######[^#].*[0-9\.]+\.\ .*$ ]]; then  # H6 with numbering
-      echo "###### ${line#\###### *\. }" >> "$temp_file"
+    if [[ "$line" =~ ^#[^#] ]]; then  # H1
+      # Remove any pattern like "# 1. " or "# 1.1. " etc.
+      cleaned_line=$(echo "$line" | sed -E 's/^# +([0-9]+(\.[0-9]+)*\.? *)+/# /')
+      echo "$cleaned_line" >> "$temp_file"
+    elif [[ "$line" =~ ^##[^#] ]]; then  # H2
+      # Remove any pattern like "## 1. " or "## 1.1. " etc.
+      cleaned_line=$(echo "$line" | sed -E 's/^## +([0-9]+(\.[0-9]+)*\.? *)+/## /')
+      echo "$cleaned_line" >> "$temp_file"
+    elif [[ "$line" =~ ^###[^#] ]]; then  # H3
+      # Remove any pattern like "### 1.1.1. " etc., including recursive numbering
+      cleaned_line=$(echo "$line" | sed -E 's/^### +([0-9]+(\.[0-9]+)*\.? *)+/### /')
+      echo "$cleaned_line" >> "$temp_file"
+    elif [[ "$line" =~ ^####[^#] ]]; then  # H4
+      cleaned_line=$(echo "$line" | sed -E 's/^#### +([0-9]+(\.[0-9]+)*\.? *)+/#### /')
+      echo "$cleaned_line" >> "$temp_file"
+    elif [[ "$line" =~ ^#####[^#] ]]; then  # H5
+      cleaned_line=$(echo "$line" | sed -E 's/^##### +([0-9]+(\.[0-9]+)*\.? *)+/##### /')
+      echo "$cleaned_line" >> "$temp_file"
+    elif [[ "$line" =~ ^######[^#] ]]; then  # H6
+      cleaned_line=$(echo "$line" | sed -E 's/^###### +([0-9]+(\.[0-9]+)*\.? *)+/###### /')
+      echo "$cleaned_line" >> "$temp_file"
     else
-      # Not a numbered heading, just echo the line
+      # Not a heading, just echo the line
       echo "$line" >> "$temp_file"
     fi
   done < "$file"

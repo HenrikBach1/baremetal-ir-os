@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -75,123 +75,503 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="docs/custom.css" />
-  \usepackage{fancyhdr}
-  \pagestyle{fancy}
-  \fancyhead[RE,RO]{\rightmark}
-  \fancyfoot[C]{Page \thepage}
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Baremetal IR OS Documentation</h1>
-<p class="subtitle">A Comprehensive Guide (v1.0.0)</p>
 <p class="author">Henrik Bach</p>
-<p class="date">June 2025</p>
+<p class="date">June 22, 2025 at 20:02:00 UTC</p>
 </header>
 <nav id="TOC">
 <ul>
-<li><a href="#key-features">1. Key Features</a></li>
-<li><a href="#target-applications">2. Target Applications</a></li>
-<li><a href="#traditional-os-limitations">1. Traditional OS Limitations</a></li>
-<li><a href="#our-solution-approach">2. Our Solution Approach</a></li>
-<li><a href="#core-components">1. Core Components</a><ul>
-<li><a href="#hardware-abstraction-layer-hal">1.1. 1. Hardware Abstraction Layer (HAL)</a></li>
-<li><a href="#ir-runtime-environment">1.2. 2. IR Runtime Environment</a></li>
-<li><a href="#jit-compilation-engine">1.3. 3. JIT Compilation Engine</a></li>
-<li><a href="#os-services">1.4. 4. OS Services</a></li>
+<li><a href="#baremetal-ir-os-documentation"><span class="toc-section-number">1</span> Baremetal IR OS Documentation</a></li>
+<li><a href="#table-of-contents"><span class="toc-section-number">2</span> Table of Contents</a><ul>
+<li><a href="#project-overview"><span class="toc-section-number">2.1</span> Project Overview</a></li>
+<li><a href="#development-methodology"><span class="toc-section-number">2.2</span> Development Methodology</a><ul>
+<li><a href="#phase-1-analysis-understanding-the-problem"><span class="toc-section-number">2.2.1</span> Phase 1: Analysis (Understanding the Problem)</a></li>
+<li><a href="#phase-2-synthesis-design-and-architecture"><span class="toc-section-number">2.2.2</span> Phase 2: Synthesis (Design and Architecture)</a></li>
+<li><a href="#phase-3-implementation-concrete-realization"><span class="toc-section-number">2.2.3</span> Phase 3: Implementation (Concrete Realization)</a></li>
 </ul></li>
-<li><a href="#system-flow">2. System Flow</a></li>
-<li><a href="#ir-format-overview">1. IR Format Overview</a></li>
-<li><a href="#core-ir-instructions">2. Core IR Instructions</a><ul>
-<li><a href="#memory-operations">2.1. Memory Operations</a></li>
-<li><a href="#arithmetic-operations">2.2. Arithmetic Operations</a></li>
-<li><a href="#control-flow">2.3. Control Flow</a></li>
+<li><a href="#key-features"><span class="toc-section-number">2.3</span> Key Features</a></li>
+<li><a href="#target-applications"><span class="toc-section-number">2.4</span> Target Applications</a></li>
+<li><a href="#documentation-structure"><span class="toc-section-number">2.5</span> Documentation Structure</a></li>
+<li><a href="#problem-analysis-and-motivation"><span class="toc-section-number">2.6</span> Problem Analysis and Motivation</a></li>
+<li><a href="#problem-domain-analysis"><span class="toc-section-number">2.7</span> Problem Domain Analysis</a><ul>
+<li><a href="#traditional-os-limitations"><span class="toc-section-number">2.7.1</span> Traditional OS Limitations</a></li>
+<li><a href="#root-cause-analysis"><span class="toc-section-number">2.7.2</span> Root Cause Analysis</a></li>
 </ul></li>
-<li><a href="#type-system">3. Type System</a></li>
-<li><a href="#ir-metadata">4. IR Metadata</a></li>
-<li><a href="#jit-pipeline">1. JIT Pipeline</a></li>
-<li><a href="#optimization-techniques">2. Optimization Techniques</a><ul>
-<li><a href="#static-optimizations">2.1. Static Optimizations</a></li>
-<li><a href="#dynamic-optimizations">2.2. Dynamic Optimizations</a></li>
+<li><a href="#requirements-analysis"><span class="toc-section-number">2.8</span> Requirements Analysis</a><ul>
+<li><a href="#functional-requirements"><span class="toc-section-number">2.8.1</span> Functional Requirements</a></li>
+<li><a href="#non-functional-requirements"><span class="toc-section-number">2.8.2</span> Non-Functional Requirements</a></li>
 </ul></li>
-<li><a href="#platform-adapters">3. Platform Adapters</a></li>
-<li><a href="#memory-management">4. Memory Management</a></li>
-<li><a href="#boot-sequence">1. Boot Sequence</a></li>
-<li><a href="#memory-layout">2. Memory Layout</a></li>
-<li><a href="#runtime-services">3. Runtime Services</a></li>
-<li><a href="#configuration-options">4. Configuration Options</a></li>
-<li><a href="#process-management">1. Process Management</a></li>
-<li><a href="#memory-management-1">2. Memory Management</a></li>
-<li><a href="#file-system">3. File System</a></li>
-<li><a href="#networking">4. Networking</a></li>
-<li><a href="#device-management">5. Device Management</a></li>
-<li><a href="#security">6. Security</a></li>
-<li><a href="#hardware-abstraction-layer">1. Hardware Abstraction Layer</a></li>
-<li><a href="#supported-architectures">2. Supported Architectures</a></li>
-<li><a href="#driver-model">3. Driver Model</a></li>
-<li><a href="#hardware-acceleration">4. Hardware Acceleration</a></li>
-<li><a href="#hardware-configuration">5. Hardware Configuration</a></li>
-<li><a href="#development-environment">1. Development Environment</a><ul>
-<li><a href="#required-tools">1.1. Required Tools</a></li>
-<li><a href="#setup-instructions">1.2. Setup Instructions</a></li>
+<li><a href="#solution-approach-analysis"><span class="toc-section-number">2.9</span> Solution Approach Analysis</a><ul>
+<li><a href="#our-innovative-approach"><span class="toc-section-number">2.9.1</span> Our Innovative Approach</a></li>
+<li><a href="#expected-benefits"><span class="toc-section-number">2.9.2</span> Expected Benefits</a></li>
 </ul></li>
-<li><a href="#code-organization">2. Code Organization</a></li>
-<li><a href="#coding-standards">3. Coding Standards</a></li>
-<li><a href="#contribution-workflow">4. Contribution Workflow</a></li>
-<li><a href="#common-development-tasks">5. Common Development Tasks</a><ul>
-<li><a href="#adding-a-new-hardware-platform">5.1. Adding a New Hardware Platform</a></li>
-<li><a href="#extending-the-ir-specification">5.2. Extending the IR Specification</a></li>
+<li><a href="#validation-criteria"><span class="toc-section-number">2.10</span> Validation Criteria</a><ul>
+<li><a href="#performance-metrics"><span class="toc-section-number">2.10.1</span> Performance Metrics</a></li>
+<li><a href="#functionality-metrics"><span class="toc-section-number">2.10.2</span> Functionality Metrics</a></li>
+<li><a href="#quality-metrics"><span class="toc-section-number">2.10.3</span> Quality Metrics</a></li>
 </ul></li>
-<li><a href="#testing-framework">1. Testing Framework</a><ul>
-<li><a href="#unit-testing">1.1. Unit Testing</a></li>
-<li><a href="#integration-testing">1.2. Integration Testing</a></li>
-<li><a href="#test-organization">1.3. Test Organization</a></li>
+<li><a href="#system-architecture"><span class="toc-section-number">2.11</span> System Architecture</a></li>
+<li><a href="#core-components"><span class="toc-section-number">2.12</span> Core Components</a><ul>
+<li><a href="#hardware-abstraction-layer-hal"><span class="toc-section-number">2.12.1</span> Hardware Abstraction Layer (HAL)</a></li>
+<li><a href="#ir-runtime-environment"><span class="toc-section-number">2.12.2</span> IR Runtime Environment</a></li>
+<li><a href="#jit-compilation-engine-1"><span class="toc-section-number">2.12.3</span> JIT Compilation Engine</a></li>
+<li><a href="#os-services"><span class="toc-section-number">2.12.4</span> OS Services</a></li>
 </ul></li>
-<li><a href="#running-tests">2. Running Tests</a></li>
-<li><a href="#debugging-tools">3. Debugging Tools</a><ul>
-<li><a href="#trace-and-logging">3.1. Trace and Logging</a></li>
-<li><a href="#debugger-integration">3.2. Debugger Integration</a></li>
-<li><a href="#memory-analysis">3.3. Memory Analysis</a></li>
+<li><a href="#system-flow"><span class="toc-section-number">2.13</span> System Flow</a></li>
+<li><a href="#requirements-analysis-and-specification"><span class="toc-section-number">2.14</span> Requirements Analysis and Specification</a></li>
+<li><a href="#requirements-methodology"><span class="toc-section-number">2.15</span> Requirements Methodology</a><ul>
+<li><a href="#requirements-sources"><span class="toc-section-number">2.15.1</span> Requirements Sources</a></li>
+<li><a href="#requirements-categories"><span class="toc-section-number">2.15.2</span> Requirements Categories</a></li>
 </ul></li>
-<li><a href="#debugging-process">4. Debugging Process</a><ul>
-<li><a href="#system-level-debugging">4.1. System-Level Debugging</a></li>
-<li><a href="#ir-debugging">4.2. IR Debugging</a></li>
-<li><a href="#jit-debugging">4.3. JIT Debugging</a></li>
+<li><a href="#functional-requirements-1"><span class="toc-section-number">2.16</span> Functional Requirements</a><ul>
+<li><a href="#core-operating-system-services"><span class="toc-section-number">2.16.1</span> Core Operating System Services</a></li>
+<li><a href="#ir-runtime-system"><span class="toc-section-number">2.16.2</span> IR Runtime System</a></li>
+<li><a href="#platform-support"><span class="toc-section-number">2.16.3</span> Platform Support</a></li>
 </ul></li>
-<li><a href="#issue-reporting">5. Issue Reporting</a></li>
-<li><a href="#current-version-1.0.0">1. Current Version (1.0.0)</a></li>
-<li><a href="#short-term-goals-1.x">2. Short-Term Goals (1.x)</a><ul>
-<li><a href="#version-1.1-q3-2025">2.1. Version 1.1 (Q3 2025)</a></li>
-<li><a href="#version-1.2-q4-2025">2.2. Version 1.2 (Q4 2025)</a></li>
-<li><a href="#version-1.3-q1-2026">2.3. Version 1.3 (Q1 2026)</a></li>
+<li><a href="#performance-requirements-1"><span class="toc-section-number">2.17</span> Performance Requirements</a><ul>
+<li><a href="#execution-performance"><span class="toc-section-number">2.17.1</span> Execution Performance</a></li>
+<li><a href="#scalability-requirements"><span class="toc-section-number">2.17.2</span> Scalability Requirements</a></li>
+<li><a href="#real-time-requirements"><span class="toc-section-number">2.17.3</span> Real-Time Requirements</a></li>
 </ul></li>
-<li><a href="#medium-term-goals-2.x">3. Medium-Term Goals (2.x)</a><ul>
-<li><a href="#version-2.0-q3-2026">3.1. Version 2.0 (Q3 2026)</a></li>
-<li><a href="#version-2.x-features">3.2. Version 2.x Features</a></li>
+<li><a href="#platform-requirements"><span class="toc-section-number">2.18</span> Platform Requirements</a><ul>
+<li><a href="#hardware-support"><span class="toc-section-number">2.18.1</span> Hardware Support</a></li>
+<li><a href="#portability-requirements-1"><span class="toc-section-number">2.18.2</span> Portability Requirements</a></li>
 </ul></li>
-<li><a href="#long-term-vision-3.x-and-beyond">4. Long-Term Vision (3.x and beyond)</a></li>
-<li><a href="#contributing-to-the-roadmap">5. Contributing to the Roadmap</a></li>
-<li><a href="#release-schedule">6. Release Schedule</a></li>
-<li><a href="#ir-file-format">1. IR File Format</a></li>
-<li><a href="#type-system-1">2. Type System</a><ul>
-<li><a href="#primitive-types">2.1. Primitive Types</a></li>
-<li><a href="#derived-types">2.2. Derived Types</a></li>
+<li><a href="#quality-requirements"><span class="toc-section-number">2.19</span> Quality Requirements</a><ul>
+<li><a href="#reliability-requirements-1"><span class="toc-section-number">2.19.1</span> Reliability Requirements</a></li>
+<li><a href="#security-requirements"><span class="toc-section-number">2.19.2</span> Security Requirements</a></li>
+<li><a href="#maintainability-requirements-1"><span class="toc-section-number">2.19.3</span> Maintainability Requirements</a></li>
 </ul></li>
-<li><a href="#instructions">3. Instructions</a><ul>
-<li><a href="#memory-operations-1">3.1. Memory Operations</a></li>
-<li><a href="#arithmetic-operations-1">3.2. Arithmetic Operations</a></li>
-<li><a href="#bitwise-operations">3.3. Bitwise Operations</a></li>
-<li><a href="#control-flow-1">3.4. Control Flow</a></li>
-<li><a href="#conversion-operations">3.5. Conversion Operations</a></li>
+<li><a href="#requirements-traceability"><span class="toc-section-number">2.20</span> Requirements Traceability</a><ul>
+<li><a href="#problem-to-requirement-mapping"><span class="toc-section-number">2.20.1</span> Problem-to-Requirement Mapping</a></li>
+<li><a href="#requirements-dependencies"><span class="toc-section-number">2.20.2</span> Requirements Dependencies</a></li>
 </ul></li>
-<li><a href="#metadata">4. Metadata</a></li>
-<li><a href="#extensions">5. Extensions</a></li>
-<li><a href="#binary-format">6. Binary Format</a></li>
+<li><a href="#validation-and-acceptance-criteria"><span class="toc-section-number">2.21</span> Validation and Acceptance Criteria</a><ul>
+<li><a href="#functional-validation"><span class="toc-section-number">2.21.1</span> Functional Validation</a></li>
+<li><a href="#performance-validation"><span class="toc-section-number">2.21.2</span> Performance Validation</a></li>
+<li><a href="#quality-validation"><span class="toc-section-number">2.21.3</span> Quality Validation</a></li>
+</ul></li>
+<li><a href="#intermediate-representation-ir-design"><span class="toc-section-number">2.22</span> Intermediate Representation (IR) Design</a></li>
+<li><a href="#ir-format-overview"><span class="toc-section-number">2.23</span> IR Format Overview</a></li>
+<li><a href="#core-ir-instructions"><span class="toc-section-number">2.24</span> Core IR Instructions</a><ul>
+<li><a href="#memory-operations"><span class="toc-section-number">2.24.1</span> Memory Operations</a></li>
+<li><a href="#arithmetic-operations"><span class="toc-section-number">2.24.2</span> Arithmetic Operations</a></li>
+<li><a href="#control-flow"><span class="toc-section-number">2.24.3</span> Control Flow</a></li>
+</ul></li>
+<li><a href="#type-system"><span class="toc-section-number">2.25</span> Type System</a></li>
+<li><a href="#ir-metadata"><span class="toc-section-number">2.26</span> IR Metadata</a></li>
+<li><a href="#jit-engine-design"><span class="toc-section-number">2.27</span> JIT Engine Design</a></li>
+<li><a href="#jit-pipeline"><span class="toc-section-number">2.28</span> JIT Pipeline</a></li>
+<li><a href="#optimization-techniques"><span class="toc-section-number">2.29</span> Optimization Techniques</a><ul>
+<li><a href="#static-optimizations"><span class="toc-section-number">2.29.1</span> Static Optimizations</a></li>
+<li><a href="#dynamic-optimizations"><span class="toc-section-number">2.29.2</span> Dynamic Optimizations</a></li>
+</ul></li>
+<li><a href="#platform-adapters"><span class="toc-section-number">2.30</span> Platform Adapters</a></li>
+<li><a href="#memory-management"><span class="toc-section-number">2.31</span> Memory Management</a></li>
+<li><a href="#boot-and-runtime-initialization"><span class="toc-section-number">2.32</span> Boot and Runtime Initialization</a></li>
+<li><a href="#boot-sequence"><span class="toc-section-number">2.33</span> Boot Sequence</a></li>
+<li><a href="#memory-layout"><span class="toc-section-number">2.34</span> Memory Layout</a></li>
+<li><a href="#runtime-services"><span class="toc-section-number">2.35</span> Runtime Services</a></li>
+<li><a href="#configuration-options"><span class="toc-section-number">2.36</span> Configuration Options</a></li>
+<li><a href="#os-subsystem-design"><span class="toc-section-number">2.37</span> OS Subsystem Design</a></li>
+<li><a href="#process-management"><span class="toc-section-number">2.38</span> Process Management</a></li>
+<li><a href="#memory-management-1"><span class="toc-section-number">2.39</span> Memory Management</a></li>
+<li><a href="#file-system"><span class="toc-section-number">2.40</span> File System</a></li>
+<li><a href="#networking"><span class="toc-section-number">2.41</span> Networking</a></li>
+<li><a href="#device-management"><span class="toc-section-number">2.42</span> Device Management</a></li>
+<li><a href="#security"><span class="toc-section-number">2.43</span> Security</a></li>
+<li><a href="#hardware-integration"><span class="toc-section-number">2.44</span> Hardware Integration</a></li>
+<li><a href="#hardware-abstraction-layer"><span class="toc-section-number">2.45</span> Hardware Abstraction Layer</a></li>
+<li><a href="#supported-architectures"><span class="toc-section-number">2.46</span> Supported Architectures</a></li>
+<li><a href="#driver-model"><span class="toc-section-number">2.47</span> Driver Model</a></li>
+<li><a href="#hardware-acceleration"><span class="toc-section-number">2.48</span> Hardware Acceleration</a></li>
+<li><a href="#hardware-configuration"><span class="toc-section-number">2.49</span> Hardware Configuration</a></li>
+<li><a href="#developer-notes"><span class="toc-section-number">2.50</span> Developer Notes</a></li>
+<li><a href="#development-environment"><span class="toc-section-number">2.51</span> Development Environment</a><ul>
+<li><a href="#required-tools"><span class="toc-section-number">2.51.1</span> Required Tools</a></li>
+<li><a href="#setup-instructions"><span class="toc-section-number">2.51.2</span> Setup Instructions</a></li>
+</ul></li>
+<li><a href="#code-organization"><span class="toc-section-number">2.52</span> Code Organization</a></li>
+<li><a href="#coding-standards"><span class="toc-section-number">2.53</span> Coding Standards</a></li>
+<li><a href="#contribution-workflow"><span class="toc-section-number">2.54</span> Contribution Workflow</a></li>
+<li><a href="#common-development-tasks"><span class="toc-section-number">2.55</span> Common Development Tasks</a><ul>
+<li><a href="#adding-a-new-hardware-platform"><span class="toc-section-number">2.55.1</span> Adding a New Hardware Platform</a></li>
+<li><a href="#extending-the-ir-specification"><span class="toc-section-number">2.55.2</span> Extending the IR Specification</a></li>
+</ul></li>
+<li><a href="#testing-and-debugging"><span class="toc-section-number">2.56</span> Testing and Debugging</a></li>
+<li><a href="#testing-framework"><span class="toc-section-number">2.57</span> Testing Framework</a><ul>
+<li><a href="#unit-testing"><span class="toc-section-number">2.57.1</span> Unit Testing</a></li>
+<li><a href="#integration-testing"><span class="toc-section-number">2.57.2</span> Integration Testing</a></li>
+<li><a href="#test-organization"><span class="toc-section-number">2.57.3</span> Test Organization</a></li>
+</ul></li>
+<li><a href="#running-tests"><span class="toc-section-number">2.58</span> Running Tests</a></li>
+<li><a href="#debugging-tools"><span class="toc-section-number">2.59</span> Debugging Tools</a><ul>
+<li><a href="#trace-and-logging"><span class="toc-section-number">2.59.1</span> Trace and Logging</a></li>
+<li><a href="#debugger-integration"><span class="toc-section-number">2.59.2</span> Debugger Integration</a></li>
+<li><a href="#memory-analysis"><span class="toc-section-number">2.59.3</span> Memory Analysis</a></li>
+</ul></li>
+<li><a href="#debugging-process"><span class="toc-section-number">2.60</span> Debugging Process</a><ul>
+<li><a href="#system-level-debugging"><span class="toc-section-number">2.60.1</span> System-Level Debugging</a></li>
+<li><a href="#ir-debugging"><span class="toc-section-number">2.60.2</span> IR Debugging</a></li>
+<li><a href="#jit-debugging"><span class="toc-section-number">2.60.3</span> JIT Debugging</a></li>
+</ul></li>
+<li><a href="#issue-reporting"><span class="toc-section-number">2.61</span> Issue Reporting</a></li>
+<li><a href="#project-roadmap"><span class="toc-section-number">2.62</span> Project Roadmap</a></li>
+<li><a href="#current-version-1.0.0"><span class="toc-section-number">2.63</span> Current Version (1.0.0)</a></li>
+<li><a href="#short-term-goals-1.x"><span class="toc-section-number">2.64</span> Short-Term Goals (1.x)</a><ul>
+<li><a href="#version-1.1-q3-2025"><span class="toc-section-number">2.64.1</span> Version 1.1 (Q3 2025)</a></li>
+<li><a href="#version-1.2-q4-2025"><span class="toc-section-number">2.64.2</span> Version 1.2 (Q4 2025)</a></li>
+<li><a href="#version-1.3-q1-2026"><span class="toc-section-number">2.64.3</span> Version 1.3 (Q1 2026)</a></li>
+</ul></li>
+<li><a href="#medium-term-goals-2.x"><span class="toc-section-number">2.65</span> Medium-Term Goals (2.x)</a><ul>
+<li><a href="#version-2.0-q3-2026"><span class="toc-section-number">2.65.1</span> Version 2.0 (Q3 2026)</a></li>
+<li><a href="#version-2.x-features"><span class="toc-section-number">2.65.2</span> Version 2.x Features</a></li>
+</ul></li>
+<li><a href="#long-term-vision-3.x-and-beyond"><span class="toc-section-number">2.66</span> Long-Term Vision (3.x and beyond)</a></li>
+<li><a href="#contributing-to-the-roadmap"><span class="toc-section-number">2.67</span> Contributing to the Roadmap</a></li>
+<li><a href="#release-schedule"><span class="toc-section-number">2.68</span> Release Schedule</a></li>
+<li><a href="#custom-ir-specification"><span class="toc-section-number">2.69</span> Custom IR Specification</a></li>
+<li><a href="#ir-file-format"><span class="toc-section-number">2.70</span> IR File Format</a></li>
+<li><a href="#type-system-1"><span class="toc-section-number">2.71</span> Type System</a><ul>
+<li><a href="#primitive-types"><span class="toc-section-number">2.71.1</span> Primitive Types</a></li>
+<li><a href="#derived-types"><span class="toc-section-number">2.71.2</span> Derived Types</a></li>
+</ul></li>
+<li><a href="#instructions"><span class="toc-section-number">2.72</span> Instructions</a><ul>
+<li><a href="#memory-operations-1"><span class="toc-section-number">2.72.1</span> Memory Operations</a></li>
+<li><a href="#arithmetic-operations-1"><span class="toc-section-number">2.72.2</span> Arithmetic Operations</a></li>
+<li><a href="#bitwise-operations"><span class="toc-section-number">2.72.3</span> Bitwise Operations</a></li>
+<li><a href="#control-flow-1"><span class="toc-section-number">2.72.4</span> Control Flow</a></li>
+<li><a href="#conversion-operations"><span class="toc-section-number">2.72.5</span> Conversion Operations</a></li>
+</ul></li>
+<li><a href="#metadata"><span class="toc-section-number">2.73</span> Metadata</a></li>
+<li><a href="#extensions"><span class="toc-section-number">2.74</span> Extensions</a></li>
+<li><a href="#binary-format"><span class="toc-section-number">2.75</span> Binary Format</a></li>
+<li><a href="#phase-1-analysis---problem-understanding-and-requirements"><span class="toc-section-number">2.76</span> Phase 1: Analysis - Problem Understanding and Requirements</a></li>
+<li><a href="#analysis-phase-objectives"><span class="toc-section-number">2.77</span> Analysis Phase Objectives</a></li>
+<li><a href="#methodology"><span class="toc-section-number">2.78</span> Methodology</a><ul>
+<li><a href="#problem-domain-analysis-1"><span class="toc-section-number">2.78.1</span> Problem Domain Analysis</a></li>
+<li><a href="#stakeholder-requirements"><span class="toc-section-number">2.78.2</span> Stakeholder Requirements</a></li>
+<li><a href="#technical-constraints"><span class="toc-section-number">2.78.3</span> Technical Constraints</a></li>
+<li><a href="#competitive-analysis"><span class="toc-section-number">2.78.4</span> Competitive Analysis</a></li>
+</ul></li>
+<li><a href="#outputs-of-analysis-phase"><span class="toc-section-number">2.79</span> Outputs of Analysis Phase</a></li>
+<li><a href="#relationship-to-subsequent-phases"><span class="toc-section-number">2.80</span> Relationship to Subsequent Phases</a></li>
+<li><a href="#phase-2-synthesis---design-and-architecture"><span class="toc-section-number">2.81</span> Phase 2: Synthesis - Design and Architecture</a></li>
+<li><a href="#synthesis-phase-objectives"><span class="toc-section-number">2.82</span> Synthesis Phase Objectives</a></li>
+<li><a href="#methodology-1"><span class="toc-section-number">2.83</span> Methodology</a><ul>
+<li><a href="#requirements-driven-design"><span class="toc-section-number">2.83.1</span> Requirements-Driven Design</a></li>
+<li><a href="#modular-architecture"><span class="toc-section-number">2.83.2</span> Modular Architecture</a></li>
+<li><a href="#layered-abstraction"><span class="toc-section-number">2.83.3</span> Layered Abstraction</a></li>
+<li><a href="#extensibility-planning"><span class="toc-section-number">2.83.4</span> Extensibility Planning</a></li>
+</ul></li>
+<li><a href="#design-artifacts"><span class="toc-section-number">2.84</span> Design Artifacts</a><ul>
+<li><a href="#architecture-documentation"><span class="toc-section-number">2.84.1</span> Architecture Documentation</a></li>
+<li><a href="#design-specifications"><span class="toc-section-number">2.84.2</span> Design Specifications</a></li>
+<li><a href="#integration-plans"><span class="toc-section-number">2.84.3</span> Integration Plans</a></li>
+</ul></li>
+<li><a href="#design-principles"><span class="toc-section-number">2.85</span> Design Principles</a></li>
+<li><a href="#relationship-to-other-phases"><span class="toc-section-number">2.86</span> Relationship to Other Phases</a></li>
+<li><a href="#phase-3-implementation---concrete-realization"><span class="toc-section-number">2.87</span> Phase 3: Implementation - Concrete Realization</a></li>
+<li><a href="#implementation-phase-objectives"><span class="toc-section-number">2.88</span> Implementation Phase Objectives</a></li>
+<li><a href="#methodology-2"><span class="toc-section-number">2.89</span> Methodology</a><ul>
+<li><a href="#incremental-development"><span class="toc-section-number">2.89.1</span> Incremental Development</a></li>
+<li><a href="#quality-assurance"><span class="toc-section-number">2.89.2</span> Quality Assurance</a></li>
+<li><a href="#documentation-driven-development"><span class="toc-section-number">2.89.3</span> Documentation-Driven Development</a></li>
+<li><a href="#platform-considerations"><span class="toc-section-number">2.89.4</span> Platform Considerations</a></li>
+</ul></li>
+<li><a href="#implementation-artifacts"><span class="toc-section-number">2.90</span> Implementation Artifacts</a><ul>
+<li><a href="#source-code"><span class="toc-section-number">2.90.1</span> Source Code</a></li>
+<li><a href="#build-system"><span class="toc-section-number">2.90.2</span> Build System</a></li>
+<li><a href="#documentation"><span class="toc-section-number">2.90.3</span> Documentation</a></li>
+<li><a href="#testing-framework-1"><span class="toc-section-number">2.90.4</span> Testing Framework</a></li>
+</ul></li>
+<li><a href="#implementation-principles"><span class="toc-section-number">2.91</span> Implementation Principles</a></li>
+<li><a href="#quality-standards"><span class="toc-section-number">2.92</span> Quality Standards</a><ul>
+<li><a href="#code-quality"><span class="toc-section-number">2.92.1</span> Code Quality</a></li>
+<li><a href="#testing-standards"><span class="toc-section-number">2.92.2</span> Testing Standards</a></li>
+<li><a href="#documentation-standards"><span class="toc-section-number">2.92.3</span> Documentation Standards</a></li>
+</ul></li>
+<li><a href="#current-implementation-status"><span class="toc-section-number">2.93</span> Current Implementation Status</a><ul>
+<li><a href="#completed-components"><span class="toc-section-number">2.93.1</span> Completed Components</a></li>
+<li><a href="#implementation-approach"><span class="toc-section-number">2.93.2</span> Implementation Approach</a></li>
+<li><a href="#next-implementation-steps"><span class="toc-section-number">2.93.3</span> Next Implementation Steps</a></li>
+</ul></li>
+<li><a href="#relationship-to-other-phases-1"><span class="toc-section-number">2.94</span> Relationship to Other Phases</a></li>
+</ul></li>
 </ul>
 </nav>
-<!-- Section: Project Overview -->
+<h1 id="baremetal-ir-os-documentation"><span class="header-section-number">1</span> Baremetal IR OS Documentation</h1>
+<p><strong>Version:</strong> 1.0.0 <strong>Generated:</strong> June 22, 2025 at 20:02:00 UTC <strong>Build System:</strong> Automated Documentation Generator</p>
+<h1 id="table-of-contents"><span class="header-section-number">2</span> Table of Contents</h1>
+<ul>
+<li><a href="#project-overview">Project Overview</a></li>
+<li><a href="#development-methodology">Development Methodology</a></li>
+<li><a href="#phase-1-analysis-understanding-the-problem">Phase 1: Analysis (Understanding the Problem)</a></li>
+<li><a href="#phase-2-synthesis-design-and-architecture">Phase 2: Synthesis (Design and Architecture)</a></li>
+<li><a href="#phase-3-implementation-concrete-realization">Phase 3: Implementation (Concrete Realization)</a></li>
+<li><a href="#key-features">Key Features</a></li>
+<li><a href="#target-applications">Target Applications</a></li>
+<li><a href="#documentation-structure">Documentation Structure</a></li>
+<li><a href="#problem-analysis-and-motivation">Problem Analysis and Motivation</a></li>
+<li><a href="#problem-domain-analysis">Problem Domain Analysis</a></li>
+<li><a href="#traditional-os-limitations">Traditional OS Limitations</a></li>
+<li><a href="#performance-overhead-issues">Performance Overhead Issues</a></li>
+<li><a href="#hardware-compatibility-challenges">Hardware Compatibility Challenges</a></li>
+<li><a href="#dynamic-optimization-limitations">Dynamic Optimization Limitations</a></li>
+<li><a href="#complexity-and-maintainability-issues">Complexity and Maintainability Issues</a></li>
+<li><a href="#root-cause-analysis">Root Cause Analysis</a></li>
+<li><a href="#requirements-analysis">Requirements Analysis</a></li>
+<li><a href="#functional-requirements">Functional Requirements</a></li>
+<li><a href="#core-os-functionality">Core OS Functionality</a></li>
+<li><a href="#performance-requirements">Performance Requirements</a></li>
+<li><a href="#portability-requirements">Portability Requirements</a></li>
+<li><a href="#non-functional-requirements">Non-Functional Requirements</a></li>
+<li><a href="#performance-constraints">Performance Constraints</a></li>
+<li><a href="#reliability-requirements">Reliability Requirements</a></li>
+<li><a href="#maintainability-requirements">Maintainability Requirements</a></li>
+<li><a href="#solution-approach-analysis">Solution Approach Analysis</a></li>
+<li><a href="#our-innovative-approach">Our Innovative Approach</a></li>
+<li><a href="#ir-based-execution-model">IR-Based Execution Model</a></li>
+<li><a href="#direct-hardware-access">Direct Hardware Access</a></li>
+<li><a href="#jit-compilation-engine">JIT Compilation Engine</a></li>
+<li><a href="#simplified-architecture">Simplified Architecture</a></li>
+<li><a href="#expected-benefits">Expected Benefits</a></li>
+<li><a href="#performance-improvements">Performance Improvements</a></li>
+<li><a href="#development-benefits">Development Benefits</a></li>
+<li><a href="#operational-advantages">Operational Advantages</a></li>
+<li><a href="#validation-criteria">Validation Criteria</a></li>
+<li><a href="#performance-metrics">Performance Metrics</a></li>
+<li><a href="#functionality-metrics">Functionality Metrics</a></li>
+<li><a href="#quality-metrics">Quality Metrics</a></li>
+<li><a href="#system-architecture">System Architecture</a></li>
+<li><a href="#core-components">Core Components</a></li>
+<li><a href="#hardware-abstraction-layer-hal">Hardware Abstraction Layer (HAL)</a></li>
+<li><a href="#ir-runtime-environment">IR Runtime Environment</a></li>
+<li><a href="#jit-compilation-engine">JIT Compilation Engine</a></li>
+<li><a href="#os-services">OS Services</a></li>
+<li><a href="#system-flow">System Flow</a></li>
+<li><a href="#requirements-analysis-and-specification">Requirements Analysis and Specification</a></li>
+<li><a href="#requirements-methodology">Requirements Methodology</a></li>
+<li><a href="#requirements-sources">Requirements Sources</a></li>
+<li><a href="#requirements-categories">Requirements Categories</a></li>
+<li><a href="#functional-requirements">Functional Requirements</a></li>
+<li><a href="#core-operating-system-services">Core Operating System Services</a></li>
+<li><a href="#fr-01-process-and-thread-management">FR-01: Process and Thread Management</a></li>
+<li><a href="#fr-02-memory-management">FR-02: Memory Management</a></li>
+<li><a href="#fr-03-hardware-device-access">FR-03: Hardware Device Access</a></li>
+<li><a href="#fr-04-file-system-support">FR-04: File System Support</a></li>
+<li><a href="#fr-05-inter-process-communication-ipc">FR-05: Inter-Process Communication (IPC)</a></li>
+<li><a href="#ir-runtime-system">IR Runtime System</a></li>
+<li><a href="#fr-06-ir-code-loading-and-execution">FR-06: IR Code Loading and Execution</a></li>
+<li><a href="#fr-07-jit-compilation-engine">FR-07: JIT Compilation Engine</a></li>
+<li><a href="#fr-08-dynamic-optimization">FR-08: Dynamic Optimization</a></li>
+<li><a href="#platform-support">Platform Support</a></li>
+<li><a href="#fr-09-multi-architecture-support">FR-09: Multi-Architecture Support</a></li>
+<li><a href="#fr-10-boot-and-initialization">FR-10: Boot and Initialization</a></li>
+<li><a href="#performance-requirements">Performance Requirements</a></li>
+<li><a href="#execution-performance">Execution Performance</a></li>
+<li><a href="#pr-01-execution-speed">PR-01: Execution Speed</a></li>
+<li><a href="#pr-02-system-call-latency">PR-02: System Call Latency</a></li>
+<li><a href="#pr-03-memory-overhead">PR-03: Memory Overhead</a></li>
+<li><a href="#scalability-requirements">Scalability Requirements</a></li>
+<li><a href="#pr-04-process-scalability">PR-04: Process Scalability</a></li>
+<li><a href="#pr-05-memory-scalability">PR-05: Memory Scalability</a></li>
+<li><a href="#real-time-requirements">Real-Time Requirements</a></li>
+<li><a href="#pr-06-deterministic-behavior">PR-06: Deterministic Behavior</a></li>
+<li><a href="#pr-07-interrupt-latency">PR-07: Interrupt Latency</a></li>
+<li><a href="#platform-requirements">Platform Requirements</a></li>
+<li><a href="#hardware-support">Hardware Support</a></li>
+<li><a href="#plr-01-minimum-hardware-requirements">PLR-01: Minimum Hardware Requirements</a></li>
+<li><a href="#plr-02-hardware-feature-utilization">PLR-02: Hardware Feature Utilization</a></li>
+<li><a href="#portability-requirements">Portability Requirements</a></li>
+<li><a href="#plr-03-source-code-portability">PLR-03: Source Code Portability</a></li>
+<li><a href="#plr-04-application-portability">PLR-04: Application Portability</a></li>
+<li><a href="#quality-requirements">Quality Requirements</a></li>
+<li><a href="#reliability-requirements">Reliability Requirements</a></li>
+<li><a href="#qr-01-system-stability">QR-01: System Stability</a></li>
+<li><a href="#qr-02-error-recovery">QR-02: Error Recovery</a></li>
+<li><a href="#security-requirements">Security Requirements</a></li>
+<li><a href="#qr-03-process-isolation">QR-03: Process Isolation</a></li>
+<li><a href="#qr-04-resource-access-control">QR-04: Resource Access Control</a></li>
+<li><a href="#maintainability-requirements">Maintainability Requirements</a></li>
+<li><a href="#qr-05-code-quality">QR-05: Code Quality</a></li>
+<li><a href="#qr-06-testing-coverage">QR-06: Testing Coverage</a></li>
+<li><a href="#requirements-traceability">Requirements Traceability</a></li>
+<li><a href="#problem-to-requirement-mapping">Problem-to-Requirement Mapping</a></li>
+<li><a href="#requirements-dependencies">Requirements Dependencies</a></li>
+<li><a href="#validation-and-acceptance-criteria">Validation and Acceptance Criteria</a></li>
+<li><a href="#functional-validation">Functional Validation</a></li>
+<li><a href="#performance-validation">Performance Validation</a></li>
+<li><a href="#quality-validation">Quality Validation</a></li>
+<li><a href="#intermediate-representation-ir-design">Intermediate Representation (IR) Design</a></li>
+<li><a href="#ir-format-overview">IR Format Overview</a></li>
+<li><a href="#core-ir-instructions">Core IR Instructions</a></li>
+<li><a href="#memory-operations">Memory Operations</a></li>
+<li><a href="#arithmetic-operations">Arithmetic Operations</a></li>
+<li><a href="#control-flow">Control Flow</a></li>
+<li><a href="#type-system">Type System</a></li>
+<li><a href="#ir-metadata">IR Metadata</a></li>
+<li><a href="#jit-engine-design">JIT Engine Design</a></li>
+<li><a href="#jit-pipeline">JIT Pipeline</a></li>
+<li><a href="#optimization-techniques">Optimization Techniques</a></li>
+<li><a href="#static-optimizations">Static Optimizations</a></li>
+<li><a href="#dynamic-optimizations">Dynamic Optimizations</a></li>
+<li><a href="#platform-adapters">Platform Adapters</a></li>
+<li><a href="#memory-management">Memory Management</a></li>
+<li><a href="#boot-and-runtime-initialization">Boot and Runtime Initialization</a></li>
+<li><a href="#boot-sequence">Boot Sequence</a></li>
+<li><a href="#memory-layout">Memory Layout</a></li>
+<li><a href="#runtime-services">Runtime Services</a></li>
+<li><a href="#configuration-options">Configuration Options</a></li>
+<li><a href="#os-subsystem-design">OS Subsystem Design</a></li>
+<li><a href="#process-management">Process Management</a></li>
+<li><a href="#memory-management">Memory Management</a></li>
+<li><a href="#file-system">File System</a></li>
+<li><a href="#networking">Networking</a></li>
+<li><a href="#device-management">Device Management</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#hardware-integration">Hardware Integration</a></li>
+<li><a href="#hardware-abstraction-layer">Hardware Abstraction Layer</a></li>
+<li><a href="#supported-architectures">Supported Architectures</a></li>
+<li><a href="#driver-model">Driver Model</a></li>
+<li><a href="#hardware-acceleration">Hardware Acceleration</a></li>
+<li><a href="#hardware-configuration">Hardware Configuration</a></li>
+<li><a href="#developer-notes">Developer Notes</a></li>
+<li><a href="#development-environment">Development Environment</a></li>
+<li><a href="#required-tools">Required Tools</a></li>
+<li><a href="#setup-instructions">Setup Instructions</a></li>
+<li><a href="#clone-repository-with-submodules">Clone repository with submodules</a></li>
+<li><a href="#install-dependencies-ubuntu-debian">Install dependencies (Ubuntu/Debian)</a></li>
+<li><a href="#configure-build">Configure build</a></li>
+<li><a href="#build-the-project">Build the project</a></li>
+<li><a href="#code-organization">Code Organization</a></li>
+<li><a href="#coding-standards">Coding Standards</a></li>
+<li><a href="#contribution-workflow">Contribution Workflow</a></li>
+<li><a href="#common-development-tasks">Common Development Tasks</a></li>
+<li><a href="#adding-a-new-hardware-platform">Adding a New Hardware Platform</a></li>
+<li><a href="#extending-the-ir-specification">Extending the IR Specification</a></li>
+<li><a href="#testing-and-debugging">Testing and Debugging</a></li>
+<li><a href="#testing-framework">Testing Framework</a></li>
+<li><a href="#unit-testing">Unit Testing</a></li>
+<li><a href="#integration-testing">Integration Testing</a></li>
+<li><a href="#test-organization">Test Organization</a></li>
+<li><a href="#running-tests">Running Tests</a></li>
+<li><a href="#run-all-tests">Run all tests</a></li>
+<li><a href="#run-specific-test-suite">Run specific test suite</a></li>
+<li><a href="#run-with-verbose-output">Run with verbose output</a></li>
+<li><a href="#debugging-tools">Debugging Tools</a></li>
+<li><a href="#trace-and-logging">Trace and Logging</a></li>
+<li><a href="#debugger-integration">Debugger Integration</a></li>
+<li><a href="#memory-analysis">Memory Analysis</a></li>
+<li><a href="#debugging-process">Debugging Process</a></li>
+<li><a href="#system-level-debugging">System-Level Debugging</a></li>
+<li><a href="#ir-debugging">IR Debugging</a></li>
+<li><a href="#jit-debugging">JIT Debugging</a></li>
+<li><a href="#issue-reporting">Issue Reporting</a></li>
+<li><a href="#project-roadmap">Project Roadmap</a></li>
+<li><a href="#current-version-1-0-0">Current Version (1.0.0)</a></li>
+<li><a href="#short-term-goals-1-x">Short-Term Goals (1.x)</a></li>
+<li><a href="#version-1-1-q3-2025">Version 1.1 (Q3 2025)</a></li>
+<li><a href="#version-1-2-q4-2025">Version 1.2 (Q4 2025)</a></li>
+<li><a href="#version-1-3-q1-2026">Version 1.3 (Q1 2026)</a></li>
+<li><a href="#medium-term-goals-2-x">Medium-Term Goals (2.x)</a></li>
+<li><a href="#version-2-0-q3-2026">Version 2.0 (Q3 2026)</a></li>
+<li><a href="#version-2-x-features">Version 2.x Features</a></li>
+<li><a href="#long-term-vision-3-x-and-beyond">Long-Term Vision (3.x and beyond)</a></li>
+<li><a href="#contributing-to-the-roadmap">Contributing to the Roadmap</a></li>
+<li><a href="#release-schedule">Release Schedule</a></li>
+<li><a href="#custom-ir-specification">Custom IR Specification</a></li>
+<li><a href="#ir-file-format">IR File Format</a></li>
+<li><a href="#type-system">Type System</a></li>
+<li><a href="#primitive-types">Primitive Types</a></li>
+<li><a href="#derived-types">Derived Types</a></li>
+<li><a href="#instructions">Instructions</a></li>
+<li><a href="#memory-operations">Memory Operations</a></li>
+<li><a href="#arithmetic-operations">Arithmetic Operations</a></li>
+<li><a href="#bitwise-operations">Bitwise Operations</a></li>
+<li><a href="#control-flow">Control Flow</a></li>
+<li><a href="#conversion-operations">Conversion Operations</a></li>
+<li><a href="#metadata">Metadata</a></li>
+<li><a href="#extensions">Extensions</a></li>
+<li><a href="#binary-format">Binary Format</a></li>
+<li><a href="#phase-1-analysis-problem-understanding-and-requirements">Phase 1: Analysis - Problem Understanding and Requirements</a></li>
+<li><a href="#analysis-phase-objectives">Analysis Phase Objectives</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#problem-domain-analysis">Problem Domain Analysis</a></li>
+<li><a href="#stakeholder-requirements">Stakeholder Requirements</a></li>
+<li><a href="#technical-constraints">Technical Constraints</a></li>
+<li><a href="#competitive-analysis">Competitive Analysis</a></li>
+<li><a href="#outputs-of-analysis-phase">Outputs of Analysis Phase</a></li>
+<li><a href="#relationship-to-subsequent-phases">Relationship to Subsequent Phases</a></li>
+<li><a href="#phase-2-synthesis-design-and-architecture">Phase 2: Synthesis - Design and Architecture</a></li>
+<li><a href="#synthesis-phase-objectives">Synthesis Phase Objectives</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#requirements-driven-design">Requirements-Driven Design</a></li>
+<li><a href="#modular-architecture">Modular Architecture</a></li>
+<li><a href="#layered-abstraction">Layered Abstraction</a></li>
+<li><a href="#extensibility-planning">Extensibility Planning</a></li>
+<li><a href="#design-artifacts">Design Artifacts</a></li>
+<li><a href="#architecture-documentation">Architecture Documentation</a></li>
+<li><a href="#design-specifications">Design Specifications</a></li>
+<li><a href="#integration-plans">Integration Plans</a></li>
+<li><a href="#design-principles">Design Principles</a></li>
+<li><a href="#relationship-to-other-phases">Relationship to Other Phases</a></li>
+<li><a href="#phase-3-implementation-concrete-realization">Phase 3: Implementation - Concrete Realization</a></li>
+<li><a href="#implementation-phase-objectives">Implementation Phase Objectives</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#incremental-development">Incremental Development</a></li>
+<li><a href="#quality-assurance">Quality Assurance</a></li>
+<li><a href="#documentation-driven-development">Documentation-Driven Development</a></li>
+<li><a href="#platform-considerations">Platform Considerations</a></li>
+<li><a href="#implementation-artifacts">Implementation Artifacts</a></li>
+<li><a href="#source-code">Source Code</a></li>
+<li><a href="#build-system">Build System</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#testing-framework">Testing Framework</a></li>
+<li><a href="#implementation-principles">Implementation Principles</a></li>
+<li><a href="#quality-standards">Quality Standards</a></li>
+<li><a href="#code-quality">Code Quality</a></li>
+<li><a href="#testing-standards">Testing Standards</a></li>
+<li><a href="#documentation-standards">Documentation Standards</a></li>
+<li><a href="#current-implementation-status">Current Implementation Status</a></li>
+<li><a href="#completed-components">Completed Components</a></li>
+<li><a href="#implementation-approach">Implementation Approach</a></li>
+<li><a href="#next-implementation-steps">Next Implementation Steps</a></li>
+<li><a href="#relationship-to-other-phases">Relationship to Other Phases</a></li>
+</ul>
+<hr />
+<h2 id="project-overview"><span class="header-section-number">2.1</span> Project Overview</h2>
 <p>The Baremetal IR OS is an innovative operating system that runs directly on hardware without requiring a traditional host operating system. It is built around a custom Intermediate Representation (IR) that serves as the foundation for all code execution through a Just-In-Time (JIT) compilation engine.</p>
-<h2 id="key-features">1. Key Features</h2>
+<h2 id="development-methodology"><span class="header-section-number">2.2</span> Development Methodology</h2>
+<p>This documentation follows a systematic three-phase engineering approach that reveals the complete development process:</p>
+<h3 id="phase-1-analysis-understanding-the-problem"><span class="header-section-number">2.2.1</span> Phase 1: Analysis (Understanding the Problem)</h3>
+<p>The analysis phase examines the fundamental challenges in modern operating system design, establishes requirements, and studies existing solutions. This phase answers <strong>“What problems are we solving and why?”</strong></p>
+<ul>
+<li>Problem identification and motivation</li>
+<li>Requirements analysis and constraints</li>
+<li>Comparative analysis of existing solutions</li>
+<li>Assumptions and design constraints</li>
+</ul>
+<h3 id="phase-2-synthesis-design-and-architecture"><span class="header-section-number">2.2.2</span> Phase 2: Synthesis (Design and Architecture)</h3>
+<p>The synthesis phase transforms the analysis insights into concrete design decisions and architectural specifications. This phase answers <strong>“How should we solve these problems?”</strong></p>
+<ul>
+<li>Design philosophy and principles</li>
+<li>System architecture and component design</li>
+<li>Interface specifications and protocols</li>
+<li>Integration strategies and patterns</li>
+</ul>
+<h3 id="phase-3-implementation-concrete-realization"><span class="header-section-number">2.2.3</span> Phase 3: Implementation (Concrete Realization)</h3>
+<p>The implementation phase provides detailed technical specifications for building the system. This phase answers <strong>“How do we actually build this?”</strong></p>
+<ul>
+<li>Concrete implementation strategies</li>
+<li>Code organization and structure</li>
+<li>Testing and validation approaches</li>
+<li>Performance optimization techniques</li>
+</ul>
+<h2 id="key-features"><span class="header-section-number">2.3</span> Key Features</h2>
 <ul>
 <li><strong>Hardware-level Integration</strong>: Direct interaction with system hardware without an intermediary OS</li>
 <li><strong>Custom IR Architecture</strong>: Platform-independent code representation for portability</li>
@@ -199,99 +579,611 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Minimal Runtime</strong>: Efficient execution environment with minimal overhead</li>
 <li><strong>Extensible Design</strong>: Modular architecture allowing for customization and expansion</li>
 </ul>
-<h2 id="target-applications">2. Target Applications</h2>
+<h2 id="target-applications"><span class="header-section-number">2.4</span> Target Applications</h2>
 <ul>
 <li>Embedded systems requiring precise control over hardware resources</li>
 <li>High-performance computing environments with specific optimization needs</li>
 <li>Research platforms for operating system design and implementation</li>
 <li>Educational tools for understanding low-level system operations</li>
 </ul>
-<!-- Section: Motivation -->
-<p>The development of the Baremetal IR OS was motivated by several key challenges in modern operating system design and implementation.</p>
-<h2 id="traditional-os-limitations">1. Traditional OS Limitations</h2>
-<p>Current operating systems face significant challenges:</p>
-<ol type="1">
-<li><strong>Performance Overhead</strong>: Multiple abstraction layers introduce latency and resource consumption</li>
-<li><strong>Hardware Compatibility</strong>: Binary-level operating systems are tightly coupled to specific architectures</li>
-<li><strong>Optimization Barriers</strong>: Dynamic optimization is limited by predefined binary code structures</li>
-<li><strong>Complexity</strong>: Modern OS codebases have become increasingly complex and difficult to maintain</li>
-</ol>
-<h2 id="our-solution-approach">2. Our Solution Approach</h2>
-<p>The Baremetal IR OS addresses these limitations by:</p>
-<ol type="1">
-<li><strong>IR-Based Execution</strong>: Using an intermediate representation allows for platform-agnostic code that can be optimized for any target hardware</li>
-<li><strong>Direct Hardware Access</strong>: Eliminating abstraction layers provides better performance and more precise control</li>
-<li><strong>Dynamic Optimization</strong>: The JIT compiler can apply optimizations specific to the current hardware and workload</li>
-<li><strong>Simplified Architecture</strong>: A clean-slate design focusing on essential functionality reduces complexity</li>
-</ol>
-<!-- Section: System Architecture -->
+<h2 id="documentation-structure"><span class="header-section-number">2.5</span> Documentation Structure</h2>
+<p>This documentation is organized to demonstrate professional engineering methodology, making it valuable not only as technical reference but also as an educational resource showing how complex systems are systematically designed and implemented.</p>
+<h2 id="problem-analysis-and-motivation"><span class="header-section-number">2.6</span> Problem Analysis and Motivation</h2>
+<p><em>Part of Phase 1: Analysis - This document identifies and analyzes the fundamental problems that motivate the development of the Baremetal IR OS.</em></p>
+<p>The development of the Baremetal IR OS was motivated by a systematic analysis of critical limitations in modern operating system design and implementation. This analysis reveals both the scope of current problems and the opportunities for innovative solutions.</p>
+<h2 id="problem-domain-analysis"><span class="header-section-number">2.7</span> Problem Domain Analysis</h2>
+<h3 id="traditional-os-limitations"><span class="header-section-number">2.7.1</span> Traditional OS Limitations</h3>
+<p>Current operating systems face several interconnected challenges that limit their effectiveness:</p>
+<h4 id="performance-overhead-issues"><span class="header-section-number">2.7.1.1</span> Performance Overhead Issues</h4>
+<ul>
+<li><strong>Multi-layer Abstraction Penalty</strong>: Each abstraction layer (kernel, system calls, device drivers) introduces latency</li>
+<li><strong>Context Switching Costs</strong>: Process isolation requires expensive context switches and memory protection overhead</li>
+<li><strong>Resource Management Overhead</strong>: Traditional memory management and scheduling algorithms consume significant CPU cycles</li>
+<li><strong>Quantified Impact</strong>: Studies show 15-30% performance overhead in abstraction layers for real-time applications</li>
+</ul>
+<h4 id="hardware-compatibility-challenges"><span class="header-section-number">2.7.1.2</span> Hardware Compatibility Challenges</h4>
+<ul>
+<li><strong>Binary Architecture Lock-in</strong>: Compiled binaries are tied to specific instruction sets (x86, ARM, RISC-V)</li>
+<li><strong>Driver Complexity</strong>: Hardware abstraction requires complex, platform-specific driver stacks</li>
+<li><strong>Optimization Barriers</strong>: Pre-compiled code cannot adapt to specific hardware capabilities</li>
+<li><strong>Portability Costs</strong>: Supporting multiple architectures requires maintaining separate codebases</li>
+</ul>
+<h4 id="dynamic-optimization-limitations"><span class="header-section-number">2.7.1.3</span> Dynamic Optimization Limitations</h4>
+<ul>
+<li><strong>Static Compilation Constraints</strong>: Traditional compilers optimize for general cases, not specific runtime conditions</li>
+<li><strong>Profile-Guided Optimization Gaps</strong>: Limited ability to optimize based on actual usage patterns</li>
+<li><strong>Runtime Adaptation Barriers</strong>: Difficulty in adapting to changing workloads and resource availability</li>
+<li><strong>Hardware Evolution Gap</strong>: Compiled code cannot take advantage of new hardware features without recompilation</li>
+</ul>
+<h4 id="complexity-and-maintainability-issues"><span class="header-section-number">2.7.1.4</span> Complexity and Maintainability Issues</h4>
+<ul>
+<li><strong>Codebase Scale</strong>: Modern OS kernels contain millions of lines of code with complex interdependencies</li>
+<li><strong>Legacy Burden</strong>: Backward compatibility requirements constrain architectural improvements</li>
+<li><strong>Security Surface</strong>: Large attack surface due to extensive feature sets and legacy interfaces</li>
+<li><strong>Development Complexity</strong>: High barriers to entry for OS development and customization</li>
+</ul>
+<h3 id="root-cause-analysis"><span class="header-section-number">2.7.2</span> Root Cause Analysis</h3>
+<p>The fundamental issue underlying these problems is the <strong>impedance mismatch</strong> between: - High-level application requirements for portability and abstraction - Low-level hardware demands for performance and direct control - Development needs for maintainability and flexibility</p>
+<p>Traditional operating systems attempt to solve this through layered abstraction, which introduces the performance and complexity issues we observe.</p>
+<h2 id="requirements-analysis"><span class="header-section-number">2.8</span> Requirements Analysis</h2>
+<h3 id="functional-requirements"><span class="header-section-number">2.8.1</span> Functional Requirements</h3>
+<p>Based on problem analysis, our solution must provide:</p>
+<h4 id="core-os-functionality"><span class="header-section-number">2.8.1.1</span> Core OS Functionality</h4>
+<ul>
+<li>Process and thread management with minimal overhead</li>
+<li>Memory management with precise control</li>
+<li>Hardware device access and control</li>
+<li>Inter-process communication mechanisms</li>
+<li>File system abstractions</li>
+</ul>
+<h4 id="performance-requirements"><span class="header-section-number">2.8.1.2</span> Performance Requirements</h4>
+<ul>
+<li>Near-native execution performance (within 5% of optimal)</li>
+<li>Predictable, low-latency system operations</li>
+<li>Efficient resource utilization with minimal waste</li>
+<li>Scalable performance across different hardware configurations</li>
+</ul>
+<h4 id="portability-requirements"><span class="header-section-number">2.8.1.3</span> Portability Requirements</h4>
+<ul>
+<li>Platform-independent code representation</li>
+<li>Automatic adaptation to different hardware architectures</li>
+<li>Consistent behavior across diverse hardware platforms</li>
+<li>Easy porting to new hardware without source code changes</li>
+</ul>
+<h3 id="non-functional-requirements"><span class="header-section-number">2.8.2</span> Non-Functional Requirements</h3>
+<h4 id="performance-constraints"><span class="header-section-number">2.8.2.1</span> Performance Constraints</h4>
+<ul>
+<li><strong>Latency</strong>: System call overhead &lt; 100 nanoseconds</li>
+<li><strong>Throughput</strong>: Support for high-frequency operations</li>
+<li><strong>Memory Efficiency</strong>: Minimal runtime memory footprint</li>
+<li><strong>Startup Time</strong>: Fast boot and application launch times</li>
+</ul>
+<h4 id="reliability-requirements"><span class="header-section-number">2.8.2.2</span> Reliability Requirements</h4>
+<ul>
+<li><strong>Deterministic Behavior</strong>: Predictable execution characteristics</li>
+<li><strong>Error Isolation</strong>: Component failures should not cascade</li>
+<li><strong>Recovery Capability</strong>: Graceful handling of error conditions</li>
+<li><strong>Testing Coverage</strong>: Comprehensive validation of all components</li>
+</ul>
+<h4 id="maintainability-requirements"><span class="header-section-number">2.8.2.3</span> Maintainability Requirements</h4>
+<ul>
+<li><strong>Code Clarity</strong>: Self-documenting, understandable implementation</li>
+<li><strong>Modular Design</strong>: Independent, replaceable components</li>
+<li><strong>Extension Points</strong>: Clear interfaces for customization</li>
+<li><strong>Documentation</strong>: Comprehensive technical documentation</li>
+</ul>
+<h2 id="solution-approach-analysis"><span class="header-section-number">2.9</span> Solution Approach Analysis</h2>
+<h3 id="our-innovative-approach"><span class="header-section-number">2.9.1</span> Our Innovative Approach</h3>
+<p>The Baremetal IR OS addresses identified limitations through several key innovations:</p>
+<h4 id="ir-based-execution-model"><span class="header-section-number">2.9.1.1</span> IR-Based Execution Model</h4>
+<ul>
+<li><strong>Platform Independence</strong>: Code written once, optimized for any hardware</li>
+<li><strong>Dynamic Optimization</strong>: Runtime adaptation to specific hardware and workload characteristics</li>
+<li><strong>Reduced Complexity</strong>: Single codebase supporting multiple architectures</li>
+<li><strong>Performance Potential</strong>: Optimization opportunities not available to traditional compilers</li>
+</ul>
+<h4 id="direct-hardware-access"><span class="header-section-number">2.9.1.2</span> Direct Hardware Access</h4>
+<ul>
+<li><strong>Eliminated Abstraction Overhead</strong>: Direct hardware manipulation without layers</li>
+<li><strong>Precise Control</strong>: Fine-grained control over hardware resources</li>
+<li><strong>Predictable Performance</strong>: Deterministic execution characteristics</li>
+<li><strong>Real-time Capability</strong>: Support for hard real-time constraints</li>
+</ul>
+<h4 id="jit-compilation-engine"><span class="header-section-number">2.9.1.3</span> JIT Compilation Engine</h4>
+<ul>
+<li><strong>Adaptive Optimization</strong>: Optimization based on actual runtime behavior</li>
+<li><strong>Hardware-Specific Code Generation</strong>: Code optimized for exact hardware configuration</li>
+<li><strong>Profile-Guided Optimization</strong>: Continuous optimization based on execution patterns</li>
+<li><strong>Future-Proof Design</strong>: Automatic utilization of new hardware features</li>
+</ul>
+<h4 id="simplified-architecture"><span class="header-section-number">2.9.1.4</span> Simplified Architecture</h4>
+<ul>
+<li><strong>Clean-Slate Design</strong>: No legacy compatibility constraints</li>
+<li><strong>Essential Functionality Focus</strong>: Only necessary features included</li>
+<li><strong>Modular Components</strong>: Independent, testable system components</li>
+<li><strong>Clear Interfaces</strong>: Well-defined component boundaries and protocols</li>
+</ul>
+<h3 id="expected-benefits"><span class="header-section-number">2.9.2</span> Expected Benefits</h3>
+<p>This approach should deliver:</p>
+<h4 id="performance-improvements"><span class="header-section-number">2.9.2.1</span> Performance Improvements</h4>
+<ul>
+<li>20-50% better execution performance compared to traditional OS</li>
+<li>90% reduction in system call overhead</li>
+<li>Improved cache utilization and memory efficiency</li>
+<li>Better utilization of modern hardware features</li>
+</ul>
+<h4 id="development-benefits"><span class="header-section-number">2.9.2.2</span> Development Benefits</h4>
+<ul>
+<li>Reduced complexity for system developers</li>
+<li>Easier porting to new hardware platforms</li>
+<li>Simplified testing and validation processes</li>
+<li>Better separation of concerns</li>
+</ul>
+<h4 id="operational-advantages"><span class="header-section-number">2.9.2.3</span> Operational Advantages</h4>
+<ul>
+<li>More predictable system behavior</li>
+<li>Easier performance tuning and optimization</li>
+<li>Reduced maintenance overhead</li>
+<li>Better security through reduced attack surface</li>
+</ul>
+<h2 id="validation-criteria"><span class="header-section-number">2.10</span> Validation Criteria</h2>
+<p>To validate our approach, we establish measurable success criteria:</p>
+<h3 id="performance-metrics"><span class="header-section-number">2.10.1</span> Performance Metrics</h3>
+<ul>
+<li>Execution performance within 5% of theoretical optimal</li>
+<li>System call latency under 100 nanoseconds</li>
+<li>Memory overhead less than 10% of application requirements</li>
+<li>Boot time under 1 second on target hardware</li>
+</ul>
+<h3 id="functionality-metrics"><span class="header-section-number">2.10.2</span> Functionality Metrics</h3>
+<ul>
+<li>Complete implementation of core OS services</li>
+<li>Support for at least two different hardware architectures</li>
+<li>Successful execution of benchmark applications</li>
+<li>Demonstration of real-time capabilities</li>
+</ul>
+<h3 id="quality-metrics"><span class="header-section-number">2.10.3</span> Quality Metrics</h3>
+<ul>
+<li>Code coverage &gt; 90% for critical components</li>
+<li>Documentation coverage for all public interfaces</li>
+<li>Successful validation on multiple hardware platforms</li>
+<li>Performance regression test suite</li>
+</ul>
+<hr />
+<p><em>This analysis establishes the foundation for the design decisions and architectural choices detailed in the subsequent synthesis phase.</em></p>
+<h2 id="system-architecture"><span class="header-section-number">2.11</span> System Architecture</h2>
 <p>The Baremetal IR OS uses a layered architecture with distinct components that work together to provide a complete operating system environment.</p>
-<h2 id="core-components">1. Core Components</h2>
-<h3 id="hardware-abstraction-layer-hal">1.1. 1. Hardware Abstraction Layer (HAL)</h3>
+<h2 id="core-components"><span class="header-section-number">2.12</span> Core Components</h2>
+<h3 id="hardware-abstraction-layer-hal"><span class="header-section-number">2.12.1</span> Hardware Abstraction Layer (HAL)</h3>
 <ul>
 <li>Provides direct interfaces to hardware components</li>
 <li>Implements platform-specific drivers and controllers</li>
 <li>Exposes a uniform API for higher-level components</li>
 </ul>
-<h3 id="ir-runtime-environment">1.2. 2. IR Runtime Environment</h3>
+<h3 id="ir-runtime-environment"><span class="header-section-number">2.12.2</span> IR Runtime Environment</h3>
 <ul>
 <li>Manages IR code loading and execution</li>
 <li>Handles memory allocation for IR code and data</li>
 <li>Implements garbage collection and resource management</li>
 </ul>
-<h3 id="jit-compilation-engine">1.3. 3. JIT Compilation Engine</h3>
+<h3 id="jit-compilation-engine-1"><span class="header-section-number">2.12.3</span> JIT Compilation Engine</h3>
 <ul>
 <li>Translates IR code to native machine code</li>
 <li>Performs optimization passes based on runtime information</li>
 <li>Manages code caching and recompilation</li>
 </ul>
-<h3 id="os-services">1.4. 4. OS Services</h3>
+<h3 id="os-services"><span class="header-section-number">2.12.4</span> OS Services</h3>
 <ul>
 <li>Provides process and thread management</li>
 <li>Implements file system abstractions</li>
 <li>Handles inter-process communication</li>
 <li>Manages security and access control</li>
 </ul>
-<h2 id="system-flow">2. System Flow</h2>
+<h2 id="system-flow"><span class="header-section-number">2.13</span> System Flow</h2>
 <ol type="1">
 <li>Boot sequence initializes hardware and core runtime</li>
 <li>IR code is loaded from storage into memory</li>
 <li>JIT compiler translates IR to optimized native code</li>
 <li>Execution proceeds with dynamic optimization based on runtime conditions</li>
 </ol>
-<!-- Section: Intermediate Representation (IR) Design -->
+<h2 id="requirements-analysis-and-specification"><span class="header-section-number">2.14</span> Requirements Analysis and Specification</h2>
+<p><em>Part of Phase 1: Analysis - This document provides detailed requirements analysis derived from the problem domain investigation.</em></p>
+<h2 id="requirements-methodology"><span class="header-section-number">2.15</span> Requirements Methodology</h2>
+<p>Our requirements analysis follows a systematic approach to ensure comprehensive coverage and traceability:</p>
+<h3 id="requirements-sources"><span class="header-section-number">2.15.1</span> Requirements Sources</h3>
+<ul>
+<li><strong>Problem Domain Analysis</strong>: Derived from identified limitations in current OS designs</li>
+<li><strong>Stakeholder Needs</strong>: Requirements from target user communities</li>
+<li><strong>Technical Constraints</strong>: Hardware and platform limitations</li>
+<li><strong>Quality Attributes</strong>: Non-functional requirements for system quality</li>
+</ul>
+<h3 id="requirements-categories"><span class="header-section-number">2.15.2</span> Requirements Categories</h3>
+<ul>
+<li><strong>Functional Requirements</strong>: What the system must do</li>
+<li><strong>Performance Requirements</strong>: How fast/efficient the system must be</li>
+<li><strong>Platform Requirements</strong>: Hardware and portability constraints</li>
+<li><strong>Quality Requirements</strong>: Reliability, maintainability, and other quality attributes</li>
+</ul>
+<h2 id="functional-requirements-1"><span class="header-section-number">2.16</span> Functional Requirements</h2>
+<h3 id="core-operating-system-services"><span class="header-section-number">2.16.1</span> Core Operating System Services</h3>
+<h4 id="fr-01-process-and-thread-management"><span class="header-section-number">2.16.1.1</span> FR-01: Process and Thread Management</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall provide process creation, scheduling, and termination</li>
+<li><strong>Rationale</strong>: Essential for multi-tasking operating system functionality</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Support for at least 1000 concurrent processes</li>
+<li>Preemptive scheduling with configurable algorithms</li>
+<li>Process isolation and protection mechanisms</li>
+</ul></li>
+</ul>
+<h4 id="fr-02-memory-management"><span class="header-section-number">2.16.1.2</span> FR-02: Memory Management</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall provide virtual memory management with protection</li>
+<li><strong>Rationale</strong>: Required for process isolation and efficient memory utilization</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Virtual address space management</li>
+<li>Memory protection between processes</li>
+<li>Efficient allocation and deallocation algorithms</li>
+<li>Support for memory-mapped files</li>
+</ul></li>
+</ul>
+<h4 id="fr-03-hardware-device-access"><span class="header-section-number">2.16.1.3</span> FR-03: Hardware Device Access</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall provide controlled access to hardware devices</li>
+<li><strong>Rationale</strong>: Applications need to interact with system hardware</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Device driver framework</li>
+<li>Interrupt handling mechanisms</li>
+<li>Direct hardware access for privileged processes</li>
+<li>Hardware abstraction for common devices</li>
+</ul></li>
+</ul>
+<h4 id="fr-04-file-system-support"><span class="header-section-number">2.16.1.4</span> FR-04: File System Support</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall provide file system abstractions and operations</li>
+<li><strong>Rationale</strong>: Persistent storage is essential for practical applications</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Support for hierarchical file systems</li>
+<li>File and directory operations (create, read, write, delete)</li>
+<li>File permissions and access control</li>
+<li>Multiple file system format support</li>
+</ul></li>
+</ul>
+<h4 id="fr-05-inter-process-communication-ipc"><span class="header-section-number">2.16.1.5</span> FR-05: Inter-Process Communication (IPC)</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall provide mechanisms for process communication</li>
+<li><strong>Rationale</strong>: Complex applications require coordination between processes</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Message passing interfaces</li>
+<li>Shared memory mechanisms</li>
+<li>Synchronization primitives (semaphores, mutexes)</li>
+<li>Network communication support</li>
+</ul></li>
+</ul>
+<h3 id="ir-runtime-system"><span class="header-section-number">2.16.2</span> IR Runtime System</h3>
+<h4 id="fr-06-ir-code-loading-and-execution"><span class="header-section-number">2.16.2.1</span> FR-06: IR Code Loading and Execution</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall load and execute IR code files</li>
+<li><strong>Rationale</strong>: Core functionality for IR-based operating system</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Support for IR bytecode format</li>
+<li>Dynamic loading of IR modules</li>
+<li>Execution environment with runtime support</li>
+<li>Error handling for invalid IR code</li>
+</ul></li>
+</ul>
+<h4 id="fr-07-jit-compilation-engine"><span class="header-section-number">2.16.2.2</span> FR-07: JIT Compilation Engine</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall compile IR code to native machine code</li>
+<li><strong>Rationale</strong>: Required for performance and hardware-specific optimization</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Translation from IR to native code</li>
+<li>Code optimization passes</li>
+<li>Runtime code generation and caching</li>
+<li>Support for multiple target architectures</li>
+</ul></li>
+</ul>
+<h4 id="fr-08-dynamic-optimization"><span class="header-section-number">2.16.2.3</span> FR-08: Dynamic Optimization</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall optimize code based on runtime information</li>
+<li><strong>Rationale</strong>: Enables performance improvements not possible with static compilation</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Profiling and performance monitoring</li>
+<li>Adaptive optimization based on execution patterns</li>
+<li>Hot-spot detection and specialized compilation</li>
+<li>Deoptimization when assumptions become invalid</li>
+</ul></li>
+</ul>
+<h3 id="platform-support"><span class="header-section-number">2.16.3</span> Platform Support</h3>
+<h4 id="fr-09-multi-architecture-support"><span class="header-section-number">2.16.3.1</span> FR-09: Multi-Architecture Support</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall support multiple hardware architectures</li>
+<li><strong>Rationale</strong>: Portability is a key advantage of the IR-based approach</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Support for x86-64 and ARM64 initially</li>
+<li>Extensible architecture for additional platforms</li>
+<li>Architecture-specific optimizations</li>
+<li>Consistent behavior across platforms</li>
+</ul></li>
+</ul>
+<h4 id="fr-10-boot-and-initialization"><span class="header-section-number">2.16.3.2</span> FR-10: Boot and Initialization</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall boot directly on hardware without host OS</li>
+<li><strong>Rationale</strong>: Baremetal operation is a fundamental characteristic</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Hardware initialization and setup</li>
+<li>Boot loader functionality</li>
+<li>Self-contained runtime environment</li>
+<li>Recovery and diagnostic capabilities</li>
+</ul></li>
+</ul>
+<h2 id="performance-requirements-1"><span class="header-section-number">2.17</span> Performance Requirements</h2>
+<h3 id="execution-performance"><span class="header-section-number">2.17.1</span> Execution Performance</h3>
+<h4 id="pr-01-execution-speed"><span class="header-section-number">2.17.1.1</span> PR-01: Execution Speed</h4>
+<ul>
+<li><strong>Requirement</strong>: JIT-compiled code shall execute within 5% of optimal native performance</li>
+<li><strong>Rationale</strong>: Performance is a primary motivation for the system design</li>
+<li><strong>Measurement</strong>: Benchmark comparison against hand-optimized native code</li>
+<li><strong>Target</strong>: 95% of theoretical maximum performance</li>
+</ul>
+<h4 id="pr-02-system-call-latency"><span class="header-section-number">2.17.1.2</span> PR-02: System Call Latency</h4>
+<ul>
+<li><strong>Requirement</strong>: System calls shall complete with less than 100 nanoseconds overhead</li>
+<li><strong>Rationale</strong>: Low-latency operation is critical for real-time applications</li>
+<li><strong>Measurement</strong>: Time from system call invocation to return</li>
+<li><strong>Target</strong>: &lt; 100ns on modern hardware (3GHz+ CPU)</li>
+</ul>
+<h4 id="pr-03-memory-overhead"><span class="header-section-number">2.17.1.3</span> PR-03: Memory Overhead</h4>
+<ul>
+<li><strong>Requirement</strong>: Runtime memory overhead shall not exceed 10% of application requirements</li>
+<li><strong>Rationale</strong>: Efficient memory usage is important for resource-constrained environments</li>
+<li><strong>Measurement</strong>: Total system memory usage minus application data</li>
+<li><strong>Target</strong>: &lt; 10% overhead for typical applications</li>
+</ul>
+<h3 id="scalability-requirements"><span class="header-section-number">2.17.2</span> Scalability Requirements</h3>
+<h4 id="pr-04-process-scalability"><span class="header-section-number">2.17.2.1</span> PR-04: Process Scalability</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall support at least 10,000 concurrent processes</li>
+<li><strong>Rationale</strong>: Modern applications may require high levels of concurrency</li>
+<li><strong>Measurement</strong>: Maximum number of processes before performance degradation</li>
+<li><strong>Target</strong>: 10,000 processes with &lt; 10% performance impact</li>
+</ul>
+<h4 id="pr-05-memory-scalability"><span class="header-section-number">2.17.2.2</span> PR-05: Memory Scalability</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall efficiently utilize available memory up to 1TB</li>
+<li><strong>Rationale</strong>: Modern systems may have very large memory configurations</li>
+<li><strong>Measurement</strong>: Memory utilization efficiency at various memory sizes</li>
+<li><strong>Target</strong>: Linear scaling up to 1TB with &lt; 5% overhead</li>
+</ul>
+<h3 id="real-time-requirements"><span class="header-section-number">2.17.3</span> Real-Time Requirements</h3>
+<h4 id="pr-06-deterministic-behavior"><span class="header-section-number">2.17.3.1</span> PR-06: Deterministic Behavior</h4>
+<ul>
+<li><strong>Requirement</strong>: Critical system operations shall have bounded execution time</li>
+<li><strong>Rationale</strong>: Real-time applications require predictable performance</li>
+<li><strong>Measurement</strong>: Worst-case execution time analysis</li>
+<li><strong>Target</strong>: 99.9% of operations complete within predicted time bounds</li>
+</ul>
+<h4 id="pr-07-interrupt-latency"><span class="header-section-number">2.17.3.2</span> PR-07: Interrupt Latency</h4>
+<ul>
+<li><strong>Requirement</strong>: Hardware interrupts shall be serviced within 10 microseconds</li>
+<li><strong>Rationale</strong>: Real-time responsiveness requires fast interrupt handling</li>
+<li><strong>Measurement</strong>: Time from interrupt assertion to handler execution</li>
+<li><strong>Target</strong>: &lt; 10μs interrupt latency</li>
+</ul>
+<h2 id="platform-requirements"><span class="header-section-number">2.18</span> Platform Requirements</h2>
+<h3 id="hardware-support"><span class="header-section-number">2.18.1</span> Hardware Support</h3>
+<h4 id="plr-01-minimum-hardware-requirements"><span class="header-section-number">2.18.1.1</span> PLR-01: Minimum Hardware Requirements</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall operate on hardware with minimum specifications</li>
+<li><strong>Rationale</strong>: Accessibility and broad deployment capability</li>
+<li><strong>Specifications</strong>:
+<ul>
+<li>64-bit processor (x86-64 or ARM64)</li>
+<li>512MB RAM minimum, 2GB recommended</li>
+<li>100MB storage for system, additional for applications</li>
+<li>Standard PC or embedded board hardware interfaces</li>
+</ul></li>
+</ul>
+<h4 id="plr-02-hardware-feature-utilization"><span class="header-section-number">2.18.1.2</span> PLR-02: Hardware Feature Utilization</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall utilize available hardware features for optimization</li>
+<li><strong>Rationale</strong>: Maximum performance requires hardware-specific optimization</li>
+<li><strong>Features</strong>:
+<ul>
+<li>SIMD instructions (SSE, AVX, NEON)</li>
+<li>Hardware virtualization support</li>
+<li>Advanced interrupt controllers</li>
+<li>Memory management units</li>
+</ul></li>
+</ul>
+<h3 id="portability-requirements-1"><span class="header-section-number">2.18.2</span> Portability Requirements</h3>
+<h4 id="plr-03-source-code-portability"><span class="header-section-number">2.18.2.1</span> PLR-03: Source Code Portability</h4>
+<ul>
+<li><strong>Requirement</strong>: Core system components shall be portable across architectures</li>
+<li><strong>Rationale</strong>: Maintainability and broad platform support</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>90% of code is architecture-independent</li>
+<li>Clear separation of platform-specific components</li>
+<li>Standardized interfaces for platform abstraction</li>
+</ul></li>
+</ul>
+<h4 id="plr-04-application-portability"><span class="header-section-number">2.18.2.2</span> PLR-04: Application Portability</h4>
+<ul>
+<li><strong>Requirement</strong>: Applications written in IR shall run unchanged across platforms</li>
+<li><strong>Rationale</strong>: Key value proposition of the IR-based approach</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>IR applications execute identically on all supported platforms</li>
+<li>Performance characteristics are documented and predictable</li>
+<li>Platform-specific optimizations are transparent to applications</li>
+</ul></li>
+</ul>
+<h2 id="quality-requirements"><span class="header-section-number">2.19</span> Quality Requirements</h2>
+<h3 id="reliability-requirements-1"><span class="header-section-number">2.19.1</span> Reliability Requirements</h3>
+<h4 id="qr-01-system-stability"><span class="header-section-number">2.19.1.1</span> QR-01: System Stability</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall operate continuously without failure</li>
+<li><strong>Rationale</strong>: Operating system stability is critical for all applications</li>
+<li><strong>Measurement</strong>: Mean time between failures (MTBF)</li>
+<li><strong>Target</strong>: &gt; 1000 hours MTBF under normal operating conditions</li>
+</ul>
+<h4 id="qr-02-error-recovery"><span class="header-section-number">2.19.1.2</span> QR-02: Error Recovery</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall recover gracefully from error conditions</li>
+<li><strong>Rationale</strong>: Robust error handling prevents system crashes</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Process failures do not affect other processes</li>
+<li>System services restart automatically after failures</li>
+<li>Diagnostic information is preserved for debugging</li>
+</ul></li>
+</ul>
+<h3 id="security-requirements"><span class="header-section-number">2.19.2</span> Security Requirements</h3>
+<h4 id="qr-03-process-isolation"><span class="header-section-number">2.19.2.1</span> QR-03: Process Isolation</h4>
+<ul>
+<li><strong>Requirement</strong>: Processes shall be isolated from each other unless explicitly granted access</li>
+<li><strong>Rationale</strong>: Security and stability require process protection</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>Memory protection between processes</li>
+<li>Controlled inter-process communication</li>
+<li>Privilege separation mechanisms</li>
+</ul></li>
+</ul>
+<h4 id="qr-04-resource-access-control"><span class="header-section-number">2.19.2.2</span> QR-04: Resource Access Control</h4>
+<ul>
+<li><strong>Requirement</strong>: Access to system resources shall be controlled and auditable</li>
+<li><strong>Rationale</strong>: Security requires controlled resource access</li>
+<li><strong>Acceptance Criteria</strong>:
+<ul>
+<li>File system permissions and access control</li>
+<li>Device access restrictions</li>
+<li>Audit logging for security-relevant operations</li>
+</ul></li>
+</ul>
+<h3 id="maintainability-requirements-1"><span class="header-section-number">2.19.3</span> Maintainability Requirements</h3>
+<h4 id="qr-05-code-quality"><span class="header-section-number">2.19.3.1</span> QR-05: Code Quality</h4>
+<ul>
+<li><strong>Requirement</strong>: Source code shall meet defined quality standards</li>
+<li><strong>Rationale</strong>: Maintainable code is essential for long-term project success</li>
+<li><strong>Standards</strong>:
+<ul>
+<li>Consistent coding style and conventions</li>
+<li>Comprehensive documentation for all public interfaces</li>
+<li>Modular design with clear component boundaries</li>
+</ul></li>
+</ul>
+<h4 id="qr-06-testing-coverage"><span class="header-section-number">2.19.3.2</span> QR-06: Testing Coverage</h4>
+<ul>
+<li><strong>Requirement</strong>: The system shall have comprehensive test coverage</li>
+<li><strong>Rationale</strong>: Testing ensures reliability and facilitates maintenance</li>
+<li><strong>Targets</strong>:
+<ul>
+<li><blockquote>
+<p>90% code coverage for critical components</p>
+</blockquote></li>
+<li>Automated regression testing</li>
+<li>Performance benchmarking and validation</li>
+</ul></li>
+</ul>
+<h2 id="requirements-traceability"><span class="header-section-number">2.20</span> Requirements Traceability</h2>
+<h3 id="problem-to-requirement-mapping"><span class="header-section-number">2.20.1</span> Problem-to-Requirement Mapping</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Problem Domain</th>
+<th>Related Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Performance Overhead</td>
+<td>PR-01, PR-02, PR-03</td>
+</tr>
+<tr class="even">
+<td>Hardware Compatibility</td>
+<td>PLR-01, PLR-02, PLR-04</td>
+</tr>
+<tr class="odd">
+<td>Optimization Barriers</td>
+<td>FR-07, FR-08, PR-01</td>
+</tr>
+<tr class="even">
+<td>Complexity</td>
+<td>QR-05, QR-06, PLR-03</td>
+</tr>
+</tbody>
+</table>
+<h3 id="requirements-dependencies"><span class="header-section-number">2.20.2</span> Requirements Dependencies</h3>
+<p>Critical requirement dependencies: - FR-07 (JIT Compilation) enables PR-01 (Execution Speed) - FR-09 (Multi-Architecture) depends on PLR-03 (Source Portability) - QR-03 (Process Isolation) requires FR-02 (Memory Management) - PR-06 (Deterministic Behavior) constrains FR-07 (JIT Compilation)</p>
+<h2 id="validation-and-acceptance-criteria"><span class="header-section-number">2.21</span> Validation and Acceptance Criteria</h2>
+<h3 id="functional-validation"><span class="header-section-number">2.21.1</span> Functional Validation</h3>
+<ul>
+<li>Unit tests for all functional requirements</li>
+<li>Integration tests for component interactions</li>
+<li>System tests for end-to-end functionality</li>
+<li>Compliance tests for specification adherence</li>
+</ul>
+<h3 id="performance-validation"><span class="header-section-number">2.21.2</span> Performance Validation</h3>
+<ul>
+<li>Benchmark suites for performance requirements</li>
+<li>Stress testing for scalability requirements</li>
+<li>Real-time analysis for deterministic behavior</li>
+<li>Comparative analysis against existing systems</li>
+</ul>
+<h3 id="quality-validation"><span class="header-section-number">2.21.3</span> Quality Validation</h3>
+<ul>
+<li>Code review processes for quality requirements</li>
+<li>Security testing and vulnerability analysis</li>
+<li>Reliability testing and fault injection</li>
+<li>Maintainability assessment and metrics</li>
+</ul>
+<hr />
+<p><em>These requirements form the foundation for the design decisions and architectural choices detailed in the synthesis phase.</em></p>
+<h2 id="intermediate-representation-ir-design"><span class="header-section-number">2.22</span> Intermediate Representation (IR) Design</h2>
 <p>Our custom IR serves as the foundation for all code execution in the Baremetal IR OS, providing a platform-independent representation that can be dynamically optimized.</p>
-<h2 id="ir-format-overview">1. IR Format Overview</h2>
+<h2 id="ir-format-overview"><span class="header-section-number">2.23</span> IR Format Overview</h2>
 <p>The IR uses a hybrid design combining aspects of: - Static Single Assignment (SSA) form for data flow tracking - Control flow graphs for representing program structure - Type information for optimization and safety</p>
-<h2 id="core-ir-instructions">2. Core IR Instructions</h2>
-<h3 id="memory-operations">2.1. Memory Operations</h3>
+<h2 id="core-ir-instructions"><span class="header-section-number">2.24</span> Core IR Instructions</h2>
+<h3 id="memory-operations"><span class="header-section-number">2.24.1</span> Memory Operations</h3>
 <ul>
 <li><code>load &lt;type&gt; &lt;address&gt; -&gt; &lt;result&gt;</code></li>
 <li><code>store &lt;type&gt; &lt;value&gt; &lt;address&gt;</code></li>
 <li><code>alloc &lt;type&gt; &lt;size&gt; -&gt; &lt;result&gt;</code></li>
 <li><code>free &lt;address&gt;</code></li>
 </ul>
-<h3 id="arithmetic-operations">2.2. Arithmetic Operations</h3>
+<h3 id="arithmetic-operations"><span class="header-section-number">2.24.2</span> Arithmetic Operations</h3>
 <ul>
 <li><code>add &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
 <li><code>sub &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
 <li><code>mul &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
 <li><code>div &lt;type&gt; &lt;op1&gt; &lt;op2&gt; -&gt; &lt;result&gt;</code></li>
 </ul>
-<h3 id="control-flow">2.3. Control Flow</h3>
+<h3 id="control-flow"><span class="header-section-number">2.24.3</span> Control Flow</h3>
 <ul>
 <li><code>branch &lt;condition&gt; &lt;true_label&gt; &lt;false_label&gt;</code></li>
 <li><code>jump &lt;label&gt;</code></li>
 <li><code>call &lt;function&gt; &lt;args...&gt; -&gt; &lt;result&gt;</code></li>
 <li><code>return &lt;value&gt;</code></li>
 </ul>
-<h2 id="type-system">3. Type System</h2>
+<h2 id="type-system"><span class="header-section-number">2.25</span> Type System</h2>
 <p>The IR includes a comprehensive type system: - Primitive types (int32, int64, float32, float64, etc.) - Pointer types with metadata for memory management - Structure types for complex data organization - Function types with parameter and return information</p>
-<h2 id="ir-metadata">4. IR Metadata</h2>
+<h2 id="ir-metadata"><span class="header-section-number">2.26</span> IR Metadata</h2>
 <p>Instructions can include metadata for: - Optimization hints - Debug information - Safety checks - Hardware-specific directives</p>
-<!-- Section: JIT Engine Design -->
+<h2 id="jit-engine-design"><span class="header-section-number">2.27</span> JIT Engine Design</h2>
 <p>The Just-In-Time (JIT) compilation engine is responsible for translating our IR code into native machine code at runtime, with optimization tailored to the specific execution environment.</p>
-<h2 id="jit-pipeline">1. JIT Pipeline</h2>
+<h2 id="jit-pipeline"><span class="header-section-number">2.28</span> JIT Pipeline</h2>
 <p>The compilation process follows these stages:</p>
 <ol type="1">
 <li><strong>IR Loading</strong>: Parse and validate IR code</li>
@@ -300,8 +1192,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Code Generation</strong>: Translate optimized IR to machine code</li>
 <li><strong>Runtime Patching</strong>: Update code based on execution data</li>
 </ol>
-<h2 id="optimization-techniques">2. Optimization Techniques</h2>
-<h3 id="static-optimizations">2.1. Static Optimizations</h3>
+<h2 id="optimization-techniques"><span class="header-section-number">2.29</span> Optimization Techniques</h2>
+<h3 id="static-optimizations"><span class="header-section-number">2.29.1</span> Static Optimizations</h3>
 <ul>
 <li>Constant folding and propagation</li>
 <li>Dead code elimination</li>
@@ -309,25 +1201,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Strength reduction</li>
 <li>Inlining</li>
 </ul>
-<h3 id="dynamic-optimizations">2.2. Dynamic Optimizations</h3>
+<h3 id="dynamic-optimizations"><span class="header-section-number">2.29.2</span> Dynamic Optimizations</h3>
 <ul>
 <li>Speculative execution</li>
 <li>Profile-guided optimization</li>
 <li>Type specialization</li>
 <li>Deoptimization for exceptional cases</li>
 </ul>
-<h2 id="platform-adapters">3. Platform Adapters</h2>
+<h2 id="platform-adapters"><span class="header-section-number">2.30</span> Platform Adapters</h2>
 <p>The JIT engine includes pluggable backends for different architectures: - x86-64 - ARM64 - RISC-V - Custom hardware accelerators</p>
-<h2 id="memory-management">4. Memory Management</h2>
+<h2 id="memory-management"><span class="header-section-number">2.31</span> Memory Management</h2>
 <ul>
 <li>Code section allocation with proper permissions</li>
 <li>Inline cache for polymorphic operations</li>
 <li>Garbage collection integration</li>
 <li>Hot/cold code splitting</li>
 </ul>
-<!-- Section: Boot and Runtime Initialization -->
+<h2 id="boot-and-runtime-initialization"><span class="header-section-number">2.32</span> Boot and Runtime Initialization</h2>
 <p>The Baremetal IR OS uses a specialized boot sequence to initialize hardware and establish the runtime environment for IR code execution.</p>
-<h2 id="boot-sequence">1. Boot Sequence</h2>
+<h2 id="boot-sequence"><span class="header-section-number">2.33</span> Boot Sequence</h2>
 <ol type="1">
 <li><strong>Firmware Handoff</strong>: Receive control from platform firmware (UEFI/BIOS)</li>
 <li><strong>Hardware Detection</strong>: Identify and initialize essential hardware components</li>
@@ -336,7 +1228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>System Services</strong>: Start essential system services</li>
 <li><strong>Initial Application</strong>: Load and execute the initial system application</li>
 </ol>
-<h2 id="memory-layout">2. Memory Layout</h2>
+<h2 id="memory-layout"><span class="header-section-number">2.34</span> Memory Layout</h2>
 <p>The system uses a carefully designed memory layout:</p>
 <pre><code>0x00000000 - 0x00FFFFFF: Reserved (Hardware, MMIO)
 0x01000000 - 0x01FFFFFF: Boot code and data
@@ -344,7 +1236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 0x10000000 - 0x3FFFFFFF: JIT-compiled code cache
 0x40000000 - 0x7FFFFFFF: Heap memory
 0x80000000 - 0xFFFFFFFF: User application space</code></pre>
-<h2 id="runtime-services">3. Runtime Services</h2>
+<h2 id="runtime-services"><span class="header-section-number">2.35</span> Runtime Services</h2>
 <p>During boot, the following runtime services are established:</p>
 <ul>
 <li><strong>Memory Manager</strong>: Handles allocation, deallocation, and garbage collection</li>
@@ -353,73 +1245,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Exception Handler</strong>: Processes hardware and software exceptions</li>
 <li><strong>Security Monitor</strong>: Enforces access control policies</li>
 </ul>
-<h2 id="configuration-options">4. Configuration Options</h2>
+<h2 id="configuration-options"><span class="header-section-number">2.36</span> Configuration Options</h2>
 <p>The boot process can be customized through:</p>
 <ul>
 <li>Command line parameters</li>
 <li>Boot configuration file</li>
 <li>Hardware-specific initialization modules</li>
 </ul>
-<!-- Section: OS Subsystem Design -->
+<h2 id="os-subsystem-design"><span class="header-section-number">2.37</span> OS Subsystem Design</h2>
 <p>The Baremetal IR OS provides essential operating system services through specialized subsystems, all built on the core IR execution environment.</p>
-<h2 id="process-management">1. Process Management</h2>
+<h2 id="process-management"><span class="header-section-number">2.38</span> Process Management</h2>
 <ul>
 <li><strong>Process Model</strong>: Lightweight process containers with isolated memory spaces</li>
 <li><strong>Thread Management</strong>: Cooperative and preemptive multithreading</li>
 <li><strong>Scheduling</strong>: Priority-based scheduling with real-time support</li>
 <li><strong>IPC Mechanisms</strong>: Shared memory, message passing, and synchronization primitives</li>
 </ul>
-<h2 id="memory-management-1">2. Memory Management</h2>
+<h2 id="memory-management-1"><span class="header-section-number">2.39</span> Memory Management</h2>
 <ul>
 <li><strong>Virtual Memory</strong>: Paging with hardware acceleration when available</li>
 <li><strong>Memory Protection</strong>: Process isolation and privileged access control</li>
 <li><strong>Allocation Strategies</strong>: Custom allocators optimized for different use cases</li>
 <li><strong>Garbage Collection</strong>: Optional GC for managed memory regions</li>
 </ul>
-<h2 id="file-system">3. File System</h2>
+<h2 id="file-system"><span class="header-section-number">2.40</span> File System</h2>
 <ul>
 <li><strong>Virtual File System</strong>: Unified interface for various storage backends</li>
 <li><strong>Native File Systems</strong>: Custom file systems optimized for specific storage media</li>
 <li><strong>Caching</strong>: Intelligent caching for improved I/O performance</li>
 <li><strong>Journaling</strong>: Transaction support for data integrity</li>
 </ul>
-<h2 id="networking">4. Networking</h2>
+<h2 id="networking"><span class="header-section-number">2.41</span> Networking</h2>
 <ul>
 <li><strong>Protocol Stack</strong>: Modular implementation of network protocols</li>
 <li><strong>Socket API</strong>: Standard interface for network communication</li>
 <li><strong>Zero-copy I/O</strong>: Efficient data transfer without unnecessary copying</li>
 <li><strong>Hardware Offloading</strong>: Support for network hardware acceleration</li>
 </ul>
-<h2 id="device-management">5. Device Management</h2>
+<h2 id="device-management"><span class="header-section-number">2.42</span> Device Management</h2>
 <ul>
 <li><strong>Driver Framework</strong>: Structured API for device driver implementation</li>
 <li><strong>Device Discovery</strong>: Automatic detection and configuration of hardware</li>
 <li><strong>I/O Scheduling</strong>: Prioritization of device access requests</li>
 <li><strong>Power Management</strong>: Device power state control for energy efficiency</li>
 </ul>
-<h2 id="security">6. Security</h2>
+<h2 id="security"><span class="header-section-number">2.43</span> Security</h2>
 <ul>
 <li><strong>Access Control</strong>: Fine-grained permission system</li>
 <li><strong>Memory Safety</strong>: Runtime checks and isolation mechanisms</li>
 <li><strong>Secure Boot</strong>: Verification of system integrity during startup</li>
 <li><strong>Encryption</strong>: Built-in support for data encryption</li>
 </ul>
-<!-- Section: Hardware Integration -->
+<h2 id="hardware-integration"><span class="header-section-number">2.44</span> Hardware Integration</h2>
 <p>The Baremetal IR OS interfaces directly with hardware components through a specialized Hardware Abstraction Layer (HAL) that provides both efficiency and portability.</p>
-<h2 id="hardware-abstraction-layer">1. Hardware Abstraction Layer</h2>
+<h2 id="hardware-abstraction-layer"><span class="header-section-number">2.45</span> Hardware Abstraction Layer</h2>
 <p>The HAL is structured in three tiers: 1. <strong>Platform-Specific Layer</strong>: Direct hardware access code for each supported platform 2. <strong>Common Abstractions</strong>: Unified interfaces for similar hardware components 3. <strong>High-Level Services</strong>: OS-level abstractions built on the lower layers</p>
-<h2 id="supported-architectures">2. Supported Architectures</h2>
+<h2 id="supported-architectures"><span class="header-section-number">2.46</span> Supported Architectures</h2>
 <p>The system currently supports: - <strong>x86-64</strong>: Desktop and server systems - <strong>ARM64</strong>: Mobile and embedded devices - <strong>RISC-V</strong>: Open architecture platforms - <strong>Custom Hardware</strong>: FPGA-based accelerators and specialized processors</p>
-<h2 id="driver-model">3. Driver Model</h2>
+<h2 id="driver-model"><span class="header-section-number">2.47</span> Driver Model</h2>
 <p>The driver architecture follows a modular design: - <strong>Core Driver Framework</strong>: Common infrastructure for all drivers - <strong>Bus Drivers</strong>: PCI, USB, I2C, SPI, etc. - <strong>Device Drivers</strong>: Storage, network, display, input, etc. - <strong>Virtual Drivers</strong>: Software-based device emulation</p>
-<h2 id="hardware-acceleration">4. Hardware Acceleration</h2>
+<h2 id="hardware-acceleration"><span class="header-section-number">2.48</span> Hardware Acceleration</h2>
 <p>The system leverages hardware acceleration for: - <strong>JIT Compilation</strong>: Specialized instruction set extensions - <strong>Memory Management</strong>: Hardware page tables and TLBs - <strong>Cryptography</strong>: Hardware security modules - <strong>Graphics</strong>: GPU acceleration for rendering - <strong>Networking</strong>: Offloading packet processing to NICs</p>
-<h2 id="hardware-configuration">5. Hardware Configuration</h2>
+<h2 id="hardware-configuration"><span class="header-section-number">2.49</span> Hardware Configuration</h2>
 <p>Hardware resources are configured through: - <strong>Static Configuration</strong>: Pre-defined settings in system image - <strong>Discovery</strong>: Runtime detection of hardware capabilities - <strong>Dynamic Configuration</strong>: Adjustment based on workload requirements</p>
-<!-- Section: Developer Notes -->
+<h2 id="developer-notes"><span class="header-section-number">2.50</span> Developer Notes</h2>
 <p>This section provides guidance for developers working on the Baremetal IR OS project, including development environment setup, coding standards, and contribution guidelines.</p>
-<h2 id="development-environment">1. Development Environment</h2>
-<h3 id="required-tools">1.1. Required Tools</h3>
+<h2 id="development-environment"><span class="header-section-number">2.51</span> Development Environment</h2>
+<h3 id="required-tools"><span class="header-section-number">2.51.1</span> Required Tools</h3>
 <ul>
 <li><strong>Compiler Toolchain</strong>: LLVM/Clang 15.0 or later</li>
 <li><strong>Build System</strong>: CMake 3.21 or later</li>
@@ -427,7 +1319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Debugger</strong>: GDB with target architecture support</li>
 <li><strong>Version Control</strong>: Git 2.35 or later</li>
 </ul>
-<h3 id="setup-instructions">1.2. Setup Instructions</h3>
+<h3 id="setup-instructions"><span class="header-section-number">2.51.2</span> Setup Instructions</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># Clone repository with submodules</span></a>
 <a class="sourceLine" id="cb2-2" title="2"><span class="fu">git</span> clone --recursive https://github.com/baremetal-ir-os/core.git</a>
 <a class="sourceLine" id="cb2-3" title="3"><span class="bu">cd</span> core</a>
@@ -441,16 +1333,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-11" title="11"></a>
 <a class="sourceLine" id="cb2-12" title="12"><span class="co"># Build the project</span></a>
 <a class="sourceLine" id="cb2-13" title="13"><span class="fu">make</span> -j<span class="va">$(</span><span class="ex">nproc</span><span class="va">)</span></a></code></pre></div>
-<h2 id="code-organization">2. Code Organization</h2>
+<h2 id="code-organization"><span class="header-section-number">2.52</span> Code Organization</h2>
 <p>The project follows a modular structure: - <code>src/core/</code> - Core runtime and JIT engine - <code>src/hal/</code> - Hardware abstraction layer - <code>src/os/</code> - OS services and subsystems - <code>src/ir/</code> - IR definition and utilities - <code>tools/</code> - Development and debugging tools - <code>tests/</code> - Test suites - <code>docs/</code> - Documentation</p>
-<h2 id="coding-standards">3. Coding Standards</h2>
+<h2 id="coding-standards"><span class="header-section-number">2.53</span> Coding Standards</h2>
 <ul>
 <li><strong>Language</strong>: Modern C++20 with limited use of platform-specific extensions</li>
 <li><strong>Style</strong>: Follow the project style guide in <code>docs/style-guide.md</code></li>
 <li><strong>Documentation</strong>: All public APIs must be documented using Doxygen</li>
 <li><strong>Testing</strong>: New features require unit tests and integration tests</li>
 </ul>
-<h2 id="contribution-workflow">4. Contribution Workflow</h2>
+<h2 id="contribution-workflow"><span class="header-section-number">2.54</span> Contribution Workflow</h2>
 <ol type="1">
 <li>Create a feature branch from <code>develop</code></li>
 <li>Implement changes following coding standards</li>
@@ -459,15 +1351,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Address review feedback</li>
 <li>Once approved, changes will be merged to <code>develop</code></li>
 </ol>
-<h2 id="common-development-tasks">5. Common Development Tasks</h2>
-<h3 id="adding-a-new-hardware-platform">5.1. Adding a New Hardware Platform</h3>
+<h2 id="common-development-tasks"><span class="header-section-number">2.55</span> Common Development Tasks</h2>
+<h3 id="adding-a-new-hardware-platform"><span class="header-section-number">2.55.1</span> Adding a New Hardware Platform</h3>
 <ol type="1">
 <li>Create platform-specific HAL implementation in <code>src/hal/platforms/</code></li>
 <li>Implement required interfaces defined in <code>src/hal/hal_interfaces.h</code></li>
 <li>Add platform detection to the build system</li>
 <li>Create platform-specific tests in <code>tests/platforms/</code></li>
 </ol>
-<h3 id="extending-the-ir-specification">5.2. Extending the IR Specification</h3>
+<h3 id="extending-the-ir-specification"><span class="header-section-number">2.55.2</span> Extending the IR Specification</h3>
 <ol type="1">
 <li>Update IR definition in <code>src/ir/ir_spec.h</code></li>
 <li>Add validation rules to <code>src/ir/validator.cpp</code></li>
@@ -475,29 +1367,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Add code generation in <code>src/core/jit/codegen/</code></li>
 <li>Update documentation in <code>docs/ir-spec.md</code></li>
 </ol>
-<!-- Section: Testing and Debugging -->
+<h2 id="testing-and-debugging"><span class="header-section-number">2.56</span> Testing and Debugging</h2>
 <p>The Baremetal IR OS project employs comprehensive testing and debugging strategies to ensure reliability and facilitate development.</p>
-<h2 id="testing-framework">1. Testing Framework</h2>
-<h3 id="unit-testing">1.1. Unit Testing</h3>
+<h2 id="testing-framework"><span class="header-section-number">2.57</span> Testing Framework</h2>
+<h3 id="unit-testing"><span class="header-section-number">2.57.1</span> Unit Testing</h3>
 <ul>
 <li>Each component has dedicated unit tests</li>
 <li>Mocking framework for hardware dependencies</li>
 <li>Automated test runs on each commit</li>
 </ul>
-<h3 id="integration-testing">1.2. Integration Testing</h3>
+<h3 id="integration-testing"><span class="header-section-number">2.57.2</span> Integration Testing</h3>
 <ul>
 <li>Full-system tests in emulated environments</li>
 <li>Hardware-in-the-loop testing for supported platforms</li>
 <li>Performance benchmarking suite</li>
 </ul>
-<h3 id="test-organization">1.3. Test Organization</h3>
+<h3 id="test-organization"><span class="header-section-number">2.57.3</span> Test Organization</h3>
 <ul>
 <li><code>tests/unit/</code> - Component-level tests</li>
 <li><code>tests/integration/</code> - System-level tests</li>
 <li><code>tests/performance/</code> - Performance benchmarks</li>
 <li><code>tests/platforms/</code> - Platform-specific tests</li>
 </ul>
-<h2 id="running-tests">2. Running Tests</h2>
+<h2 id="running-tests"><span class="header-section-number">2.58</span> Running Tests</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># Run all tests</span></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="bu">cd</span> build</a>
 <a class="sourceLine" id="cb3-3" title="3"><span class="fu">make</span> test</a>
@@ -507,55 +1399,55 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb3-7" title="7"></a>
 <a class="sourceLine" id="cb3-8" title="8"><span class="co"># Run with verbose output</span></a>
 <a class="sourceLine" id="cb3-9" title="9"><span class="ex">ctest</span> -V -R IntegrationTests</a></code></pre></div>
-<h2 id="debugging-tools">3. Debugging Tools</h2>
-<h3 id="trace-and-logging">3.1. Trace and Logging</h3>
+<h2 id="debugging-tools"><span class="header-section-number">2.59</span> Debugging Tools</h2>
+<h3 id="trace-and-logging"><span class="header-section-number">2.59.1</span> Trace and Logging</h3>
 <ul>
 <li>Runtime configurable log levels</li>
 <li>Component-specific log channels</li>
 <li>Performance tracing infrastructure</li>
 </ul>
-<h3 id="debugger-integration">3.2. Debugger Integration</h3>
+<h3 id="debugger-integration"><span class="header-section-number">2.59.2</span> Debugger Integration</h3>
 <ul>
 <li>GDB server support for remote debugging</li>
 <li>JTAG interface for hardware debugging</li>
 <li>IR-level debugging with source mapping</li>
 </ul>
-<h3 id="memory-analysis">3.3. Memory Analysis</h3>
+<h3 id="memory-analysis"><span class="header-section-number">2.59.3</span> Memory Analysis</h3>
 <ul>
 <li>Memory leak detection</li>
 <li>Heap profiling</li>
 <li>Memory access validation</li>
 </ul>
-<h2 id="debugging-process">4. Debugging Process</h2>
-<h3 id="system-level-debugging">4.1. System-Level Debugging</h3>
+<h2 id="debugging-process"><span class="header-section-number">2.60</span> Debugging Process</h2>
+<h3 id="system-level-debugging"><span class="header-section-number">2.60.1</span> System-Level Debugging</h3>
 <ol type="1">
 <li>Enable verbose logging with <code>--log-level=debug</code></li>
 <li>Capture boot sequence with <code>--trace-boot</code></li>
 <li>Use the integrated debugger with <code>--debug-port=1234</code></li>
 <li>Connect with GDB: <code>gdb -ex "target remote localhost:1234"</code></li>
 </ol>
-<h3 id="ir-debugging">4.2. IR Debugging</h3>
+<h3 id="ir-debugging"><span class="header-section-number">2.60.2</span> IR Debugging</h3>
 <ol type="1">
 <li>Compile with debug info: <code>--ir-debug-info</code></li>
 <li>Use the IR debugger: <code>ir-debug program.ir</code></li>
 <li>Set breakpoints on IR instructions</li>
 <li>Inspect IR state during execution</li>
 </ol>
-<h3 id="jit-debugging">4.3. JIT Debugging</h3>
+<h3 id="jit-debugging"><span class="header-section-number">2.60.3</span> JIT Debugging</h3>
 <ol type="1">
 <li>Enable JIT debugging with <code>--jit-debug</code></li>
 <li>Dump generated code with <code>--dump-jit-code=file.asm</code></li>
 <li>Use the JIT profiler with <code>--jit-profile</code></li>
 <li>Analyze hotspots with <code>analyze-jit-profile results.prof</code></li>
 </ol>
-<h2 id="issue-reporting">5. Issue Reporting</h2>
+<h2 id="issue-reporting"><span class="header-section-number">2.61</span> Issue Reporting</h2>
 <p>When reporting issues, please include: 1. Detailed description of the problem 2. Steps to reproduce 3. System configuration 4. Relevant logs and debug output 5. Expected vs. actual behavior</p>
-<!-- Section: Project Roadmap -->
+<h2 id="project-roadmap"><span class="header-section-number">2.62</span> Project Roadmap</h2>
 <p>This roadmap outlines the planned development trajectory for the Baremetal IR OS project over the next several release cycles.</p>
-<h2 id="current-version-1.0.0">1. Current Version (1.0.0)</h2>
+<h2 id="current-version-1.0.0"><span class="header-section-number">2.63</span> Current Version (1.0.0)</h2>
 <p>The initial release includes: - Core IR specification and implementation - Basic JIT compiler for x86-64 and ARM64 - Fundamental OS services (memory, threads, basic I/O) - Developer documentation and tools - Support for common development boards</p>
-<h2 id="short-term-goals-1.x">2. Short-Term Goals (1.x)</h2>
-<h3 id="version-1.1-q3-2025">2.1. Version 1.1 (Q3 2025)</h3>
+<h2 id="short-term-goals-1.x"><span class="header-section-number">2.64</span> Short-Term Goals (1.x)</h2>
+<h3 id="version-1.1-q3-2025"><span class="header-section-number">2.64.1</span> Version 1.1 (Q3 2025)</h3>
 <ul>
 <li>Improved memory management with generational GC</li>
 <li>Extended device driver framework</li>
@@ -563,7 +1455,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Performance optimizations for JIT compiler</li>
 <li>Enhanced debugging tools</li>
 </ul>
-<h3 id="version-1.2-q4-2025">2.2. Version 1.2 (Q4 2025)</h3>
+<h3 id="version-1.2-q4-2025"><span class="header-section-number">2.64.2</span> Version 1.2 (Q4 2025)</h3>
 <ul>
 <li>File system enhancements with journaling</li>
 <li>RISC-V architecture support</li>
@@ -571,7 +1463,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Inter-process communication improvements</li>
 <li>Extended standard library</li>
 </ul>
-<h3 id="version-1.3-q1-2026">2.3. Version 1.3 (Q1 2026)</h3>
+<h3 id="version-1.3-q1-2026"><span class="header-section-number">2.64.3</span> Version 1.3 (Q1 2026)</h3>
 <ul>
 <li>Graphics and display subsystem</li>
 <li>USB device support</li>
@@ -579,8 +1471,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Initial real-time scheduling capabilities</li>
 <li>Extended tooling ecosystem</li>
 </ul>
-<h2 id="medium-term-goals-2.x">3. Medium-Term Goals (2.x)</h2>
-<h3 id="version-2.0-q3-2026">3.1. Version 2.0 (Q3 2026)</h3>
+<h2 id="medium-term-goals-2.x"><span class="header-section-number">2.65</span> Medium-Term Goals (2.x)</h2>
+<h3 id="version-2.0-q3-2026"><span class="header-section-number">2.65.1</span> Version 2.0 (Q3 2026)</h3>
 <ul>
 <li>Complete IR optimization framework</li>
 <li>Advanced security model with formal verification</li>
@@ -588,7 +1480,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Hardware acceleration for critical paths</li>
 <li>Application ecosystem expansion</li>
 </ul>
-<h3 id="version-2.x-features">3.2. Version 2.x Features</h3>
+<h3 id="version-2.x-features"><span class="header-section-number">2.65.2</span> Version 2.x Features</h3>
 <ul>
 <li>Virtualization support</li>
 <li>Cloud integration capabilities</li>
@@ -596,7 +1488,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Self-optimizing runtime</li>
 <li>Expanded hardware platform support</li>
 </ul>
-<h2 id="long-term-vision-3.x-and-beyond">4. Long-Term Vision (3.x and beyond)</h2>
+<h2 id="long-term-vision-3.x-and-beyond"><span class="header-section-number">2.66</span> Long-Term Vision (3.x and beyond)</h2>
 <ul>
 <li>Formal verification of critical system components</li>
 <li>Hardware co-design opportunities</li>
@@ -604,9 +1496,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Advanced autonomic computing features</li>
 <li>Academic and industry partnership programs</li>
 </ul>
-<h2 id="contributing-to-the-roadmap">5. Contributing to the Roadmap</h2>
+<h2 id="contributing-to-the-roadmap"><span class="header-section-number">2.67</span> Contributing to the Roadmap</h2>
 <p>We welcome community input on our development priorities. To contribute: 1. Join our community discussions on Discord or the mailing list 2. Submit feature proposals via GitHub issues 3. Participate in our quarterly roadmap planning sessions 4. Contribute proof-of-concept implementations</p>
-<h2 id="release-schedule">6. Release Schedule</h2>
+<h2 id="release-schedule"><span class="header-section-number">2.68</span> Release Schedule</h2>
 <table>
 <thead>
 <tr class="header">
@@ -643,9 +1535,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<!-- Section: Custom IR Specification -->
+<h2 id="custom-ir-specification"><span class="header-section-number">2.69</span> Custom IR Specification</h2>
 <p>This document provides a detailed specification of the Intermediate Representation (IR) used in the Baremetal IR OS.</p>
-<h2 id="ir-file-format">1. IR File Format</h2>
+<h2 id="ir-file-format"><span class="header-section-number">2.70</span> IR File Format</h2>
 <p>IR code is stored in text format with the following structure:</p>
 <pre><code>; Module declaration
 module &quot;example_module&quot;
@@ -675,8 +1567,8 @@ func @main() -&gt; i32 {
   else:
     return i32 0
 }</code></pre>
-<h2 id="type-system-1">2. Type System</h2>
-<h3 id="primitive-types">2.1. Primitive Types</h3>
+<h2 id="type-system-1"><span class="header-section-number">2.71</span> Type System</h2>
+<h3 id="primitive-types"><span class="header-section-number">2.71.1</span> Primitive Types</h3>
 <ul>
 <li><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code>: Integer types of specified bit width</li>
 <li><code>u8</code>, <code>u16</code>, <code>u32</code>, <code>u64</code>: Unsigned integer types</li>
@@ -684,15 +1576,15 @@ func @main() -&gt; i32 {
 <li><code>bool</code>: Boolean type (1-bit)</li>
 <li><code>void</code>: Represents no value</li>
 </ul>
-<h3 id="derived-types">2.2. Derived Types</h3>
+<h3 id="derived-types"><span class="header-section-number">2.71.2</span> Derived Types</h3>
 <ul>
 <li>Pointers: <code>&lt;type&gt;*</code> (e.g., <code>i32*</code>)</li>
 <li>Arrays: <code>[&lt;size&gt; x &lt;type&gt;]</code> (e.g., <code>[10 x i32]</code>)</li>
 <li>Structures: <code>{ &lt;type&gt;, &lt;type&gt;, ... }</code> (e.g., <code>{ i32, i8* }</code>)</li>
 <li>Functions: <code>(&lt;param_types&gt;) -&gt; &lt;return_type&gt;</code></li>
 </ul>
-<h2 id="instructions">3. Instructions</h2>
-<h3 id="memory-operations-1">3.1. Memory Operations</h3>
+<h2 id="instructions"><span class="header-section-number">2.72</span> Instructions</h2>
+<h3 id="memory-operations-1"><span class="header-section-number">2.72.1</span> Memory Operations</h3>
 <ul>
 <li><code>%ptr = alloc &lt;type&gt; [, &lt;size&gt;]</code>: Allocate memory</li>
 <li><code>free &lt;ptr&gt;</code>: Free allocated memory</li>
@@ -700,7 +1592,7 @@ func @main() -&gt; i32 {
 <li><code>store &lt;type&gt; &lt;val&gt;, &lt;ptr&gt;</code>: Store value to memory</li>
 <li><code>%ptr = getelementptr &lt;type&gt;, &lt;ptr&gt;, &lt;indices...&gt;</code>: Compute address of structure element</li>
 </ul>
-<h3 id="arithmetic-operations-1">3.2. Arithmetic Operations</h3>
+<h3 id="arithmetic-operations-1"><span class="header-section-number">2.72.2</span> Arithmetic Operations</h3>
 <ul>
 <li><code>%result = add &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Addition</li>
 <li><code>%result = sub &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Subtraction</li>
@@ -709,7 +1601,7 @@ func @main() -&gt; i32 {
 <li><code>%result = rem &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Remainder</li>
 <li><code>%result = neg &lt;type&gt; &lt;op&gt;</code>: Negation</li>
 </ul>
-<h3 id="bitwise-operations">3.3. Bitwise Operations</h3>
+<h3 id="bitwise-operations"><span class="header-section-number">2.72.3</span> Bitwise Operations</h3>
 <ul>
 <li><code>%result = and &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Bitwise AND</li>
 <li><code>%result = or &lt;type&gt; &lt;op1&gt;, &lt;op2&gt;</code>: Bitwise OR</li>
@@ -718,7 +1610,7 @@ func @main() -&gt; i32 {
 <li><code>%result = shr &lt;type&gt; &lt;op&gt;, &lt;bits&gt;</code>: Shift right</li>
 <li><code>%result = not &lt;type&gt; &lt;op&gt;</code>: Bitwise NOT</li>
 </ul>
-<h3 id="control-flow-1">3.4. Control Flow</h3>
+<h3 id="control-flow-1"><span class="header-section-number">2.72.4</span> Control Flow</h3>
 <ul>
 <li><code>br &lt;cond&gt;, &lt;op&gt;, &lt;val&gt;, &lt;true_label&gt;, &lt;false_label&gt;</code>: Conditional branch</li>
 <li><code>jump &lt;label&gt;</code>: Unconditional jump</li>
@@ -726,7 +1618,7 @@ func @main() -&gt; i32 {
 <li><code>return &lt;type&gt; &lt;value&gt;</code>: Return from function</li>
 <li><code>unreachable</code>: Marks unreachable code</li>
 </ul>
-<h3 id="conversion-operations">3.5. Conversion Operations</h3>
+<h3 id="conversion-operations"><span class="header-section-number">2.72.5</span> Conversion Operations</h3>
 <ul>
 <li><code>%result = zext &lt;from_type&gt; &lt;value&gt; to &lt;to_type&gt;</code>: Zero extension</li>
 <li><code>%result = sext &lt;from_type&gt; &lt;value&gt; to &lt;to_type&gt;</code>: Sign extension</li>
@@ -735,13 +1627,13 @@ func @main() -&gt; i32 {
 <li><code>%result = inttoptr &lt;int_type&gt; &lt;value&gt; to &lt;ptr_type&gt;</code>: Integer to pointer conversion</li>
 <li><code>%result = ptrtoint &lt;ptr_type&gt; &lt;value&gt; to &lt;int_type&gt;</code>: Pointer to integer conversion</li>
 </ul>
-<h2 id="metadata">4. Metadata</h2>
+<h2 id="metadata"><span class="header-section-number">2.73</span> Metadata</h2>
 <p>Instructions and declarations can include metadata:</p>
 <pre><code>%result = add i32 %a, %b, !debug !1, !optimize !2
 
 !1 = !{!&quot;line&quot;, 42, &quot;file.c&quot;}
 !2 = !{!&quot;inline&quot;}</code></pre>
-<h2 id="extensions">5. Extensions</h2>
+<h2 id="extensions"><span class="header-section-number">2.74</span> Extensions</h2>
 <p>The IR supports extensions for specialized hardware:</p>
 <pre><code>; Vector operations
 %vec = vload &lt;4 x f32&gt;, %ptr
@@ -749,7 +1641,7 @@ func @main() -&gt; i32 {
 
 ; Custom hardware accelerator
 %result = hwaccel &quot;crypto.aes&quot;, i8* %data, i64 %len, i8* %key</code></pre>
-<h2 id="binary-format">6. Binary Format</h2>
+<h2 id="binary-format"><span class="header-section-number">2.75</span> Binary Format</h2>
 <p>For efficient storage and transmission, the IR can be serialized to a binary format (BIRF) with the following sections:</p>
 <ol type="1">
 <li>Header: Magic number, version, module name</li>
@@ -760,5 +1652,235 @@ func @main() -&gt; i32 {
 <li>Metadata Table: Associated metadata</li>
 <li>String Table: String constants</li>
 </ol>
+<h2 id="phase-1-analysis---problem-understanding-and-requirements"><span class="header-section-number">2.76</span> Phase 1: Analysis - Problem Understanding and Requirements</h2>
+<p>Welcome to the <strong>Analysis Phase</strong> of the Baremetal IR OS documentation. This phase establishes the foundation for the entire project by thoroughly examining the problems we aim to solve, the requirements we must meet, and the constraints within which we must operate.</p>
+<h2 id="analysis-phase-objectives"><span class="header-section-number">2.77</span> Analysis Phase Objectives</h2>
+<p>The analysis phase serves several critical purposes:</p>
+<ol type="1">
+<li><strong>Problem Identification</strong>: Clearly define the challenges in current operating system designs</li>
+<li><strong>Requirements Elicitation</strong>: Establish what our solution must accomplish</li>
+<li><strong>Constraint Analysis</strong>: Understand the limitations and boundaries we must work within</li>
+<li><strong>Solution Space Exploration</strong>: Examine existing approaches and their limitations</li>
+</ol>
+<h2 id="methodology"><span class="header-section-number">2.78</span> Methodology</h2>
+<p>Our analysis follows a structured approach:</p>
+<h3 id="problem-domain-analysis-1"><span class="header-section-number">2.78.1</span> Problem Domain Analysis</h3>
+<ul>
+<li>Identify pain points in current operating systems</li>
+<li>Understand the root causes of these problems</li>
+<li>Quantify the impact and scope of issues</li>
+</ul>
+<h3 id="stakeholder-requirements"><span class="header-section-number">2.78.2</span> Stakeholder Requirements</h3>
+<ul>
+<li>Define functional requirements (what the system must do)</li>
+<li>Establish non-functional requirements (performance, reliability, etc.)</li>
+<li>Identify use cases and application scenarios</li>
+</ul>
+<h3 id="technical-constraints"><span class="header-section-number">2.78.3</span> Technical Constraints</h3>
+<ul>
+<li>Hardware limitations and capabilities</li>
+<li>Performance requirements and trade-offs</li>
+<li>Compatibility and portability considerations</li>
+</ul>
+<h3 id="competitive-analysis"><span class="header-section-number">2.78.4</span> Competitive Analysis</h3>
+<ul>
+<li>Study existing solutions and their approaches</li>
+<li>Identify gaps and opportunities for innovation</li>
+<li>Learn from both successes and failures</li>
+</ul>
+<h2 id="outputs-of-analysis-phase"><span class="header-section-number">2.79</span> Outputs of Analysis Phase</h2>
+<p>By the end of this phase, we will have:</p>
+<ul>
+<li><strong>Clear Problem Statement</strong>: Precisely defined challenges we’re addressing</li>
+<li><strong>Requirements Specification</strong>: Detailed list of what our system must accomplish</li>
+<li><strong>Constraint Documentation</strong>: Known limitations and design boundaries</li>
+<li><strong>Solution Requirements</strong>: Criteria for evaluating potential solutions</li>
+</ul>
+<h2 id="relationship-to-subsequent-phases"><span class="header-section-number">2.80</span> Relationship to Subsequent Phases</h2>
+<p>The analysis phase directly informs: - <strong>Synthesis Phase</strong>: Design decisions will be traced back to requirements - <strong>Implementation Phase</strong>: Technical choices will be validated against constraints</p>
+<p>This systematic approach ensures that every design decision and implementation detail can be traced back to a genuine need identified during analysis.</p>
+<hr />
+<p><em>The following sections provide detailed analysis of the problem domain, requirements, and constraints that drive the Baremetal IR OS design.</em></p>
+<h2 id="phase-2-synthesis---design-and-architecture"><span class="header-section-number">2.81</span> Phase 2: Synthesis - Design and Architecture</h2>
+<p>Welcome to the <strong>Synthesis Phase</strong> of the Baremetal IR OS documentation. This phase transforms the insights and requirements from the analysis phase into concrete design decisions and architectural specifications.</p>
+<h2 id="synthesis-phase-objectives"><span class="header-section-number">2.82</span> Synthesis Phase Objectives</h2>
+<p>The synthesis phase bridges the gap between understanding problems and implementing solutions:</p>
+<ol type="1">
+<li><strong>Design Philosophy Development</strong>: Establish guiding principles for all design decisions</li>
+<li><strong>Architecture Definition</strong>: Create the overall system structure and component relationships</li>
+<li><strong>Interface Specification</strong>: Define how components interact and communicate</li>
+<li><strong>Pattern Selection</strong>: Choose appropriate design patterns and architectural styles</li>
+</ol>
+<h2 id="methodology-1"><span class="header-section-number">2.83</span> Methodology</h2>
+<p>Our synthesis approach follows established design principles:</p>
+<h3 id="requirements-driven-design"><span class="header-section-number">2.83.1</span> Requirements-Driven Design</h3>
+<ul>
+<li>Every design decision traces back to specific requirements</li>
+<li>Trade-offs are explicitly documented and justified</li>
+<li>Alternative approaches are considered and evaluated</li>
+</ul>
+<h3 id="modular-architecture"><span class="header-section-number">2.83.2</span> Modular Architecture</h3>
+<ul>
+<li>System is decomposed into cohesive, loosely-coupled components</li>
+<li>Clear interfaces and responsibilities are defined</li>
+<li>Dependencies are minimized and well-documented</li>
+</ul>
+<h3 id="layered-abstraction"><span class="header-section-number">2.83.3</span> Layered Abstraction</h3>
+<ul>
+<li>Appropriate abstraction levels are identified</li>
+<li>Each layer provides specific value and clear interfaces</li>
+<li>Complexity is managed through careful layer design</li>
+</ul>
+<h3 id="extensibility-planning"><span class="header-section-number">2.83.4</span> Extensibility Planning</h3>
+<ul>
+<li>Future evolution and customization needs are considered</li>
+<li>Extension points and plugin architectures are designed</li>
+<li>Compatibility strategies are established</li>
+</ul>
+<h2 id="design-artifacts"><span class="header-section-number">2.84</span> Design Artifacts</h2>
+<p>This phase produces several key design artifacts:</p>
+<h3 id="architecture-documentation"><span class="header-section-number">2.84.1</span> Architecture Documentation</h3>
+<ul>
+<li>System overview and component diagrams</li>
+<li>Interface specifications and protocols</li>
+<li>Data flow and control flow descriptions</li>
+</ul>
+<h3 id="design-specifications"><span class="header-section-number">2.84.2</span> Design Specifications</h3>
+<ul>
+<li>Detailed component designs</li>
+<li>Algorithm specifications and trade-offs</li>
+<li>Performance and resource usage models</li>
+</ul>
+<h3 id="integration-plans"><span class="header-section-number">2.84.3</span> Integration Plans</h3>
+<ul>
+<li>Component interaction patterns</li>
+<li>Deployment and configuration strategies</li>
+<li>Testing and validation approaches</li>
+</ul>
+<h2 id="design-principles"><span class="header-section-number">2.85</span> Design Principles</h2>
+<p>Our design is guided by several core principles:</p>
+<ul>
+<li><strong>Simplicity</strong>: Prefer simple, understandable solutions</li>
+<li><strong>Performance</strong>: Optimize for speed and resource efficiency</li>
+<li><strong>Portability</strong>: Design for multiple hardware platforms</li>
+<li><strong>Maintainability</strong>: Enable easy understanding and modification</li>
+<li><strong>Extensibility</strong>: Support future enhancements and customization</li>
+</ul>
+<h2 id="relationship-to-other-phases"><span class="header-section-number">2.86</span> Relationship to Other Phases</h2>
+<p>The synthesis phase: - <strong>Builds on Analysis</strong>: Every design decision addresses identified requirements - <strong>Guides Implementation</strong>: Provides detailed specifications for construction - <strong>Enables Validation</strong>: Establishes criteria for testing and verification</p>
+<hr />
+<p><em>The following sections provide detailed architectural designs, component specifications, and integration strategies for the Baremetal IR OS.</em></p>
+<h2 id="phase-3-implementation---concrete-realization"><span class="header-section-number">2.87</span> Phase 3: Implementation - Concrete Realization</h2>
+<p>Welcome to the <strong>Implementation Phase</strong> of the Baremetal IR OS documentation. This phase provides detailed technical specifications, implementation strategies, and concrete guidance for building the system designed in the synthesis phase.</p>
+<h2 id="implementation-phase-objectives"><span class="header-section-number">2.88</span> Implementation Phase Objectives</h2>
+<p>The implementation phase makes the designs real:</p>
+<ol type="1">
+<li><strong>Technical Specification</strong>: Provide detailed implementation guidance</li>
+<li><strong>Code Organization</strong>: Define structure and organization of the codebase</li>
+<li><strong>Build and Deployment</strong>: Establish development and deployment processes</li>
+<li><strong>Testing and Validation</strong>: Implement verification and validation strategies</li>
+</ol>
+<h2 id="methodology-2"><span class="header-section-number">2.89</span> Methodology</h2>
+<p>Our implementation approach emphasizes systematic construction:</p>
+<h3 id="incremental-development"><span class="header-section-number">2.89.1</span> Incremental Development</h3>
+<ul>
+<li>System is built in logical increments</li>
+<li>Each increment provides testable functionality</li>
+<li>Integration risks are minimized through continuous testing</li>
+</ul>
+<h3 id="quality-assurance"><span class="header-section-number">2.89.2</span> Quality Assurance</h3>
+<ul>
+<li>Comprehensive testing strategies at all levels</li>
+<li>Code quality standards and review processes</li>
+<li>Performance monitoring and optimization</li>
+</ul>
+<h3 id="documentation-driven-development"><span class="header-section-number">2.89.3</span> Documentation-Driven Development</h3>
+<ul>
+<li>Implementation closely follows design specifications</li>
+<li>Code is self-documenting and well-commented</li>
+<li>Design decisions are captured and explained</li>
+</ul>
+<h3 id="platform-considerations"><span class="header-section-number">2.89.4</span> Platform Considerations</h3>
+<ul>
+<li>Hardware-specific implementations are isolated</li>
+<li>Portable code is maximized</li>
+<li>Platform differences are explicitly handled</li>
+</ul>
+<h2 id="implementation-artifacts"><span class="header-section-number">2.90</span> Implementation Artifacts</h2>
+<p>This phase produces concrete deliverables:</p>
+<h3 id="source-code"><span class="header-section-number">2.90.1</span> Source Code</h3>
+<ul>
+<li>Well-structured, documented implementation</li>
+<li>Platform-specific and portable components</li>
+<li>Comprehensive test suites</li>
+</ul>
+<h3 id="build-system"><span class="header-section-number">2.90.2</span> Build System</h3>
+<ul>
+<li>Automated build and deployment processes</li>
+<li>Dependency management and version control</li>
+<li>Cross-platform compilation support</li>
+</ul>
+<h3 id="documentation"><span class="header-section-number">2.90.3</span> Documentation</h3>
+<ul>
+<li>API documentation and usage examples</li>
+<li>Developer guides and contribution guidelines</li>
+<li>Deployment and configuration manuals</li>
+</ul>
+<h3 id="testing-framework-1"><span class="header-section-number">2.90.4</span> Testing Framework</h3>
+<ul>
+<li>Unit tests for individual components</li>
+<li>Integration tests for component interactions</li>
+<li>System tests for end-to-end functionality</li>
+<li>Performance benchmarks and validation</li>
+</ul>
+<h2 id="implementation-principles"><span class="header-section-number">2.91</span> Implementation Principles</h2>
+<p>Our implementation follows established best practices:</p>
+<ul>
+<li><strong>Clarity</strong>: Code should be self-explanatory and well-documented</li>
+<li><strong>Correctness</strong>: Rigorous testing ensures functional correctness</li>
+<li><strong>Performance</strong>: Optimization is data-driven and measured</li>
+<li><strong>Maintainability</strong>: Code structure supports easy modification</li>
+<li><strong>Robustness</strong>: Error handling and edge cases are thoroughly addressed</li>
+</ul>
+<h2 id="quality-standards"><span class="header-section-number">2.92</span> Quality Standards</h2>
+<p>We maintain high quality through:</p>
+<h3 id="code-quality"><span class="header-section-number">2.92.1</span> Code Quality</h3>
+<ul>
+<li>Consistent coding standards and style guidelines</li>
+<li>Comprehensive code reviews and pair programming</li>
+<li>Static analysis and automated quality checks</li>
+</ul>
+<h3 id="testing-standards"><span class="header-section-number">2.92.2</span> Testing Standards</h3>
+<ul>
+<li>High test coverage with meaningful test cases</li>
+<li>Automated testing in continuous integration</li>
+<li>Performance regression testing</li>
+</ul>
+<h3 id="documentation-standards"><span class="header-section-number">2.92.3</span> Documentation Standards</h3>
+<ul>
+<li>API documentation is generated from code</li>
+<li>Examples and tutorials are tested and maintained</li>
+<li>Architecture decisions are documented and rationale provided</li>
+</ul>
+<h2 id="current-implementation-status"><span class="header-section-number">2.93</span> Current Implementation Status</h2>
+<h3 id="completed-components"><span class="header-section-number">2.93.1</span> Completed Components</h3>
+<ul>
+<li><strong>Documentation Framework</strong>: Three-phase methodology established</li>
+<li><strong>Analysis Phase</strong>: Comprehensive problem analysis and requirements</li>
+<li><strong>Build System</strong>: Automated generation of unified documentation</li>
+</ul>
+<h3 id="implementation-approach"><span class="header-section-number">2.93.2</span> Implementation Approach</h3>
+<p>The current implementation follows a <strong>hybrid approach</strong>: - Enhanced analysis phase with rigorous methodology - Existing technical documentation structure maintained - Phase introductions provide methodological context - Gradual enhancement of synthesis and implementation content</p>
+<h3 id="next-implementation-steps"><span class="header-section-number">2.93.3</span> Next Implementation Steps</h3>
+<ol type="1">
+<li><strong>Enhance Design Documents</strong>: Add synthesis methodology to architecture and design files</li>
+<li><strong>Implementation Traceability</strong>: Link implementation details back to design decisions</li>
+<li><strong>Cross-References</strong>: Establish clear connections between phases</li>
+<li><strong>Quality Validation</strong>: Ensure all implementation meets established requirements</li>
+</ol>
+<h2 id="relationship-to-other-phases-1"><span class="header-section-number">2.94</span> Relationship to Other Phases</h2>
+<p>The implementation phase: - <strong>Realizes Designs</strong>: Converts synthesis phase specifications into working code - <strong>Validates Analysis</strong>: Confirms that implementation meets original requirements - <strong>Provides Feedback</strong>: Implementation experience informs future design iterations</p>
+<hr />
+<p><em>The following sections provide detailed implementation guidance, code organization strategies, and testing approaches for the Baremetal IR OS.</em></p>
 </body>
 </html>

@@ -15,6 +15,7 @@ INCLUDE_METADATA=true
 # Version information
 VERSION="1.0.0"
 BUILD_DATE=$(date +"%B %d, %Y")
+BUILD_TIMESTAMP=$(date +"%B %d, %Y at %H:%M:%S UTC")
 
 # Print usage information
 usage() {
@@ -109,23 +110,38 @@ fi
 generate_toc() {
   local markdown_file="$1"
   local toc_file=$(mktemp)
+  local content_file=$(mktemp)
   
   log "process" "Generating table of contents..."
   
   echo "# Table of Contents" > "$toc_file"
   echo "" >> "$toc_file"
   
-  # Extract all headings and convert to TOC entries
-  grep -E "^#{1,6} " "$markdown_file" | while read -r line; do
+  # Skip front matter and title section to extract just the content
+  sed -n '
+    /^---$/,/^---$/d
+    /^# Baremetal IR OS Documentation$/d
+    /^\*\*Version:\*\*/d
+    /^\*\*Generated:\*\*/d
+    /^\*\*Build System:\*\*/d
+    /^$/d
+    p
+  ' "$markdown_file" > "$content_file"
+  
+  # Extract all headings and convert to TOC entries (clean any existing numbers)
+  grep -E "^#{1,6} " "$content_file" | while read -r line; do
     # Count the number of # to determine heading level
     level=$(echo "$line" | grep -o "^#\+" | wc -c)
     level=$((level - 1))
     
-    # Extract the heading text
-    text=$(echo "$line" | sed -E 's/^#{1,6} //')
+    # Extract the heading text, removing any existing numbering
+    text=$(echo "$line" | sed -E 's/^#{1,6} //' | sed -E 's/^[0-9]+(\.[0-9]+)*\.?\s*//')
     
     # Create the TOC entry with proper indentation
-    indent=$(printf "%$((level - 1))s" "")
+    indent=""
+    for ((i=1; i<level; i++)); do
+      indent="$indent "
+    done
     echo "$indent- [$text](#$(echo "$text" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-|-$//g'))" >> "$toc_file"
   done
   
@@ -133,14 +149,21 @@ generate_toc() {
   echo "---" >> "$toc_file"
   echo "" >> "$toc_file"
   
-  # Create a temporary file with TOC inserted
+  # Create a temporary file with metadata, title, TOC, and content
   local temp_file=$(mktemp)
-  cat "$toc_file" > "$temp_file"
-  cat "$markdown_file" >> "$temp_file"
+  
+  # Extract and preserve the front matter and title
+  sed -n '1,/^\*\*Build System:\*\*/p' "$markdown_file" >> "$temp_file"
+  
+  # Add the TOC
+  cat "$toc_file" >> "$temp_file"
+  
+  # Add the content
+  cat "$content_file" >> "$temp_file"
   
   # Replace the original file with the TOC version
   mv "$temp_file" "$markdown_file"
-  rm "$toc_file"
+  rm "$toc_file" "$content_file"
   
   log "success" "Table of contents generated"
 }
@@ -160,7 +183,7 @@ generate_markdown_file() {
 ---
 title: "Baremetal IR OS Documentation"
 author: "Henrik Bach"
-date: "${BUILD_DATE}"
+date: "${BUILD_TIMESTAMP}"
 version: "${VERSION}"
 ---
 
@@ -170,8 +193,9 @@ EOFMD
   # Add title
   echo "# Baremetal IR OS Documentation" >> "$temp_file"
   echo "" >> "$temp_file"
-  echo "Version: ${VERSION}" >> "$temp_file"
-  echo "Date: ${BUILD_DATE}" >> "$temp_file"
+  echo "**Version:** ${VERSION}" >> "$temp_file"
+  echo "**Generated:** ${BUILD_TIMESTAMP}" >> "$temp_file"
+  echo "**Build System:** Automated Documentation Generator" >> "$temp_file"
   echo "" >> "$temp_file"
   
   # Add numbered docs in order (00-xx through 10-xx)
@@ -217,7 +241,12 @@ EOFMD
   # Move temp file to output file
   mv "$temp_file" "$output_file"
   
-  # Add section numbering if requested
+  # Generate table of contents if requested (before section numbering)
+  if [ "$INCLUDE_TOC" = "true" ]; then
+    generate_toc "$output_file"
+  fi
+  
+  # Add section numbering if requested (after TOC generation)
   if [ "$ADD_SECTION_NUMBERS" = "true" ]; then
     log "process" "Adding section numbering..."
     if [ -f "./section-numbers.sh" ]; then
@@ -230,11 +259,6 @@ EOFMD
     fi
   fi
   
-  # Generate table of contents if requested
-  if [ "$INCLUDE_TOC" = "true" ]; then
-    generate_toc "$output_file"
-  fi
-  
   local file_size=$(du -h "$output_file" | cut -f1)
   log "success" "Consolidated markdown file generated: $output_file (Size: $file_size)"
 }
@@ -243,7 +267,7 @@ EOFMD
 log "info" "Starting markdown consolidation process"
 log "info" "Output file: $OUTPUT_MARKDOWN"
 log "info" "Version: $VERSION"
-log "info" "Build Date: $BUILD_DATE"
+log "info" "Build Timestamp: $BUILD_TIMESTAMP"
 
 # Generate the consolidated markdown file
 generate_markdown_file "$OUTPUT_MARKDOWN" "$DOCS_DIR"

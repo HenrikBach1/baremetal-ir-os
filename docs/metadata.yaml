@@ -1,7 +1,7 @@
 ---
 title: "Baremetal IR OS Documentation"
 author: "Henrik Bach"
-date: "June 05, 2025"
+date: "June 22, 2025"
 subtitle: "A Comprehensive Guide (v1.0.0)"
 abstract: |
   This documentation covers the design, architecture, and implementation of the Baremetal IR OS.
@@ -9,7 +9,7 @@ abstract: |
   operating system subsystems, hardware integration, and development notes.
   
   Version: 1.0.0
-  Build Date: June 05, 2025
+  Build Date: June 22, 2025
 geometry: "margin=1in"
 fontsize: 11pt
 mainfont: "DejaVu Serif"

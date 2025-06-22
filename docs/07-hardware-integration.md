@@ -2,14 +2,14 @@
 
 The Baremetal IR OS interfaces directly with hardware components through a specialized Hardware Abstraction Layer (HAL) that provides both efficiency and portability.
 
-## 1. Hardware Abstraction Layer
+## Hardware Abstraction Layer
 
 The HAL is structured in three tiers:
 1. **Platform-Specific Layer**: Direct hardware access code for each supported platform
 2. **Common Abstractions**: Unified interfaces for similar hardware components
 3. **High-Level Services**: OS-level abstractions built on the lower layers
 
-## 2. Supported Architectures
+## Supported Architectures
 
 The system currently supports:
 - **x86-64**: Desktop and server systems
@@ -17,7 +17,7 @@ The system currently supports:
 - **RISC-V**: Open architecture platforms
 - **Custom Hardware**: FPGA-based accelerators and specialized processors
 
-## 3. Driver Model
+## Driver Model
 
 The driver architecture follows a modular design:
 - **Core Driver Framework**: Common infrastructure for all drivers
@@ -25,7 +25,7 @@ The driver architecture follows a modular design:
 - **Device Drivers**: Storage, network, display, input, etc.
 - **Virtual Drivers**: Software-based device emulation
 
-## 4. Hardware Acceleration
+## Hardware Acceleration
 
 The system leverages hardware acceleration for:
 - **JIT Compilation**: Specialized instruction set extensions
@@ -34,7 +34,7 @@ The system leverages hardware acceleration for:
 - **Graphics**: GPU acceleration for rendering
 - **Networking**: Offloading packet processing to NICs
 
-## 5. Hardware Configuration
+## Hardware Configuration
 
 Hardware resources are configured through:
 - **Static Configuration**: Pre-defined settings in system image

@@ -2,7 +2,7 @@
 
 This roadmap outlines the planned development trajectory for the Baremetal IR OS project over the next several release cycles.
 
-## 1. Current Version (1.0.0)
+## Current Version (1.0.0)
 
 The initial release includes:
 - Core IR specification and implementation
@@ -11,46 +11,46 @@ The initial release includes:
 - Developer documentation and tools
 - Support for common development boards
 
-## 2. Short-Term Goals (1.x)
+## Short-Term Goals (1.x)
 
-### 2.1. Version 1.1 (Q3 2025)
+### Version 1.1 (Q3 2025)
 - Improved memory management with generational GC
 - Extended device driver framework
 - Initial network stack implementation
 - Performance optimizations for JIT compiler
 - Enhanced debugging tools
 
-### 2.2. Version 1.2 (Q4 2025)
+### Version 1.2 (Q4 2025)
 - File system enhancements with journaling
 - RISC-V architecture support
 - Security hardening features
 - Inter-process communication improvements
 - Extended standard library
 
-### 2.3. Version 1.3 (Q1 2026)
+### Version 1.3 (Q1 2026)
 - Graphics and display subsystem
 - USB device support
 - Power management framework
 - Initial real-time scheduling capabilities
 - Extended tooling ecosystem
 
-## 3. Medium-Term Goals (2.x)
+## Medium-Term Goals (2.x)
 
-### 3.1. Version 2.0 (Q3 2026)
+### Version 2.0 (Q3 2026)
 - Complete IR optimization framework
 - Advanced security model with formal verification
 - Distributed computing capabilities
 - Hardware acceleration for critical paths
 - Application ecosystem expansion
 
-### 3.2. Version 2.x Features
+### Version 2.x Features
 - Virtualization support
 - Cloud integration capabilities
 - Machine learning acceleration
 - Self-optimizing runtime
 - Expanded hardware platform support
 
-## 4. Long-Term Vision (3.x and beyond)
+## Long-Term Vision (3.x and beyond)
 
 - Formal verification of critical system components
 - Hardware co-design opportunities
@@ -58,7 +58,7 @@ The initial release includes:
 - Advanced autonomic computing features
 - Academic and industry partnership programs
 
-## 5. Contributing to the Roadmap
+## Contributing to the Roadmap
 
 We welcome community input on our development priorities. To contribute:
 1. Join our community discussions on Discord or the mailing list
@@ -66,7 +66,7 @@ We welcome community input on our development priorities. To contribute:
 3. Participate in our quarterly roadmap planning sessions
 4. Contribute proof-of-concept implementations
 
-## 6. Release Schedule
+## Release Schedule
 
 | Version | Expected Date | Focus Areas |
 |---------|--------------|-------------|

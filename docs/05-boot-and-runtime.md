@@ -2,7 +2,7 @@
 
 The Baremetal IR OS uses a specialized boot sequence to initialize hardware and establish the runtime environment for IR code execution.
 
-## 1. Boot Sequence
+## Boot Sequence
 
 1. **Firmware Handoff**: Receive control from platform firmware (UEFI/BIOS)
 2. **Hardware Detection**: Identify and initialize essential hardware components
@@ -11,7 +11,7 @@ The Baremetal IR OS uses a specialized boot sequence to initialize hardware and 
 5. **System Services**: Start essential system services
 6. **Initial Application**: Load and execute the initial system application
 
-## 2. Memory Layout
+## Memory Layout
 
 The system uses a carefully designed memory layout:
 
@@ -24,7 +24,7 @@ The system uses a carefully designed memory layout:
 0x80000000 - 0xFFFFFFFF: User application space
 ```
 
-## 3. Runtime Services
+## Runtime Services
 
 During boot, the following runtime services are established:
 
@@ -34,7 +34,7 @@ During boot, the following runtime services are established:
 - **Exception Handler**: Processes hardware and software exceptions
 - **Security Monitor**: Enforces access control policies
 
-## 4. Configuration Options
+## Configuration Options
 
 The boot process can be customized through:
 

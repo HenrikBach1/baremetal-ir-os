@@ -2,7 +2,7 @@
 
 The Just-In-Time (JIT) compilation engine is responsible for translating our IR code into native machine code at runtime, with optimization tailored to the specific execution environment.
 
-## 1. JIT Pipeline
+## JIT Pipeline
 
 The compilation process follows these stages:
 
@@ -12,22 +12,22 @@ The compilation process follows these stages:
 4. **Code Generation**: Translate optimized IR to machine code
 5. **Runtime Patching**: Update code based on execution data
 
-## 2. Optimization Techniques
+## Optimization Techniques
 
-### 2.1. Static Optimizations
+### Static Optimizations
 - Constant folding and propagation
 - Dead code elimination
 - Loop invariant code motion
 - Strength reduction
 - Inlining
 
-### 2.2. Dynamic Optimizations
+### Dynamic Optimizations
 - Speculative execution
 - Profile-guided optimization
 - Type specialization
 - Deoptimization for exceptional cases
 
-## 3. Platform Adapters
+## Platform Adapters
 
 The JIT engine includes pluggable backends for different architectures:
 - x86-64
@@ -35,7 +35,7 @@ The JIT engine includes pluggable backends for different architectures:
 - RISC-V
 - Custom hardware accelerators
 
-## 4. Memory Management
+## Memory Management
 
 - Code section allocation with proper permissions
 - Inline cache for polymorphic operations
